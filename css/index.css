@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    background-color: black;
+    position: relative;
+    font-family: ROBOTO, arial, 'Times New Roman', Times, serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 20vh;
+    width: 100vw;
+    color: white;
+    background-image: url("https://bouncycastlenetwork-res.cloudinary.com/image/upload/f_auto,q_auto,c_limit,w_1000/ff36cb86b0aefad50ddd401ff138fde5");
+    background-position: center;
+}
+
+.header img {
+    width: 5%;
+    object-fit: contain;
+}
+
+.gaming-window {
+    position: absolute;
+    width: 60vw;
+    height: 80vh;
+    top: 20%;
+    left: 20%;
+    bottom: 20%;
+    background-color: black;
+    background-image: url("https://res.cloudinary.com/momentum-media-group-pty-ltd/image/upload/c_fill,q_auto:best,f_auto,e_unsharp_mask:80,w_828,h_400/Cyber%20Security%2Fpokemon-ball_dxhymz");
+    background-size: cover;
+    box-shadow: 1px 0px 124px 2px rgba(255,0,0,0.75);
+-webkit-box-shadow: 1px 0px 124px 2px rgba(255,0,0,0.75);
+-moz-box-shadow: 1px 0px 124px 2px rgba(255,0,0,0.75);
+}
+
+.start-screen {
+    padding: 5rem;
+    color: rgb(255, 153, 0);
+    max-width: 30vw;
+}
+
+.start-screen-title {
+    background-image: url("https://cdn.pixabay.com/photo/2022/09/05/14/32/gold-frame-7434298_1280.png");
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.start-screen-copyright-text {
+    margin-bottom: 1rem;
+}
+
+.start-screen-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.start-screen-buttons button {
+    max-width: 10vw;
+    padding: 15px;
+    background-color: rgb(29, 28, 28);
+    color: orange;
+}
+
+.start-screen-buttons button:hover {
+    cursor: pointer;
+    background-color: black;
+    box-shadow: 1px 0px 5px 2px rgba(255,0,0,0.75);
+-webkit-box-shadow: 1px 0px 5px 2px rgba(255,0,0,0.75);
+-moz-box-shadow: 1px 0px 5px 2px rgba(255,0,0,0.75);
+}
+
+.dialogue-box {
+    position: absolute;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    left: 0;
+    height: 10vh;
+    background-color: lightblue;
+    opacity: 90%;
+}

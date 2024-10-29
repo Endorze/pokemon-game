@@ -6,8 +6,32 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/index.css">
     <script src="../scripts/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
 </head>
 <body>
-    <h1>Hej</h1>
+    <header class="header">
+        <img src="../images/pokemontransparent.png">
+        <h1></h1>
+        <img src="../images/pokemontransparent.png">
+    </header>
+    <div class="gaming-window">
+        <div class="start-screen">
+            <div class="start-screen-title">
+                <h2>A tale of Pokémon and Fire</h2>
+            </div>
+            <div class="start-screen-copyright-text">
+                <p>This website contains material that is protected by copyright. I acknowledge and respect copyright and do not own rights to this material.</p>
+            </div>
+            <div class="start-screen-buttons">
+                <button onclick="switchBackground()">Start Game</button>
+                <button onclick="self.close()">Quit Game</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
