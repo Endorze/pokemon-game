@@ -57,36 +57,41 @@ const dialogueObject = [
 const route1HealthGenerator = (level) => {
   const MAX_HEALTH = Math.min(20, level, 4);
   return Math.floor(Math.random() * MAX_HEALTH + 1);
-}
+};
 
 const route1 = [
   {
     pokemon: "Rattata",
     level: 3,
     health: route1HealthGenerator(3),
-    pokemonSprite: ""
+    pokemonSprite: "",
   },
   {
     pokemon: "Pidgey",
     level: 2,
     health: route1HealthGenerator(2),
-    pokemonSprite: ""
-  }
-]
+    pokemonSprite: "",
+  },
+];
 
 const startGameMusic = (music, duration) => {
-  let audio = new Audio(`../mp3/${music}`)
+  let audio = new Audio(`../mp3/${music}`);
   audio.volume = 0;
   audio.play();
 
+  audio.addEventListener("ended", () => {
+    audio.currentTime = 0;
+    audio.play();
+  });
+
   let fadeInterval = setInterval(() => {
     if (audio.volume < 1) {
-        audio.volume = Math.min(audio.volume + 0.05, 1);
+      audio.volume = Math.min(audio.volume + 0.05, 1);
     } else {
-        clearInterval(fadeInterval);
+      clearInterval(fadeInterval);
     }
-}, duration / 20);
-}
+  }, duration / 20);
+};
 
 const playSound = (sound) => {
   let audio = new Audio(`../mp3/${sound}`);
@@ -96,7 +101,7 @@ const playSound = (sound) => {
 const switchBackground = () => {
   const startScreen = document.querySelector(".start-screen");
   if (!musicActive) {
-    startGameMusic('pewtercitytheme.mp3', 10000);
+    startGameMusic("pewtercitytheme.mp3", 10000);
     musicActive = true;
   }
   startScreen.style.display = "none";
@@ -120,7 +125,7 @@ const dialogue = (dialogueData) => {
   dialogueText.textContent = dialogueData.text;
 
   const button = document.createElement("button");
-  button.classList.add("animated-button")
+  button.classList.add("animated-button");
   button.textContent = dialogueData.buttonText;
 
   button.addEventListener("click", () => {
@@ -167,3 +172,16 @@ const pickPokemon = (pokemon) => {
     playerStarterPokemon = "charmander";
   }
 };
+
+const pokemonBattleScene = () => {};
+
+const startBattle = (wildPokemon) => {
+  const pokemonName = wildPokemon.pokemon;
+  const pokemonLevel = wildPokemon.level;
+  let pokemonHealth = route1HealthGenerator(pokemonLevel);
+  console.log(
+    `A wild ${pokemonName} (Level: ${pokemonLevel}) appears with ${pokemonHealth} HP!`
+  );
+};
+
+startBattle(route1[1]);
