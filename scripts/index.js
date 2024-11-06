@@ -2,73 +2,99 @@ let currentBackground = -1;
 let playerName = "";
 let playerHealth = 20;
 const MAX_PLAYER_HEALTH = 20;
+let playerPokemonList = [];
+let playerGotStarter = false;
 let playerStarterPokemon = "";
 let playerStarterPokemonImage = "";
 let musicActive = false;
 const redImage = "../images/profoak.png";
 const charmanderImage = "../images/charmander.png";
+const redPokeball = "../images/red.avif";
 let prevDialogDiv = null;
 
 const dialogueObject = [
   {
     name: "Prof. Oak",
-    text: `Welcome to the great Pangea, your mother told me you would be arriving soon.`,
+    text: () => `Welcome to the great Pangea, your mother told me you would be arriving soon.`,
     buttonText: "Continue",
     backgroundImage: redImage,
   },
   {
     name: "Prof. Oak",
-    text: `Let me wish you a warm welcome to the great world of Pokémon! In this world people and Pokémon live side by side.`,
+    text: () => `Let me wish you a warm welcome to the great world of Pokémon! In this world people and Pokémon live side by side.`,
     buttonText: "Continue",
     backgroundImage: redImage,
   },
   {
     name: "Prof. Oak",
-    text: `For over a decade we have harnessed the power of Pokémon to accomplish incredible things!`,
+    text: () => `For over a decade we have harnessed the power of Pokémon to accomplish incredible things!`,
     buttonText: "Continue",
     backgroundImage: redImage,
   },
   {
     name: "Prof. Oak",
-    text: `And just now it just happens to be your turn to carry on the legacy. I cant wait to see what you will accomplish.`,
+    text: () => `And just now it just happens to be your turn to carry on the legacy. I cant wait to see what you will accomplish.`,
     buttonText: "Continue",
     backgroundImage: redImage,
   },
   {
     name: "Prof. Oak",
-    text: `But enough about that! I think it's about time for you to pick out your Pokémon, wouldn't you agree?`,
+    text: () => `But enough about that! I think it's about time for you to pick out your Pokémon, wouldn't you agree?`,
     buttonText: "Continue",
     backgroundImage: redImage,
   },
   {
     name: "You",
-    text: `Oh boy this is getting exciting... I wonder which pokémon i'll be able to choose from?`,
+    text: () => `Oh boy this is getting exciting... I wonder which pokémon i'll be able to choose from?`,
     buttonText: "Continue",
     action: () => pokemonStarterScene(),
   },
   {
     name: "",
-    text: `You recieved your very first Starter!`,
+    text: () => `Whew that was a hard choice, but now i finally got my first Pokémon!`,
     buttonText: "Continue",
-    backgroundImage: charmanderImage,
+    backgroundImage: "",
+    action: () => playSound('caughtpokemon.mp3')
   },
+  {
+    name: "",
+    text: () => `You received your very first ${playerStarterPokemon}, congratulations!`,
+    buttonText: "Continue",
+    backgroundImage: redPokeball,
+    action: () => pokemonBattleScene(),
+  },
+  
 ];
 
 const route1HealthGenerator = (level) => {
-  const MAX_HEALTH = Math.min(20, level, 4);
-  return Math.floor(Math.random() * MAX_HEALTH + 1);
+  const MAX_HEALTH = 10;
+  return Math.floor(Math.random() * MAX_HEALTH) + 1;
 };
+
+const levelGenerator = (route) => {
+
+  let randomLevel;
+
+  switch(route) {
+    case "route1":
+      const MAX_LEVEL = 5;
+      randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
+      console.log("levelGenerator" + randomLevel);
+      return randomLevel;
+    break;
+  }
+}
 
 const route1 = [
   {
     pokemon: "Rattata",
-    level: 3,
-    health: route1HealthGenerator(3),
+    level: levelGenerator("route1"),
+    health: route1HealthGenerator(),
     pokemonSprite: "",
   },
   {
     pokemon: "Pidgey",
-    level: 2,
+    level: levelGenerator("route1"),
     health: route1HealthGenerator(2),
     pokemonSprite: "",
   },
@@ -122,7 +148,7 @@ const dialogue = (dialogueData) => {
 
   const dialogueText = document.createElement("p");
   dialogueText.classList.add("animated-text");
-  dialogueText.textContent = dialogueData.text;
+  dialogueText.textContent = dialogueData.text();
 
   const button = document.createElement("button");
   button.classList.add("animated-button");
@@ -154,26 +180,43 @@ const pokemonStarterScene = () => {
   console.log("Jag körde pickpokemon funktionen");
 };
 
-const pickPokemon = (pokemon) => {
-  const pokemonScene = document.querySelector(".select-pokemon-scene");
+const pokemonBattleScene = () => {
+  const battleScene = document.querySelector(".battle-scene");
+  const playerPokemon = document.getElementById("");
+  const wildPokemon = document.getElementById("");
 
-  if (pokemon === "squirtle") {
-    console.log("Picked squirtle");
-    pokemonScene.style.display = "none";
-    playerStarterPokemon = "squirtle";
-    console.log(playerStarterPokemon);
-  } else if (pokemon === "bulbasaur") {
-    console.log("Picked bulbasaur");
-    pokemonScene.style.display = "none";
-    playerStarterPokemon = "bulbasaur";
-  } else {
-    console.log("Picked charmander");
-    pokemonScene.style.display = "none";
-    playerStarterPokemon = "charmander";
-  }
+  battleScene.style.display = "block";
+  console.log("Jag körde pokemonBattleScene funktionen");
 };
 
-const pokemonBattleScene = () => {};
+const pickPokemon = (pokemon) => {
+  const pokemonScene = document.querySelector(".select-pokemon-scene");
+  if (!playerGotStarter) {
+    if (pokemon === "squirtle") {
+      console.log("Picked squirtle");
+      pokemonScene.style.display = "none";
+      playerStarterPokemon = "squirtle";
+      playerGotStarter = true;
+      playerPokemonList.push(playerStarterPokemon);
+      console.log(playerStarterPokemon);
+
+    } else if (pokemon === "bulbasaur") {
+      console.log("Picked bulbasaur");
+      pokemonScene.style.display = "none";
+      playerStarterPokemon = "bulbasaur";
+      playerGotStarter = true;
+      playerPokemonList.push(playerStarterPokemon);
+
+    } else {
+      console.log("Picked charmander");
+      pokemonScene.style.display = "none";
+      playerStarterPokemon = "charmander";
+      playerGotStarter = true;
+      playerPokemonList.push(playerStarterPokemon);
+    }
+  }
+  console.log("I now have my first starter, a " + playerPokemonList[0]);
+};
 
 const startBattle = (wildPokemon) => {
   const pokemonName = wildPokemon.pokemon;
@@ -184,4 +227,6 @@ const startBattle = (wildPokemon) => {
   );
 };
 
+startBattle(route1[0]);
 startBattle(route1[1]);
+levelGenerator("route1");

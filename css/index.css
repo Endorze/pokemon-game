@@ -41,9 +41,9 @@ body {
   background-image: url("https://res.cloudinary.com/momentum-media-group-pty-ltd/image/upload/c_fill,q_auto:best,f_auto,e_unsharp_mask:80,w_828,h_400/Cyber%20Security%2Fpokemon-ball_dxhymz");
   background-size: cover;
   background-repeat: no-repeat;
-  box-shadow: 1px 0px 124px 2px rgba(255, 0, 0, 0.75);
-  -webkit-box-shadow: 1px 0px 124px 2px rgba(255, 0, 0, 0.75);
-  -moz-box-shadow: 1px 0px 124px 2px rgba(255, 0, 0, 0.75);
+  box-shadow: 1px 0px 75px 2px rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: 1px 0px 75px 2px rgba(255, 255, 255, 0.75);
+  -moz-box-shadow: 1px 0px 75px 2px rgba(255, 255, 255, 0.75);
 }
 
 .start-screen {
@@ -108,8 +108,7 @@ body {
 
 .dialogue-box h2 {
   color: rgb(3, 3, 2);
-  font-size: 2rem;
-  text-decoration: underline;
+  font-size: 1.2rem;
 }
 
 .select-pokemon-scene {
@@ -161,6 +160,86 @@ body {
 .animated-button {
     display: block;
     animation: fadeIn 3s;
+}
+
+.battle-scene {
+  position: absolute;
+  display: none;
+  top: 0;
+  background-image: url("../images/pokemonbattlescene.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
+.wild-pokemon-info-container {
+  display: flex;
+  height: 10vh;
+  width: 20vw;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+.player-pokemon-info-container {
+  display: flex;
+  height: 10vh;
+  width: 20vw;
+  position: absolute;
+  top: 75%;
+  right: 5%;
+}
+
+.player-pokemon-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: rgb(247, 247, 186);
+  color: black;
+  width: 20vw;
+}
+
+.wild-pokemon-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: rgb(247, 247, 186);
+  color: black;
+  width: 20vw;
+}
+
+
+
+.wild-pokemon img {
+  width: 20%;
+  position: absolute;
+  right: 20%;
+  top: 20%;
+}
+
+.player-pokemon img {
+  width: 20%;
+  position: absolute;
+  bottom: 15%;
+  left: 20%;
+}
+
+.health-bar {
+  position: absolute;
+  right: 5%;
+  bottom: 30%;
+  border: 1px solid black;
+  border-radius: 5px;
+  min-width: 10vw;
+  min-height: 3vh;
+  background-color: rgb(18, 211, 18);
 }
 
 @keyframes fadeIn {
