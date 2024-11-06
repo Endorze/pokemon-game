@@ -61,7 +61,7 @@ const dialogueObject = [
     text: () => `You received your very first ${playerStarterPokemon}, congratulations!`,
     buttonText: "Continue",
     backgroundImage: redPokeball,
-    action: () => pokemonBattleScene(),
+    action: () => pokemonBattleScene(playerPokemonList[0], route1[0]),
   },
   
 ];
@@ -180,10 +180,15 @@ const pokemonStarterScene = () => {
   console.log("Jag körde pickpokemon funktionen");
 };
 
-const pokemonBattleScene = () => {
+const pokemonBattleScene = (playerPokemon, wildPokemon) => { 
   const battleScene = document.querySelector(".battle-scene");
-  const playerPokemon = document.getElementById("");
-  const wildPokemon = document.getElementById("");
+  let plPokemon = document.getElementById("playerpokemon");
+  let wiPokemon = document.getElementById("wildpokemon");
+
+  wiPokemon.textContent = wildPokemon.pokemon;
+  //plPokemon.textContent = playerPokemon[0];
+
+  //plPokemon.textContent(playerPokemonList[0].name)
 
   battleScene.style.display = "block";
   console.log("Jag körde pokemonBattleScene funktionen");
