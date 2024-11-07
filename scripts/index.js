@@ -22,6 +22,9 @@ const charmeleon = "../images/charmeleon.webp";
 const wildButterfree = "../images/butterfree.gif";
 const wildBeedrill = "../images/beedrill.gif";
 const jumpingrope = "../images/pokemonjumpingrope.gif";
+const wildSquirtle = "../images/wildsquirtle.gif";
+const wildCharmander = "../images/wildcharmander.gif";
+const wildBulbasaur = "../images/wildbulbasaur.gif";
 let prevDialogDiv = null;
 
 const ROUTE1_MAX_LEVEL = 5;
@@ -165,35 +168,40 @@ const allPokemon = {
   "squirtle": {
     name: "Squirtle",
     health: healthGenerator(30),
-    pokemonSprite: squirtle,
+    allySprite: squirtle,
+    opponentSprite: wildSquirtle,
     damage: 2,
     moves: ["tackle"],
   },
   "bulbasaur": {
     name: "Bulbasaur",
     health: healthGenerator(30),
-    pokemonSprite: bulbasaur,
+    allySprite: bulbasaur,
+    opponentSprite: wildBulbasaur,
     damage: 2,
     moves: ["tackle"]
   },
   "charmander": {
     name: "Charmander",
     health: healthGenerator(30),
-    pokemonSprite: charmeleon,
+    allySprite: charmeleon,
+    opponentSprite: wildCharmander,
     damage: 2,
     moves: ["tackle"]
   },
   "rattata": {
     name: "Rattata",
     health: healthGenerator(30),
-    pokemonSprite: wildrattata,
+    allySprite: "",
+    opponentSprite: wildrattata,
     damage: 2,
     moves: ["tackle"]
   },
   "magnemite": {
     name: "Magnemite",
     health: healthGenerator(30),
-    pokemonSprite: wildmagnemite,
+    allySprite: "",
+    opponentSprite: wildmagnemite,
     damage: 2,
     moves: ["tackle"]
   },
@@ -202,7 +210,8 @@ const allPokemon = {
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
-    pokemonSprite: wildPidgey,
+    allySprite: "",
+    opponentSprite: wildPidgey,
     moves: ["tackle"]
   },
   "snorlax": {
@@ -210,7 +219,8 @@ const allPokemon = {
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
-    pokemonSprite: wildsnorlax,
+    allySprite: "",
+    opponentSprite: wildsnorlax,
     moves: ["tackle"]
   },
   "butterfree": {
@@ -218,7 +228,8 @@ const allPokemon = {
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
-    pokemonSprite: wildButterfree,
+    allySprite: "",
+    opponentSprite: wildButterfree,
     moves: ["tackle"]
   },
   "beedrill": {
@@ -226,7 +237,8 @@ const allPokemon = {
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
-    pokemonSprite: wildBeedrill,
+    allySprite: "",
+    opponentSprite: wildBeedrill,
     moves: ["tackle"]
   }
 }
@@ -366,12 +378,12 @@ const pokemonBattleScene = (playerPokemonIndividual, pokemonEncounter) => {
   wiPokemon.textContent = wildPokemonIndividual.pokemonType.name;
   wiLevel.textContent = "level " + wildPokemonIndividual.level;
   wiHp.textContent = wildPokemonIndividual.currentHp + " HP";
-  wiPokemonSprite.src = wildPokemonIndividual.pokemonType.pokemonSprite;
+  wiPokemonSprite.src = wildPokemonIndividual.pokemonType.opponentSprite;
 
   plPokemon.textContent = playerPokemonIndividual.pokemonType.name;
   plLevel.textContent = "level " + playerPokemonIndividual.level;
   plHp.textContent = playerPokemonIndividual.currentHp + " HP";
-  plPokemonSprite.src = playerPokemonIndividual.pokemonType.pokemonSprite;
+  plPokemonSprite.src = playerPokemonIndividual.pokemonType.allySprite;
 
   battleScene.style.display = "block";
   console.log("Jag körde pokemonBattleScene funktionen");
