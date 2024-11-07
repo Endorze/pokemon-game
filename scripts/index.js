@@ -118,53 +118,145 @@ const levelGenerator = (MAX_LEVEL) => {
   }
 };
 
-let playerPokemonList = [];
+const pickFourRandomMoves = (pokemonType, level) => {
+  // TODO
+  return [pokemonType.moves[0]]
+}
 
-const route1 = [
-  {
+// List of pokemonIndividual
+const playerPokemonList = [
+  // {
+  //   type: {
+  //     name: "Rattata",
+  //     level: levelGenerator(ROUTE1_MAX_LEVEL),
+  //     health: healthGenerator(30),
+  //     pokemonSprite: wildrattata,
+  //     damage: 2,
+  //     moves: ["tackle"]
+  //   },
+  //   level: 5,
+  //   currentHp: 23,
+  //   moves: ["tackle"]
+  // }
+];
+
+// 10 / 40  heal: 20
+
+const healPokemon = (pokemonIndividual, healAmount) => {
+
+  const maxHp = pokemonIndividual.pokemonType.health(pokemonIndividual.level)
+  const newHp = pokemonIndividual.currentHp + healAmount
+  const actualNewHp = Math.min(maxHp, newHp)
+
+  pokemonIndividual.currentHp = actualNewHp
+}
+
+const createPokemonIndivual = (pokemonType, level, moves) => {
+  return ({
+    pokemonType: pokemonType,
+    level: level,
+    currentHp: pokemonType.health(level),
+    moves: moves
+  })
+}
+
+// List of pokemonType
+const allPokemon = {
+  "squirtle": {
+    name: "Squirtle",
+    health: healthGenerator(30),
+    pokemonSprite: squirtle,
+    damage: 2,
+    moves: ["tackle"],
+  },
+  "bulbasaur": {
+    name: "Bulbasaur",
+    health: healthGenerator(30),
+    pokemonSprite: bulbasaur,
+    damage: 2,
+    moves: ["tackle"]
+  },
+  "charmander": {
+    name: "Charmander",
+    health: healthGenerator(30),
+    pokemonSprite: charmeleon,
+    damage: 2,
+    moves: ["tackle"]
+  },
+  "rattata": {
     name: "Rattata",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     pokemonSprite: wildrattata,
     damage: 2,
     moves: ["tackle"]
   },
-  {
+  "magnemite": {
     name: "Magnemite",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     pokemonSprite: wildmagnemite,
     damage: 2,
     moves: ["tackle"]
   },
-  {
+  "pidgey": {
     name: "Pidgey",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
     pokemonSprite: wildPidgey,
+    moves: ["tackle"]
   },
-  {
+  "snorlax": {
     name: "Snorlax",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
     pokemonSprite: wildsnorlax,
+    moves: ["tackle"]
   },
-  {
+  "butterfree": {
     name: "Butterfree",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
     pokemonSprite: wildButterfree,
+    moves: ["tackle"]
   },
-  {
+  "beedrill": {
     name: "Beedrill",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
     damage: 2,
     pokemonSprite: wildBeedrill,
+    moves: ["tackle"]
+  }
+}
+
+// List of pokemonEncounter
+const route1 = [
+  {
+    pokemonId: "rattata",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
   },
+  {
+    pokemonId: "magnemite",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
+  {
+    pokemonId: "pidgey",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
+  {
+    pokemonId: "snorlax",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
+  {
+    pokemonId: "butterfree",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
+  {
+    pokemonId: "beedrill",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  }
 ];
 
 //Starts game music when the game starts.
@@ -252,7 +344,8 @@ const pokemonStarterScene = () => {
   console.log("Jag körde pickpokemon funktionen");
 };
 
-const pokemonBattleScene = (playerPokemon, wildPokemon) => {
+const pokemonBattleScene = (playerPokemonIndividual, pokemonEncounter) => {
+  console.log("pokemonBattleScene", {playerPokemonIndividual, pokemonEncounter})
   const battleScene = document.querySelector(".battle-scene");
   const plPokemon = document.getElementById("playerpokemon");
   const plLevel = document.getElementById("playerlevel");
@@ -264,42 +357,34 @@ const pokemonBattleScene = (playerPokemon, wildPokemon) => {
   const wiHp = document.getElementById("wildHp");
   const wiPokemonSprite = document.getElementById("random-wild-pokemon");
 
-  const wildPokemonLevel = wildPokemon.level()
-  const wildPokemonHp = wildPokemon.health(wildPokemonLevel)
+  const wildPokemonType = allPokemon[pokemonEncounter.pokemonId]
+  const wildPokemonLevel = pokemonEncounter.level()
+  const wildPokemonMoves = pickFourRandomMoves(wildPokemonType, wildPokemonLevel)
 
-  wiPokemon.textContent = wildPokemon.name;
-  wiLevel.textContent = "level " + wildPokemonLevel;
-  wiHp.textContent = wildPokemonHp + " HP";
-  wiPokemonSprite.src = wildPokemon.pokemonSprite;
+  const wildPokemonIndividual = createPokemonIndivual(wildPokemonType, wildPokemonLevel, wildPokemonMoves)
 
-  plPokemon.textContent = playerPokemon.name;
-  plLevel.textContent = "level " + playerPokemon.level;
-  plHp.textContent = playerPokemon.health + " HP";
-  plPokemonSprite.src = playerPokemon.pokemonSprite;
+  wiPokemon.textContent = wildPokemonIndividual.pokemonType.name;
+  wiLevel.textContent = "level " + wildPokemonIndividual.level;
+  wiHp.textContent = wildPokemonIndividual.currentHp + " HP";
+  wiPokemonSprite.src = wildPokemonIndividual.pokemonType.pokemonSprite;
+
+  plPokemon.textContent = playerPokemonIndividual.pokemonType.name;
+  plLevel.textContent = "level " + playerPokemonIndividual.level;
+  plHp.textContent = playerPokemonIndividual.currentHp + " HP";
+  plPokemonSprite.src = playerPokemonIndividual.pokemonType.pokemonSprite;
 
   battleScene.style.display = "block";
   console.log("Jag körde pokemonBattleScene funktionen");
 };
 
-const pickPokemon = (pokemon) => {
+const pickPokemon = (pokemonId) => {
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   if (!playerGotStarter) {
-    switch (pokemon) {
-      case "squirtle":
-        addPokemonToPlayerList("Squirtle", squirtle, 5, 20, 5);
-        break;
-
-      case "bulbasaur":
-        addPokemonToPlayerList("Bulbasaur", bulbasaur, 5, 20, 5);
-        break;
-
-      case "charmander":
-        addPokemonToPlayerList("Charmander", charmeleon, 5, 20, 5);
-        break;
-    }
+    const pokemonType = allPokemon[pokemonId]
+    playerPokemonList.push(createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]]))
     playerGotStarter = true;
     pokemonScene.style.display = "none";
-    playerStarterPokemon = pokemon;
+    playerStarterPokemon = pokemonId;
   }
 };
 
@@ -308,22 +393,6 @@ const randomWildPokemon = (wildPokemonList) => {
   console.log(random + " Played randomWildPokemon function");
   return random;
 }
-
-const addPokemonToPlayerList = (
-  pokemonName,
-  pokemonSprite,
-  level,
-  health,
-  damage
-) => {
-  playerPokemonList.push({
-    pokemon: pokemonName,
-    pokemonSprite: pokemonSprite,
-    level: level,
-    health: health,
-    damage: damage,
-  });
-};
 
 const switchBattleMenu = () => {
   const menu = document.querySelector(".pokemon-skill-bar");
