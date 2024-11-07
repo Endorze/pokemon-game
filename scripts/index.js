@@ -6,10 +6,12 @@ let playerGotStarter = false;
 let playerStarterPokemon = "";
 let playerStarterPokemonImage = "";
 let musicActive = false;
+const forest = "../images/forest.jpg"
+const pokemonCity = "../images/pokemoncity.avif"
 const profoak1 = "../images/profoak1.jpg";
 const profoak2 = "../images/profoak2.avif";
 const pikachuElectric = " ../images/pikachuelectricity.gif";
-const redImage = "../images/profoak.png";
+const redImage = "../images/rivalred.png";
 const charmanderImage = "../images/charmander.png";
 const redPokeball = "../images/red.avif";
 const wildrattata = "../images/rattata.gif";
@@ -90,7 +92,7 @@ const dialogueObject = [
     action: () => pokemonStarterScene(),
   },
   {
-    name: "",
+    name: "You",
     text: () =>
       `Phew, that was a tough decision! But now, I've got my very first Pokémon! This is just the beginning.`,
     buttonText: "Continue",
@@ -100,9 +102,44 @@ const dialogueObject = [
   {
     name: "",
     text: () =>
-      `Congratulations! You've received your very first Pokémon: ${playerStarterPokemon}. This is the start of your incredible adventure!`,
+      `Congratulations! You've received your very first ${playerStarterPokemon}. This is the start of your incredible adventure!`,
     buttonText: "Continue",
     backgroundImage: redPokeball,
+  },
+  {
+    name: "Prof. Oak",
+    text: () =>
+      `I'm happy for you and your ${playerStarterPokemon}, i think you'll make an most excellent team! Also before you head out, i heard that Red was looking for you, so i told him to swing by.`,
+    buttonText: "Continue",
+    backgroundImage: profoak1,
+  },
+  {
+    name: "Prof. Oak",
+    text: () =>
+      `He's been having quite the rough time since the passing of his Pidgeotto, maybe you could try to cheer him on when you see him? In any case, good luck out there, go explore the Pangea just like your father did! And when you're in the big leagues dont forget about ole Professor Oak!`,
+    buttonText: "Continue",
+    backgroundImage: profoak2,
+  },
+  {
+    name: "You",
+    text: () =>
+      `I should probably get going, i've got the entire region of Pangea to explore and all kinds of wonderful Pokémon to see!`,
+    buttonText: "Lets explore!",
+    backgroundImage: pokemonCity,
+  },
+  {
+    name: "",
+    text: () =>
+      `Normally i would be scared of going out on my own, but right now i'm not on my own, i got my strong ${playerStarterPokemon}, lets go to Route 1!`,
+    buttonText: "Continue",
+    backgroundImage: pokemonCity,
+  },
+  {
+    name: "",
+    text: () =>
+      `"You hear rustling coming from the bush"`,
+    buttonText: "Continue",
+    backgroundImage: forest,
     action: () => pokemonBattleScene(playerPokemonList[0], route1[randomWildPokemon(route1)]),
   },
 ];
@@ -268,7 +305,19 @@ const route1 = [
   {
     pokemonId: "beedrill",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
-  }
+  },
+  {
+    pokemonId: "charmander",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
+  {
+    pokemonId: "squirtle",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
+  {
+    pokemonId: "bulbasaur",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+  },
 ];
 
 //Starts game music when the game starts.
@@ -330,7 +379,7 @@ const dialogue = (dialogueData) => {
   button.textContent = dialogueData.buttonText;
 
   button.addEventListener("click", () => {
-    if (button.textContent === "Continue") {
+    if (button.textContent) {
       switchBackground();
       playSound("hover.mp3");
 
