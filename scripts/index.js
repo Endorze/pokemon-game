@@ -19,8 +19,29 @@ const squirtle = "../images/squirtle.webp";
 const wildsnorlax = "../images/snorlax.gif";
 const bulbasaur = "../images/bulbasaur.png";
 const charmeleon = "../images/charmeleon.webp";
+const wildButterfree = "../images/butterfree.gif";
+const wildBeedrill = "../images/beedrill.gif";
 const jumpingrope = "../images/pokemonjumpingrope.gif";
 let prevDialogDiv = null;
+
+const ROUTE1_MAX_LEVEL = 5;
+
+const moves = {
+  "tackle": {
+    name: "Tackle",
+    baseDamage: 20,
+    priority: 1
+  },
+  "quick-attack": {
+    name: "Quick Attack",
+    baseDamage: 40,
+    priority: 2
+  }
+}
+
+
+const moveId = "tackle"
+const move = moves["tackle"]
 
 const dialogueObject = [
   {
@@ -79,25 +100,21 @@ const dialogueObject = [
       `Congratulations! You've received your very first Pokémon: ${playerStarterPokemon}. This is the start of your incredible adventure!`,
     buttonText: "Continue",
     backgroundImage: redPokeball,
-    action: () => pokemonBattleScene(playerPokemonList[0], route1[0]),
+    action: () => pokemonBattleScene(playerPokemonList[0], route1[randomWildPokemon(route1)]),
   },
 ];
 
-const route1HealthGenerator = (level) => {
-  const MAX_HEALTH = 10;
-  return Math.floor(Math.random() * MAX_HEALTH) + 1;
+const healthGenerator = (baseHp) => {
+  return (level) => {
+    return 10 + level + Math.floor(level * 0.01 * 2 * baseHp)
+  }
 };
 
-const levelGenerator = (route) => {
-  let randomLevel;
-
-  switch (route) {
-    case "route1":
-      const MAX_LEVEL = 5;
-      randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
-      console.log("levelGenerator" + randomLevel);
-      return randomLevel;
-      break;
+const levelGenerator = (MAX_LEVEL) => {
+  return () => {
+    let randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
+    console.log("levelGenerator" + randomLevel);
+    return randomLevel;
   }
 };
 
@@ -105,35 +122,52 @@ let playerPokemonList = [];
 
 const route1 = [
   {
-    pokemon: "Rattata",
-    level: levelGenerator("route1"),
-    health: route1HealthGenerator(),
+    name: "Rattata",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+    health: healthGenerator(30),
     pokemonSprite: wildrattata,
     damage: 2,
+    moves: ["tackle"]
   },
   {
-    pokemon: "Magnemite",
-    level: levelGenerator("route1"),
-    health: route1HealthGenerator(),
+    name: "Magnemite",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+    health: healthGenerator(30),
     pokemonSprite: wildmagnemite,
     damage: 2,
+    moves: ["tackle"]
   },
   {
-    pokemon: "Pidgey",
-    level: levelGenerator("route1"),
-    health: route1HealthGenerator(2),
+    name: "Pidgey",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+    health: healthGenerator(30),
     damage: 2,
     pokemonSprite: wildPidgey,
   },
   {
-    pokemon: "Snorlax",
-    level: levelGenerator("route1"),
-    health: route1HealthGenerator(2),
+    name: "Snorlax",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+    health: healthGenerator(30),
     damage: 2,
     pokemonSprite: wildsnorlax,
   },
+  {
+    name: "Butterfree",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+    health: healthGenerator(30),
+    damage: 2,
+    pokemonSprite: wildButterfree,
+  },
+  {
+    name: "Beedrill",
+    level: levelGenerator(ROUTE1_MAX_LEVEL),
+    health: healthGenerator(30),
+    damage: 2,
+    pokemonSprite: wildBeedrill,
+  },
 ];
 
+//Starts game music when the game starts.
 const startGameMusic = (music, duration) => {
   let audio = new Audio(`../mp3/${music}`);
   audio.volume = 0;
@@ -153,11 +187,13 @@ const startGameMusic = (music, duration) => {
   }, duration / 20);
 };
 
+//Used to play a sound, for example while hovering/clicking a button.
 const playSound = (sound) => {
   let audio = new Audio(`../mp3/${sound}`);
   audio.play();
 };
 
+//Turns off startscreen, starts the game.
 const switchBackground = () => {
   const startScreen = document.querySelector(".start-screen");
   if (!musicActive) {
@@ -170,6 +206,7 @@ const switchBackground = () => {
   dialogue(dialogueObject[currentBackground]);
 };
 
+//Sets the dialogue text, uses switchBackground to switch out background image and text.
 const dialogue = (dialogueData) => {
   const gamingWindow = document.querySelector(".gaming-window");
   gamingWindow.style.backgroundImage = `url('${dialogueData.backgroundImage}')`;
@@ -208,6 +245,7 @@ const dialogue = (dialogueData) => {
   prevDialogDiv = dialogueDiv;
 };
 
+//Starts the scene where the player gets to pick starter pokemon.
 const pokemonStarterScene = () => {
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   pokemonScene.style.display = "block";
@@ -216,22 +254,25 @@ const pokemonStarterScene = () => {
 
 const pokemonBattleScene = (playerPokemon, wildPokemon) => {
   const battleScene = document.querySelector(".battle-scene");
-  let plPokemon = document.getElementById("playerpokemon");
-  let plLevel = document.getElementById("playerlevel");
-  let plHp = document.getElementById("playerHp");
-  let plPokemonSprite = document.getElementById("player-pokemon-image");
+  const plPokemon = document.getElementById("playerpokemon");
+  const plLevel = document.getElementById("playerlevel");
+  const plHp = document.getElementById("playerHp");
+  const plPokemonSprite = document.getElementById("player-pokemon-image");
 
-  let wiPokemon = document.getElementById("wildpokemon");
-  let wiLevel = document.getElementById("wildlevel");
-  let wiHp = document.getElementById("wildHp");
-  let wiPokemonSprite = document.getElementById("random-wild-pokemon");
+  const wiPokemon = document.getElementById("wildpokemon");
+  const wiLevel = document.getElementById("wildlevel");
+  const wiHp = document.getElementById("wildHp");
+  const wiPokemonSprite = document.getElementById("random-wild-pokemon");
 
-  wiPokemon.textContent = wildPokemon.pokemon;
-  wiLevel.textContent = "level " + wildPokemon.level;
-  wiHp.textContent = wildPokemon.health + " HP";
+  const wildPokemonLevel = wildPokemon.level()
+  const wildPokemonHp = wildPokemon.health(wildPokemonLevel)
+
+  wiPokemon.textContent = wildPokemon.name;
+  wiLevel.textContent = "level " + wildPokemonLevel;
+  wiHp.textContent = wildPokemonHp + " HP";
   wiPokemonSprite.src = wildPokemon.pokemonSprite;
 
-  plPokemon.textContent = playerPokemon.pokemon;
+  plPokemon.textContent = playerPokemon.name;
   plLevel.textContent = "level " + playerPokemon.level;
   plHp.textContent = playerPokemon.health + " HP";
   plPokemonSprite.src = playerPokemon.pokemonSprite;
@@ -262,6 +303,12 @@ const pickPokemon = (pokemon) => {
   }
 };
 
+const randomWildPokemon = (wildPokemonList) => {
+  let random = Math.floor(Math.random() * wildPokemonList.length);
+  console.log(random + " Played randomWildPokemon function");
+  return random;
+}
+
 const addPokemonToPlayerList = (
   pokemonName,
   pokemonSprite,
@@ -278,18 +325,25 @@ const addPokemonToPlayerList = (
   });
 };
 
-const takeDamage = (move, pokemon1, pokemon2) => {
+const switchBattleMenu = () => {
+  const menu = document.querySelector(".pokemon-skill-bar");
+  const mainmenu = document.querySelector(".battle-bar-main-menu");
+  mainmenu.style.display = "none";
+  menu.style.display = "block";
+};
+
+const dealDamage = (move, pokemon1, pokemon2) => {
 
   pokemon1Health = pokemon1.health;
   pokemon2Health = pokemon2.health;
 
   while(pokemon1Health > 0 || pokemon2Health > 0) {
-    
+
   }
 };
 
 const startBattle = (wildPokemon) => {
-  const pokemonName = wildPokemon.pokemon;
+  const pokemonName = wildPokemon.name;
   const pokemonLevel = wildPokemon.level;
   let pokemonHealth = route1HealthGenerator(pokemonLevel);
   console.log(
