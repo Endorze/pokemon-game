@@ -2,68 +2,84 @@ let currentBackground = -1;
 let playerName = "";
 let playerHealth = 20;
 const MAX_PLAYER_HEALTH = 20;
-let playerPokemonList = [];
 let playerGotStarter = false;
 let playerStarterPokemon = "";
 let playerStarterPokemonImage = "";
 let musicActive = false;
+const profoak1 = "../images/profoak1.jpg"
+const profoak2 = "../images/profoak2.avif";
+const pikachuElectric = " ../images/pikachuelectricity.gif";
 const redImage = "../images/profoak.png";
 const charmanderImage = "../images/charmander.png";
 const redPokeball = "../images/red.avif";
+const rattata = "../images/rattata.webp";
+const magnemite = "../images/magnemite.gif";
+const squirtle = "../images/squirtle.webp";
+const snorlax = "../images/snorlax.gif";
+const bulbasaur = "../images/bulbasaur.png";
+const charmeleon = "../images/charmeleon.webp"
+const jumpingrope = "../images/pokemonjumpingrope.gif"
 let prevDialogDiv = null;
 
 const dialogueObject = [
   {
     name: "Prof. Oak",
-    text: () => `Welcome to the great Pangea, your mother told me you would be arriving soon.`,
+    text: () =>
+      `Ah, welcome to Pangea! Your mother mentioned you'd be arriving soon. There's much to discover, and you're about to embark on an unforgettable journey.`,
     buttonText: "Continue",
-    backgroundImage: redImage,
+    backgroundImage: profoak1,
   },
   {
     name: "Prof. Oak",
-    text: () => `Let me wish you a warm welcome to the great world of Pokémon! In this world people and Pokémon live side by side.`,
+    text: () =>
+      `Allow me to extend a heartfelt welcome to the incredible world of Pokémon! Here, humans and Pokémon live in harmony, working together to unlock the mysteries of nature.`,
     buttonText: "Continue",
-    backgroundImage: redImage,
+    backgroundImage: jumpingrope,
   },
   {
     name: "Prof. Oak",
-    text: () => `For over a decade we have harnessed the power of Pokémon to accomplish incredible things!`,
+    text: () =>
+      `For over a decade, we've harnessed the untapped potential of Pokémon to achieve the unimaginable—our world is forever changed because of them.`,
     buttonText: "Continue",
-    backgroundImage: redImage,
+    backgroundImage: profoak1,
   },
   {
     name: "Prof. Oak",
-    text: () => `And just now it just happens to be your turn to carry on the legacy. I cant wait to see what you will accomplish.`,
+    text: () =>
+      `Take Pikachu, for example. Have you ever wondered why we shifted from nuclear power to safer alternatives? Some Pokémon, like Pikachu, help us harness energy in ways we never thought possible. In return, we provide for their needs, creating a symbiotic relationship where both sides thrive. It's a partnership that benefits us all.`,
     buttonText: "Continue",
-    backgroundImage: redImage,
+    backgroundImage: pikachuElectric,
   },
   {
     name: "Prof. Oak",
-    text: () => `But enough about that! I think it's about time for you to pick out your Pokémon, wouldn't you agree?`,
+    text: () =>
+     `But enough of the science talk! The moment you've been waiting for is here—it's time to choose your very own Pokémon partner! Ready?`,
     buttonText: "Continue",
-    backgroundImage: redImage,
+    backgroundImage: profoak2,
   },
   {
     name: "You",
-    text: () => `Oh boy this is getting exciting... I wonder which pokémon i'll be able to choose from?`,
+    text: () =>
+      `This is it! The excitement is real... What Pokémon will I get to choose? The possibilities are endless!`,
     buttonText: "Continue",
     action: () => pokemonStarterScene(),
   },
   {
     name: "",
-    text: () => `Whew that was a hard choice, but now i finally got my first Pokémon!`,
+    text: () =>
+      `Phew, that was a tough decision! But now, I've got my very first Pokémon! This is just the beginning.`,
     buttonText: "Continue",
     backgroundImage: "",
-    action: () => playSound('caughtpokemon.mp3')
+    action: () => playSound("caughtpokemon.mp3"),
   },
   {
     name: "",
-    text: () => `You received your very first ${playerStarterPokemon}, congratulations!`,
+    text: () =>
+      `Congratulations! You've received your very first Pokémon: ${playerStarterPokemon}. This is the start of your incredible adventure!`,
     buttonText: "Continue",
     backgroundImage: redPokeball,
-    action: () => pokemonBattleScene(playerPokemonList[0], route1[0]),
+    action: () => pokemonBattleScene(playerPokemonList[0], route1[3]),
   },
-  
 ];
 
 const route1HealthGenerator = (level) => {
@@ -72,31 +88,48 @@ const route1HealthGenerator = (level) => {
 };
 
 const levelGenerator = (route) => {
-
   let randomLevel;
 
-  switch(route) {
+  switch (route) {
     case "route1":
       const MAX_LEVEL = 5;
       randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
       console.log("levelGenerator" + randomLevel);
       return randomLevel;
-    break;
+      break;
   }
-}
+};
+
+let playerPokemonList = [];
 
 const route1 = [
   {
     pokemon: "Rattata",
     level: levelGenerator("route1"),
     health: route1HealthGenerator(),
-    pokemonSprite: "",
+    pokemonSprite: rattata,
+    damage: 2,
+  },
+  {
+    pokemon: "Magnemite",
+    level: levelGenerator("route1"),
+    health: route1HealthGenerator(),
+    pokemonSprite: magnemite,
+    damage: 2,
   },
   {
     pokemon: "Pidgey",
     level: levelGenerator("route1"),
     health: route1HealthGenerator(2),
+    damage: 2,
     pokemonSprite: "",
+  },
+  {
+    pokemon: "Snorlax",
+    level: levelGenerator("route1"),
+    health: route1HealthGenerator(2),
+    damage: 2,
+    pokemonSprite: snorlax,
   },
 ];
 
@@ -180,15 +213,27 @@ const pokemonStarterScene = () => {
   console.log("Jag körde pickpokemon funktionen");
 };
 
-const pokemonBattleScene = (playerPokemon, wildPokemon) => { 
+const pokemonBattleScene = (playerPokemon, wildPokemon) => {
   const battleScene = document.querySelector(".battle-scene");
   let plPokemon = document.getElementById("playerpokemon");
+  let plLevel = document.getElementById("playerlevel");
+  let plHp = document.getElementById("playerHp");
+  let plPokemonSprite = document.getElementById("player-pokemon-image");
+
   let wiPokemon = document.getElementById("wildpokemon");
+  let wiLevel = document.getElementById("wildlevel");
+  let wiHp = document.getElementById("wildHp");
+  let wiPokemonSprite = document.getElementById("random-wild-pokemon");
 
   wiPokemon.textContent = wildPokemon.pokemon;
-  //plPokemon.textContent = playerPokemon[0];
+  wiLevel.textContent = "level " + wildPokemon.level;
+  wiHp.textContent = wildPokemon.health + " HP";
+  wiPokemonSprite.src = wildPokemon.pokemonSprite;
 
-  //plPokemon.textContent(playerPokemonList[0].name)
+  plPokemon.textContent = playerPokemon.pokemon;
+  plLevel.textContent = playerPokemon.level;
+  plHp.textContent = playerPokemon.health + " HP";
+  plPokemonSprite.src = playerPokemon.pokemonSprite;
 
   battleScene.style.display = "block";
   console.log("Jag körde pokemonBattleScene funktionen");
@@ -197,30 +242,39 @@ const pokemonBattleScene = (playerPokemon, wildPokemon) => {
 const pickPokemon = (pokemon) => {
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   if (!playerGotStarter) {
-    if (pokemon === "squirtle") {
-      console.log("Picked squirtle");
-      pokemonScene.style.display = "none";
-      playerStarterPokemon = "squirtle";
-      playerGotStarter = true;
-      playerPokemonList.push(playerStarterPokemon);
-      console.log(playerStarterPokemon);
+    switch (pokemon) {
+      case "squirtle":
+        addPokemonToPlayerList("Squirtle", squirtle, 5, 20, 5);
+        break;
 
-    } else if (pokemon === "bulbasaur") {
-      console.log("Picked bulbasaur");
-      pokemonScene.style.display = "none";
-      playerStarterPokemon = "bulbasaur";
-      playerGotStarter = true;
-      playerPokemonList.push(playerStarterPokemon);
+      case "bulbasaur":
+        addPokemonToPlayerList("Bulbasaur", bulbasaur, 5, 20, 5);
+        break;
 
-    } else {
-      console.log("Picked charmander");
-      pokemonScene.style.display = "none";
-      playerStarterPokemon = "charmander";
-      playerGotStarter = true;
-      playerPokemonList.push(playerStarterPokemon);
+      case "charmander":
+        addPokemonToPlayerList("Charmander", charmeleon, 5, 20, 5);
+        break;
     }
+    playerGotStarter = true;
+    pokemonScene.style.display = "none";
+    playerStarterPokemon = pokemon;
   }
-  console.log("I now have my first starter, a " + playerPokemonList[0]);
+};
+
+const addPokemonToPlayerList = (
+  pokemonName,
+  pokemonSprite,
+  level,
+  health,
+  damage
+) => {
+  playerPokemonList.push({
+    pokemon: pokemonName,
+    pokemonSprite: pokemonSprite,
+    level: level,
+    health: health,
+    damage: damage,
+  });
 };
 
 const startBattle = (wildPokemon) => {

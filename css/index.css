@@ -40,6 +40,7 @@ body {
   background-color: black;
   background-image: url("https://res.cloudinary.com/momentum-media-group-pty-ltd/image/upload/c_fill,q_auto:best,f_auto,e_unsharp_mask:80,w_828,h_400/Cyber%20Security%2Fpokemon-ball_dxhymz");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   box-shadow: 1px 0px 75px 2px rgba(255, 255, 255, 0.75);
   -webkit-box-shadow: 1px 0px 75px 2px rgba(255, 255, 255, 0.75);
@@ -76,6 +77,10 @@ body {
   padding: 15px;
   background-color: rgb(29, 28, 28);
   color: orange;
+}
+
+#wildHp, #playerHp{
+  padding: 5px;
 }
 
 .start-screen-buttons button:hover {
@@ -130,21 +135,31 @@ body {
   position: relative;
 }
 
-.select-pokemon-buttons {
+#charmander-button {
   position: absolute;
-  width: 100%;
-  top: 70%;
-  display: flex;
-  justify-content: space-evenly;
+  width: 100px;
+  padding: 10px;
+  background-color: rgb(255, 166, 0);
+  bottom: 10%;
+  left: 18vw;
 }
 
-.select-pokemon-buttons button {
-  width: 10vw;
+#squirtle-button {
+  position: absolute;
+  width: 100px;
   padding: 10px;
-  background-color: white;
-  border: 1px solid black;
-  cursor: pointer;
-  border-radius: 20px;
+  background-color: rgb(120, 174, 255);
+  top: 45%;
+  left: 27vw;
+}
+
+#bulbasaur-button {
+  position: absolute;
+  width: 100px;
+  padding: 10px;
+  background-color: lightgreen;
+  top: 45%;
+  left: 10vw;
 }
 
 .select-pokemon-buttons button:hover {

@@ -36,11 +36,11 @@
         </div>
         <div class="select-pokemon-scene">
             <div class="starters-image">
-                <img src="../images/gen1starters.png">
+                <img src="../images/pickpokemon.jpg">
                 <div class="select-pokemon-buttons">
-                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('squirtle')">Squirtle</button>
-                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('bulbasaur')">Bulbasaur</button>
-                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('charmander')">Charmander</button>
+                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('squirtle')" id="squirtle-button">Squirtle</button>
+                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('bulbasaur')" id="bulbasaur-button">Bulbasaur</button>
+                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('charmander')" id="charmander-button">Charmander</button>
                 </div>
             </div>
             <div class="dialogue-box">
@@ -57,24 +57,34 @@
                         <p id="wildlevel">Level 5</p>
                     </div>
                     <div class="health-bar">
+                        <p id="wildHp"></p>
                     </div>
                 </div>
             </div>
             <div class="wild-pokemon">
-                <img src="../images/pikachu.png">
+                <img src="../images/pikachu.png" id="random-wild-pokemon">
+            </div>
+            <div class="battle-bar">
+                <div>
+                    <div>Run</div>
+                    <div>Fight</div>
+                    <div>Items</div>
+                    <div>Bag</div>
+                </div>
             </div>
             <div class="player-pokemon-info-container">
                 <div class="player-pokemon-info">
                     <div>
-                        <p>Pidgey</p>
-                        <p>Level 4</p>
+                        <p id="playerpokemon">Pidgey</p>
+                        <p id="playerlevel">Level 4</p>
                     </div>
                     <div class="health-bar">
+                        <p id="playerHp"></p>
                     </div>
                 </div>
             </div>
             <div class="player-pokemon">
-                <img src="../images/pidgey.png">
+                <img src="../images/pidgey.png" id="player-pokemon-image">
             </div>
         </div>
     </div>
