@@ -6,19 +6,20 @@ let playerGotStarter = false;
 let playerStarterPokemon = "";
 let playerStarterPokemonImage = "";
 let musicActive = false;
-const profoak1 = "../images/profoak1.jpg"
+const profoak1 = "../images/profoak1.jpg";
 const profoak2 = "../images/profoak2.avif";
 const pikachuElectric = " ../images/pikachuelectricity.gif";
 const redImage = "../images/profoak.png";
 const charmanderImage = "../images/charmander.png";
 const redPokeball = "../images/red.avif";
-const rattata = "../images/rattata.webp";
-const magnemite = "../images/magnemite.gif";
+const wildrattata = "../images/rattata.gif";
+const wildmagnemite = "../images/magnemite.gif";
+const wildPidgey = "../images/pidgey.gif"
 const squirtle = "../images/squirtle.webp";
-const snorlax = "../images/snorlax.gif";
+const wildsnorlax = "../images/snorlax.gif";
 const bulbasaur = "../images/bulbasaur.png";
-const charmeleon = "../images/charmeleon.webp"
-const jumpingrope = "../images/pokemonjumpingrope.gif"
+const charmeleon = "../images/charmeleon.webp";
+const jumpingrope = "../images/pokemonjumpingrope.gif";
 let prevDialogDiv = null;
 
 const dialogueObject = [
@@ -53,7 +54,7 @@ const dialogueObject = [
   {
     name: "Prof. Oak",
     text: () =>
-     `But enough of the science talk! The moment you've been waiting for is here—it's time to choose your very own Pokémon partner! Ready?`,
+      `But enough of the science talk! The moment you've been waiting for is here—it's time to choose your very own Pokémon partner! Ready?`,
     buttonText: "Continue",
     backgroundImage: profoak2,
   },
@@ -78,7 +79,7 @@ const dialogueObject = [
       `Congratulations! You've received your very first Pokémon: ${playerStarterPokemon}. This is the start of your incredible adventure!`,
     buttonText: "Continue",
     backgroundImage: redPokeball,
-    action: () => pokemonBattleScene(playerPokemonList[0], route1[3]),
+    action: () => pokemonBattleScene(playerPokemonList[0], route1[0]),
   },
 ];
 
@@ -107,14 +108,14 @@ const route1 = [
     pokemon: "Rattata",
     level: levelGenerator("route1"),
     health: route1HealthGenerator(),
-    pokemonSprite: rattata,
+    pokemonSprite: wildrattata,
     damage: 2,
   },
   {
     pokemon: "Magnemite",
     level: levelGenerator("route1"),
     health: route1HealthGenerator(),
-    pokemonSprite: magnemite,
+    pokemonSprite: wildmagnemite,
     damage: 2,
   },
   {
@@ -122,14 +123,14 @@ const route1 = [
     level: levelGenerator("route1"),
     health: route1HealthGenerator(2),
     damage: 2,
-    pokemonSprite: "",
+    pokemonSprite: wildPidgey,
   },
   {
     pokemon: "Snorlax",
     level: levelGenerator("route1"),
     health: route1HealthGenerator(2),
     damage: 2,
-    pokemonSprite: snorlax,
+    pokemonSprite: wildsnorlax,
   },
 ];
 
@@ -231,7 +232,7 @@ const pokemonBattleScene = (playerPokemon, wildPokemon) => {
   wiPokemonSprite.src = wildPokemon.pokemonSprite;
 
   plPokemon.textContent = playerPokemon.pokemon;
-  plLevel.textContent = playerPokemon.level;
+  plLevel.textContent = "level " + playerPokemon.level;
   plHp.textContent = playerPokemon.health + " HP";
   plPokemonSprite.src = playerPokemon.pokemonSprite;
 
@@ -275,6 +276,16 @@ const addPokemonToPlayerList = (
     health: health,
     damage: damage,
   });
+};
+
+const takeDamage = (move, pokemon1, pokemon2) => {
+
+  pokemon1Health = pokemon1.health;
+  pokemon2Health = pokemon2.health;
+
+  while(pokemon1Health > 0 || pokemon2Health > 0) {
+    
+  }
 };
 
 const startBattle = (wildPokemon) => {
