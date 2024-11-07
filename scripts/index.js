@@ -179,8 +179,8 @@ const startGameMusic = (music, duration) => {
   });
 
   let fadeInterval = setInterval(() => {
-    if (audio.volume < 1) {
-      audio.volume = Math.min(audio.volume + 0.05, 1);
+    if (audio.volume < 0.1) {
+      audio.volume = Math.min(audio.volume + 0.05, 0.1);
     } else {
       clearInterval(fadeInterval);
     }
@@ -327,9 +327,15 @@ const addPokemonToPlayerList = (
 
 const switchBattleMenu = () => {
   const menu = document.querySelector(".pokemon-skill-bar");
-  const mainmenu = document.querySelector(".battle-bar-main-menu");
-  mainmenu.style.display = "none";
-  menu.style.display = "block";
+  const mainMenu = document.querySelector(".battle-bar-main-menu");
+
+  if (mainMenu.style.display === "none") {
+    mainMenu.style.display = "block";
+    menu.style.display = "none";
+  } else {
+    mainMenu.style.display = "none";
+    menu.style.display = "block";
+  }
 };
 
 const dealDamage = (move, pokemon1, pokemon2) => {
@@ -345,12 +351,8 @@ const dealDamage = (move, pokemon1, pokemon2) => {
 const startBattle = (wildPokemon) => {
   const pokemonName = wildPokemon.name;
   const pokemonLevel = wildPokemon.level;
-  let pokemonHealth = route1HealthGenerator(pokemonLevel);
   console.log(
     `A wild ${pokemonName} (Level: ${pokemonLevel}) appears with ${pokemonHealth} HP!`
   );
 };
 
-startBattle(route1[0]);
-startBattle(route1[1]);
-levelGenerator("route1");
