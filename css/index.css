@@ -83,10 +83,7 @@ body {
   color: orange;
 }
 
-#wildHp,
-#playerHp {
-  padding: 5px;
-}
+
 
 .start-screen-buttons button:hover {
   cursor: pointer;
@@ -238,7 +235,7 @@ body {
   cursor: pointer;
   width: 10vw;
   height: 9vh;
-  font-size: 2rem;
+  font-size: 1.5rem;
   background-color: rgb(247, 247, 186);
 }
 
@@ -253,15 +250,25 @@ body {
   cursor: pointer;
   width: 10vw;
   height: 9vh;
-  font-size: 2rem;
+  font-size: 1.5rem;
   background-color: rgb(247, 247, 186);
+}
+
+.what-will-pokemon-do {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: beige;
+  height: 20px;
+  padding: 20px;
 }
 
 .battle-bar-button-container {
   display: flex;
   gap: 5px;
   margin-bottom: 5px;
-  justify-content: center;
 }
 
 .battle-bar button:hover {
@@ -328,7 +335,26 @@ body {
   border-radius: 5px;
   min-width: 10vw;
   min-height: 3vh;
-  background-color: rgb(18, 211, 18);
+  background-color: rgb(104, 104, 104);
+  overflow: hidden;
+}
+
+.health-bar-overlay {
+
+  --full-hp: rgb(18, 211, 18);
+  --half-hp: rgb(202, 173, 44);
+  --low-hp: rgb(211, 27, 27);
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--full-hp)
+}
+
+#wildHp,
+#playerHp {
+  position: absolute;
+  padding: 5px;
 }
 
 @keyframes fadeIn {
