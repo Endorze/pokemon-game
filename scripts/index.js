@@ -213,42 +213,52 @@ const allyUseMove = (buttonId) => {
   const moveId = currentAllyPokemonIndividual.moves[buttonId]
   const move = moves[moveId]
   console.log(move.name)
-  allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
 
-  console.log("Ally used " + moveId, move)
+  setTimeout(() => {
+    allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
+  
+    move.performMove(currentOpponentPokemonIndividual, currentAllyPokemonIndividual)
+    updateOpponentPokemon()
+    updateAllyPokemon()
+  
+    if (currentAllyPokemonIndividual.currentHp == 0) {
+      setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000)
+      console.log("You dead");
+      //presentFailScreen();
+      return;
+    }
+  
+    if (currentOpponentPokemonIndividual.currentHp == 0) {
+      setTimeout(() => pokemonFaintedText(currentOpponentPokemonIndividual), 2000)
+      console.log("You live to tell the tale")
+      return;
+    }
 
-  move.performMove(currentOpponentPokemonIndividual, currentAllyPokemonIndividual)
+    setTimeout(doAIMove, 2000)
+  }, 500)
 
-  updateOpponentPokemon()
-  updateAllyPokemon()
-
-  if (currentAllyPokemonIndividual.currentHp == 0) {
-    setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000)
-    console.log("You dead");
-    //presentFailScreen();
-    return;
-  }
-
-  if (currentOpponentPokemonIndividual.currentHp == 0) {
-    setTimeout(() => pokemonFaintedText(currentOpponentPokemonIndividual), 2000)
-    console.log("You live to tell the tale")
-    return;
-  }
-  setTimeout(doAIMove, 2000)
 }
 
 const pokemonFaintedText = (pokemonIndividual) => {
   const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
   allyPokemonActionText.textContent = `${pokemonIndividual.pokemonType.name} fainted...`;
+
+  setTimeout(() => {
+    allyPokemonActionText.textContent = `${pokemonIndividual.pokemonType.name} fainted...`;
+    setTimeout(() => {
+      allyPokemonActionText.textContent = `You won the battle.`;
+    }, 1000)
+  }, 1000)
 }
 
 const doAIMove = () => {
+  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
 
   // Randomize opponent action
   const randomMoveIndex = Math.floor(Math.random() * currentOpponentPokemonIndividual.moves.length)
   const moveId = currentOpponentPokemonIndividual.moves[randomMoveIndex];
   const move = moves[moveId];
-
+  allyPokemonActionText.textContent = `${currentOpponentPokemonIndividual.pokemonType.name} used ${move.name}`;
   console.log("AI used " + moveId, move)
 
   // Perform move
@@ -520,7 +530,7 @@ const dialogue = (dialogueData) => {
   button.textContent = dialogueData.buttonText;
   button.addEventListener("click", () => {
     if (button.textContent) {
-      switchBackground();
+      setTimeout(switchBackground, 200);
       playSound("hover.mp3");
 
       if (dialogueData.action) {
