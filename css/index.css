@@ -358,11 +358,27 @@ body {
   padding: 5px;
 }
 
+.attack-move {
+  animation: moveToAndBack 0.5s ease-in-out forwards;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes moveToAndBack {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: var(--translate-values);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }

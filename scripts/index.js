@@ -6,8 +6,8 @@ let playerGotStarter = false;
 let playerStarterPokemon = "";
 let playerStarterPokemonImage = "";
 let musicActive = false;
-const forest = "../images/forest.jpg"
-const pokemonCity = "../images/pokemoncity.avif"
+const forest = "../images/forest.jpg";
+const pokemonCity = "../images/pokemoncity.avif";
 const profoak1 = "../images/profoak1.jpg";
 const profoak2 = "../images/profoak2.avif";
 const pikachuElectric = " ../images/pikachuelectricity.gif";
@@ -16,7 +16,7 @@ const charmanderImage = "../images/charmander.png";
 const redPokeball = "../images/red.avif";
 const wildrattata = "../images/rattata.gif";
 const wildmagnemite = "../images/magnemite.gif";
-const wildPidgey = "../images/pidgey.gif"
+const wildPidgey = "../images/pidgey.gif";
 const squirtle = "../images/squirtle.webp";
 const wildsnorlax = "../images/snorlax.gif";
 const bulbasaur = "../images/bulbasaur.png";
@@ -28,55 +28,73 @@ const wildSquirtle = "../images/wildsquirtle.gif";
 const wildCharmander = "../images/wildcharmander.gif";
 const wildBulbasaur = "../images/wildbulbasaur.gif";
 let prevDialogDiv = null;
+let currentAllyPokemonIndividual = null;
+let currentOpponentPokemonIndividual = null;
 
-let currentAllyPokemonIndividual = null
-let currentOpponentPokemonIndividual = null
 
 const ROUTE1_MAX_LEVEL = 5;
 
-
 let allowUserAction = false;
 
-
 const calculateDamage = (baseDamage, attackStat, defenseStat) => {
-  return baseDamage * attackStat / defenseStat
-}
-
+  return (baseDamage * attackStat) / defenseStat;
+};
 
 function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
-  const damageDealt = Math.ceil(calculateDamage(this.baseDamage, userPokemonIndividual.physicalDamageStat, targetPokemonIndividual.physicalDefenceStat))
-  targetPokemonIndividual.currentHp = Math.max(targetPokemonIndividual.currentHp - damageDealt, 0)
+  const damageDealt = Math.ceil(
+    calculateDamage(
+      this.baseDamage,
+      userPokemonIndividual.physicalDamageStat,
+      targetPokemonIndividual.physicalDefenceStat
+    )
+  );
+  targetPokemonIndividual.currentHp = Math.max(
+    targetPokemonIndividual.currentHp - damageDealt,
+    0
+  );
 }
 
 function simpleSpecialMove(targetPokemonIndividual, userPokemonIndividual) {
-  const damageDealt = Math.ceil(calculateDamage(this.baseDamage, userPokemonIndividual.specialDamageStat, targetPokemonIndividual.specialDefenceStat))
-  targetPokemonIndividual.currentHp = Math.max(targetPokemonIndividual.currentHp - damageDealt, 0)
+  const damageDealt = Math.ceil(
+    calculateDamage(
+      this.baseDamage,
+      userPokemonIndividual.specialDamageStat,
+      targetPokemonIndividual.specialDefenceStat
+    )
+  );
+  targetPokemonIndividual.currentHp = Math.max(
+    targetPokemonIndividual.currentHp - damageDealt,
+    0
+  );
 }
 
 const moves = {
-  "tackle": {
+  tackle: {
     name: "Tackle",
     baseDamage: 20,
     priority: 1,
     performMove: simplePhysicalMove,
     performAllyAnimation: () => {},
-    performOpponentAnimation: () => {}
+    performOpponentAnimation: () => {},
   },
-  "heal": {
+  heal: {
     name: "Heal",
     baseDamage: 20,
     priority: 1,
-    performMove: function(targetPokemonIndividual, userPokemonIndividual) {
-      userPokemonIndividual.currentHp = Math.min(userPokemonIndividual.currentHp + this.baseDamage, userPokemonIndividual.pokemonType.health(userPokemonIndividual.level))
-    }
+    performMove: function (targetPokemonIndividual, userPokemonIndividual) {
+      userPokemonIndividual.currentHp = Math.min(
+        userPokemonIndividual.currentHp + this.baseDamage,
+        userPokemonIndividual.pokemonType.health(userPokemonIndividual.level)
+      );
+    },
   },
   "quick-attack": {
     name: "Quick Attack",
     baseDamage: 40,
     priority: 2,
-    performMove: simplePhysicalMove
-  }
-}
+    performMove: simplePhysicalMove,
+  },
+};
 
 const dialogueObject = [
   {
@@ -165,18 +183,21 @@ const dialogueObject = [
   },
   {
     name: "",
-    text: () =>
-      `"You hear rustling coming from the bush"`,
+    text: () => `"You hear rustling coming from the bush"`,
     buttonText: "Continue",
     backgroundImage: forest,
-    action: () => pokemonBattleScene(playerPokemonList[0], route1[randomWildPokemon(route1)]),
+    action: () =>
+      pokemonBattleScene(
+        playerPokemonList[0],
+        route1[randomWildPokemon(route1)]
+      ),
   },
 ];
 
 const healthGenerator = (baseHp) => {
   return (level) => {
-    return 10 + level + Math.floor(level * 0.01 * 2 * baseHp)
-  }
+    return 10 + level + Math.floor(level * 0.01 * 2 * baseHp);
+  };
 };
 
 const levelGenerator = (MAX_LEVEL) => {
@@ -184,60 +205,69 @@ const levelGenerator = (MAX_LEVEL) => {
     let randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
     console.log("levelGenerator" + randomLevel);
     return randomLevel;
-  }
+  };
 };
 
 const pickFourRandomMoves = (pokemonType, level) => {
   // TODO
-  return [pokemonType.moves[0]]
-}
+  return [pokemonType.moves[0]];
+};
 
 const loadPokemonIndividualMoves = (pokemonIndividual) => {
-  const skill1 = document.getElementById("skill1")
-  const skill2 = document.getElementById("skill2")
-  const skill3 = document.getElementById("skill3")
-  const skill4 = document.getElementById("skill4")
+  const skill1 = document.getElementById("skill1");
+  const skill2 = document.getElementById("skill2");
+  const skill3 = document.getElementById("skill3");
+  const skill4 = document.getElementById("skill4");
 
-
-  const move1Id = pokemonIndividual.pokemonType.moves[0]
-  const move1 = moves[move1Id]
-  skill1.textContent = move1.name
-}
-document.getElementById("skill1")
+  const move1Id = pokemonIndividual.pokemonType.moves[0];
+  const move1 = moves[move1Id];
+  
+  skill1.textContent = move1.name;
+};
+document.getElementById("skill1");
 
 const allyUseMove = (buttonId) => {
-  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do")
+  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
   if (!allowUserAction) return;
   allowUserAction = false;
 
-  const moveId = currentAllyPokemonIndividual.moves[buttonId]
-  const move = moves[moveId]
-  console.log(move.name)
+  const moveId = currentAllyPokemonIndividual.moves[buttonId];
+  const move = moves[moveId];
+  console.log(move.name);
 
   setTimeout(() => {
     allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
-  
-    move.performMove(currentOpponentPokemonIndividual, currentAllyPokemonIndividual)
-    updateOpponentPokemon()
-    updateAllyPokemon()
-  
+
+    move.performMove(
+      currentOpponentPokemonIndividual,
+      currentAllyPokemonIndividual
+    );
+    allyAttackAnimation();
+    updateOpponentPokemon();
+    updateAllyPokemon();
+
     if (currentAllyPokemonIndividual.currentHp == 0) {
-      setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000)
+      setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000);
       console.log("You dead");
       //presentFailScreen();
       return;
     }
-  
+
     if (currentOpponentPokemonIndividual.currentHp == 0) {
-      setTimeout(() => pokemonFaintedText(currentOpponentPokemonIndividual), 2000)
-      console.log("You live to tell the tale")
+      setTimeout(
+        () => pokemonFaintedText(currentOpponentPokemonIndividual),
+        2000
+      );
+      console.log("You live to tell the tale");
       return;
     }
 
-    setTimeout(doAIMove, 2000)
-  }, 500)
-
-}
+    setTimeout(doAIMove, 2000);
+    setTimeout(() => {
+      allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`
+    }, 4500)
+  }, 500);
+};
 
 const pokemonFaintedText = (pokemonIndividual) => {
   const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
@@ -247,31 +277,90 @@ const pokemonFaintedText = (pokemonIndividual) => {
     allyPokemonActionText.textContent = `${pokemonIndividual.pokemonType.name} fainted...`;
     setTimeout(() => {
       allyPokemonActionText.textContent = `You won the battle.`;
-    }, 1000)
-  }, 1000)
+    }, 1000);
+  }, 1000);
+};
+
+const allyAttackAnimation = () => {
+  const allySprite = document.getElementById("player-pokemon-image");
+  const opponentSprite = document.getElementById("random-wild-pokemon");
+
+  if (!allySprite || !opponentSprite) {
+    console.error("Ett eller båda av elementen saknas i DOM");
+    return;
+  }
+
+  const allySpriteRect = allySprite.getBoundingClientRect();
+  const opponentSpriteRect = opponentSprite.getBoundingClientRect();
+
+  const deltaX = opponentSpriteRect.left - allySpriteRect.left;
+  const deltaY = opponentSpriteRect.top - allySpriteRect.top;
+
+  allySprite.style.setProperty('--translate-values', `translate(${deltaX}px, ${deltaY}px)`);
+
+  allySprite.classList.add("attack-move")
+  console.log("allyAttackAnimation")
+
+  allySprite.addEventListener("animationend", () => {
+    allySprite.classList.remove("attack-move");
+  }, { once: true });
 }
+
+const opponentAttackAnimation = () => {
+  const allySprite = document.getElementById("player-pokemon-image");
+  const opponentSprite = document.getElementById("random-wild-pokemon");
+
+  if (!allySprite || !opponentSprite) {
+    console.error("Ett eller båda av elementen saknas i DOM");
+    return;
+  }
+
+  const allySpriteRect = allySprite.getBoundingClientRect();
+  const opponentSpriteRect = opponentSprite.getBoundingClientRect();
+
+  const deltaX = opponentSpriteRect.left - allySpriteRect.left;
+  const deltaY = opponentSpriteRect.top - allySpriteRect.top;
+
+  opponentSprite.style.setProperty('--translate-values', `translate(${-deltaX}px, ${-deltaY}px)`);
+
+  opponentSprite.classList.add("attack-move")
+  console.log("allyAttackAnimation")
+
+  opponentSprite.addEventListener("animationend", () => {
+    opponentSprite.classList.remove("attack-move");
+  }, { once: true });
+}
+
+const endBattle = () => {};
+
+const gainExp = () => {};
 
 const doAIMove = () => {
   const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
 
   // Randomize opponent action
-  const randomMoveIndex = Math.floor(Math.random() * currentOpponentPokemonIndividual.moves.length)
+  const randomMoveIndex = Math.floor(
+    Math.random() * currentOpponentPokemonIndividual.moves.length
+  );
   const moveId = currentOpponentPokemonIndividual.moves[randomMoveIndex];
   const move = moves[moveId];
   allyPokemonActionText.textContent = `${currentOpponentPokemonIndividual.pokemonType.name} used ${move.name}`;
-  console.log("AI used " + moveId, move)
+  console.log("AI used " + moveId, move);
 
   // Perform move
-  move.performMove(currentAllyPokemonIndividual, currentOpponentPokemonIndividual)
+  opponentAttackAnimation();
+  move.performMove(
+    currentAllyPokemonIndividual,
+    currentOpponentPokemonIndividual
+  );
 
-  // Update ally 
+  // Update ally
   updateAllyPokemon();
   // Update opponent
   updateOpponentPokemon();
 
-
   allowUserAction = true;
-}
+};
 
 // List of pokemonIndividual
 const playerPokemonList = [
@@ -293,25 +382,31 @@ const playerPokemonList = [
 // 10 / 40  heal: 20
 
 const healPokemon = (pokemonIndividual, healAmount) => {
+  const maxHp = pokemonIndividual.pokemonType.health(pokemonIndividual.level);
+  const newHp = pokemonIndividual.currentHp + healAmount;
+  const actualNewHp = Math.min(maxHp, newHp);
 
-  const maxHp = pokemonIndividual.pokemonType.health(pokemonIndividual.level)
-  const newHp = pokemonIndividual.currentHp + healAmount
-  const actualNewHp = Math.min(maxHp, newHp)
-
-  pokemonIndividual.currentHp = actualNewHp
-}
+  pokemonIndividual.currentHp = actualNewHp;
+};
 
 const createRandomIndividual = (pokemonEncounter) => {
-  const wildPokemonType = allPokemon[pokemonEncounter.pokemonId]
-  const wildPokemonLevel = pokemonEncounter.level()
-  const wildPokemonMoves = pickFourRandomMoves(wildPokemonType, wildPokemonLevel)
-  
-  const wildPokemonIndividual = createPokemonIndivual(wildPokemonType, wildPokemonLevel, wildPokemonMoves)
-  return wildPokemonIndividual
-}
+  const wildPokemonType = allPokemon[pokemonEncounter.pokemonId];
+  const wildPokemonLevel = pokemonEncounter.level();
+  const wildPokemonMoves = pickFourRandomMoves(
+    wildPokemonType,
+    wildPokemonLevel
+  );
+
+  const wildPokemonIndividual = createPokemonIndivual(
+    wildPokemonType,
+    wildPokemonLevel,
+    wildPokemonMoves
+  );
+  return wildPokemonIndividual;
+};
 
 const createPokemonIndivual = (pokemonType, level, moves) => {
-  return ({
+  return {
     pokemonType: pokemonType,
     level: level,
     specialDefenceStat: 1 + level * pokemonType.specialDefenceGrowth,
@@ -319,13 +414,13 @@ const createPokemonIndivual = (pokemonType, level, moves) => {
     specialDamageStat: 1 + level * pokemonType.specialDamageGrowth,
     physicalDamageStat: 1 + level * pokemonType.physicalDamageGrowth,
     currentHp: pokemonType.health(level),
-    moves: moves
-  })
-}
+    moves: moves,
+  };
+};
 
 // List of pokemonType
 const allPokemon = {
-  "squirtle": {
+  squirtle: {
     name: "Squirtle",
     health: healthGenerator(30),
     allySprite: squirtle,
@@ -335,8 +430,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "bulbasaur": {
+  bulbasaur: {
     name: "Bulbasaur",
     health: healthGenerator(30),
     allySprite: bulbasaur,
@@ -346,9 +442,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    
+    baseExp: 64,
   },
-  "charmander": {
+  charmander: {
     name: "Charmander",
     health: healthGenerator(30),
     allySprite: charmeleon,
@@ -358,8 +454,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "rattata": {
+  rattata: {
     name: "Rattata",
     health: healthGenerator(30),
     allySprite: "",
@@ -369,8 +466,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "magnemite": {
+  magnemite: {
     name: "Magnemite",
     health: healthGenerator(30),
     allySprite: "",
@@ -380,8 +478,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "pidgey": {
+  pidgey: {
     name: "Pidgey",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
@@ -392,8 +491,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "snorlax": {
+  snorlax: {
     name: "Snorlax",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
@@ -404,8 +504,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "butterfree": {
+  butterfree: {
     name: "Butterfree",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
@@ -416,8 +517,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
+    baseExp: 64,
   },
-  "beedrill": {
+  beedrill: {
     name: "Beedrill",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
@@ -428,8 +530,9 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-  }
-}
+    baseExp: 64,
+  },
+};
 
 // List of pokemonEncounter
 const route1 = [
@@ -556,29 +659,29 @@ const pokemonStarterScene = () => {
 };
 
 const pokemonBattleScene = (playerPokemonIndividual, pokemonEncounter) => {
-  console.log("pokemonBattleScene", {playerPokemonIndividual, pokemonEncounter})
-  
-  const wildPokemonIndividual = createRandomIndividual(pokemonEncounter)
-  
-  currentAllyPokemonIndividual = playerPokemonIndividual
-  currentOpponentPokemonIndividual = wildPokemonIndividual
+  console.log("pokemonBattleScene", {
+    playerPokemonIndividual,
+    pokemonEncounter,
+  });
 
-  updateOpponentPokemon()
-  updateAllyPokemon()
+  const wildPokemonIndividual = createRandomIndividual(pokemonEncounter);
 
-  const pokemonDescText = document.getElementById("playerPokemonAction")
-  pokemonDescText.textContent = `What will ${playerStarterPokemon} do?`
-  
+  currentAllyPokemonIndividual = playerPokemonIndividual;
+  currentOpponentPokemonIndividual = wildPokemonIndividual;
+
+  updateOpponentPokemon();
+  updateAllyPokemon();
+
+  const pokemonDescText = document.getElementById("playerPokemonAction");
+  pokemonDescText.textContent = `What will ${playerStarterPokemon} do?`;
+
   const battleScene = document.querySelector(".battle-scene");
   battleScene.style.display = "block";
 
   loadPokemonIndividualMoves(playerPokemonIndividual);
 
   allowUserAction = true;
-
 };
-
-
 
 const updateOpponentPokemon = () => {
   const wiPokemon = document.getElementById("wildpokemon");
@@ -587,13 +690,13 @@ const updateOpponentPokemon = () => {
 
   wiPokemon.textContent = currentOpponentPokemonIndividual.pokemonType.name;
   wiLevel.textContent = "level " + currentOpponentPokemonIndividual.level;
-  wiPokemonSprite.src = currentOpponentPokemonIndividual.pokemonType.opponentSprite;
+  wiPokemonSprite.src =
+    currentOpponentPokemonIndividual.pokemonType.opponentSprite;
 
-  updateHealthBar(currentOpponentPokemonIndividual, "wildHp", "opponentHpBar")
-}
+  updateHealthBar(currentOpponentPokemonIndividual, "wildHp", "opponentHpBar");
+};
 
 const updateAllyPokemon = () => {
-  
   const plPokemon = document.getElementById("playerpokemon");
   const plLevel = document.getElementById("playerlevel");
   const plPokemonSprite = document.getElementById("player-pokemon-image");
@@ -602,8 +705,8 @@ const updateAllyPokemon = () => {
   plLevel.textContent = "level " + currentAllyPokemonIndividual.level;
   plPokemonSprite.src = currentAllyPokemonIndividual.pokemonType.allySprite;
 
-  updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar")
-}
+  updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar");
+};
 
 const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
   const hpTextElement = document.getElementById(hpBarTextId);
@@ -611,26 +714,30 @@ const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
 
   hpTextElement.textContent = pokemonIndividual.currentHp + " HP";
 
-  const hpPercentage = pokemonIndividual.currentHp / pokemonIndividual.pokemonType.health(pokemonIndividual.level)
-  hpOverlayElement.style.width = `${hpPercentage * 100}%`
+  const hpPercentage =
+    pokemonIndividual.currentHp /
+    pokemonIndividual.pokemonType.health(pokemonIndividual.level);
+  hpOverlayElement.style.width = `${hpPercentage * 100}%`;
 
   if (hpPercentage < 0.2) {
-    hpOverlayElement.style.backgroundColor = `var(--low-hp)`
+    hpOverlayElement.style.backgroundColor = `var(--low-hp)`;
     return;
   }
-  if (hpPercentage < .5) {
-    hpOverlayElement.style.backgroundColor = `var(--half-hp)`
+  if (hpPercentage < 0.5) {
+    hpOverlayElement.style.backgroundColor = `var(--half-hp)`;
     return;
   }
 
-  hpOverlayElement.style.backgroundColor = `var(--full-hp)`
-}
+  hpOverlayElement.style.backgroundColor = `var(--full-hp)`;
+};
 
 const pickPokemon = (pokemonId) => {
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   if (!playerGotStarter) {
-    const pokemonType = allPokemon[pokemonId]
-    playerPokemonList.push(createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]]))
+    const pokemonType = allPokemon[pokemonId];
+    playerPokemonList.push(
+      createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
+    );
     playerGotStarter = true;
     pokemonScene.style.display = "none";
     playerStarterPokemon = pokemonId;
@@ -642,7 +749,7 @@ const randomWildPokemon = (wildPokemonList) => {
   let random = Math.floor(Math.random() * wildPokemonList.length);
   console.log(random + " Played randomWildPokemon function");
   return random;
-}
+};
 
 const switchBattleMenu = () => {
   if (!allowUserAction) return;
@@ -658,4 +765,3 @@ const switchBattleMenu = () => {
     menu.style.display = "block";
   }
 };
-
