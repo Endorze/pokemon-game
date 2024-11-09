@@ -153,6 +153,13 @@ const dialogueObject = [
     action: () => pokemonStarterScene(),
   },
   {
+    name: "You",
+    text: () =>
+      `Phew, that was a tough decision! But now, I've got my very first Pokémon! This is just the beginning.`,
+    buttonText: "Continue",
+    backgroundImage: "",
+  },
+  {
     name: "",
     text: () =>
       `Congratulations! You've received your very first ${playerStarterPokemon}. This is the start of your incredible adventure!`,
