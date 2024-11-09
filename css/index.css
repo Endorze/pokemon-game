@@ -191,7 +191,6 @@ body {
 
 .animated-button {
   display: block;
-  animation: fadeIn 3s;
 }
 
 .battle-scene {

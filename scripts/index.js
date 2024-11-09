@@ -31,7 +31,6 @@ let prevDialogDiv = null;
 let currentAllyPokemonIndividual = null;
 let currentOpponentPokemonIndividual = null;
 
-
 const ROUTE1_MAX_LEVEL = 5;
 
 let allowUserAction = false;
@@ -39,6 +38,9 @@ let allowUserAction = false;
 const calculateDamage = (baseDamage, attackStat, defenseStat) => {
   return (baseDamage * attackStat) / defenseStat;
 };
+
+const sleep = async (millis) =>
+  new Promise((resolve) => setTimeout(resolve, millis));
 
 function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
   const damageDealt = Math.ceil(
@@ -186,11 +188,10 @@ const dialogueObject = [
     text: () => `"You hear rustling coming from the bush"`,
     buttonText: "Continue",
     backgroundImage: forest,
-    action: () =>
-      pokemonBattleScene(
-        playerPokemonList[0],
-        route1[randomWildPokemon(route1)]
-      ),
+    action: () => {
+      currentAllyPokemonIndividual = playerPokemonList[0]
+      pokemonBattleScene(route1[randomWildPokemon(route1)])
+    },
   },
 ];
 
@@ -221,56 +222,67 @@ const loadPokemonIndividualMoves = (pokemonIndividual) => {
 
   const move1Id = pokemonIndividual.pokemonType.moves[0];
   const move1 = moves[move1Id];
-  
+
   skill1.textContent = move1.name;
 };
 document.getElementById("skill1");
 
-const allyUseMove = (buttonId) => {
-  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
+const allyUseMove = async (buttonId) => {
+  const allyPokemonActionText = document.getElementById("playerPokemonAction");
   if (!allowUserAction) return;
   allowUserAction = false;
-
   const moveId = currentAllyPokemonIndividual.moves[buttonId];
   const move = moves[moveId];
-  console.log(move.name);
 
-  setTimeout(() => {
-    allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
+  await sleep(500);
 
-    move.performMove(
-      currentOpponentPokemonIndividual,
-      currentAllyPokemonIndividual
+  allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
+
+  move.performMove(
+    currentOpponentPokemonIndividual,
+    currentAllyPokemonIndividual
+  );
+  allyAttackAnimation();
+  updateOpponentPokemon();
+  updateAllyPokemon();
+
+  if (currentAllyPokemonIndividual.currentHp == 0) {
+    await sleep(2000);
+    pokemonFaintedText(currentAllyPokemonIndividual);
+    console.log("You dead");
+    //presentFailScreen();
+    return;
+  }
+
+  if (currentOpponentPokemonIndividual.currentHp == 0) {
+    await sleep(2000);
+    pokemonFaintedText(currentOpponentPokemonIndividual);
+
+    levelUpPokemon(
+      currentAllyPokemonIndividual,
+      currentOpponentPokemonIndividual.pokemonType.baseExp
     );
-    allyAttackAnimation();
-    updateOpponentPokemon();
     updateAllyPokemon();
 
-    if (currentAllyPokemonIndividual.currentHp == 0) {
-      setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000);
-      console.log("You dead");
-      //presentFailScreen();
-      return;
-    }
+    console.log("You live to tell the tale");
 
-    if (currentOpponentPokemonIndividual.currentHp == 0) {
-      setTimeout(
-        () => pokemonFaintedText(currentOpponentPokemonIndividual),
-        2000
-      );
-      console.log("You live to tell the tale");
-      return;
-    }
+    pokemonBattleScene(route1[randomWildPokemon(route1)])
+    return;
+  }
 
-    setTimeout(doAIMove, 2000);
-    setTimeout(() => {
-      allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`
-    }, 4500)
-  }, 500);
+  await sleep(2000);
+  doAIMove();
+
+  await sleep(2500);
+  allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
 };
 
+const beginRandomEncounter = () => {
+  
+}
+
 const pokemonFaintedText = (pokemonIndividual) => {
-  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
+  const allyPokemonActionText = document.getElementById("playerPokemonAction");
   allyPokemonActionText.textContent = `${pokemonIndividual.pokemonType.name} fainted...`;
 
   setTimeout(() => {
@@ -296,15 +308,22 @@ const allyAttackAnimation = () => {
   const deltaX = opponentSpriteRect.left - allySpriteRect.left;
   const deltaY = opponentSpriteRect.top - allySpriteRect.top;
 
-  allySprite.style.setProperty('--translate-values', `translate(${deltaX}px, ${deltaY}px)`);
+  allySprite.style.setProperty(
+    "--translate-values",
+    `translate(${deltaX}px, ${deltaY}px)`
+  );
 
-  allySprite.classList.add("attack-move")
-  console.log("allyAttackAnimation")
+  allySprite.classList.add("attack-move");
+  console.log("allyAttackAnimation");
 
-  allySprite.addEventListener("animationend", () => {
-    allySprite.classList.remove("attack-move");
-  }, { once: true });
-}
+  allySprite.addEventListener(
+    "animationend",
+    () => {
+      allySprite.classList.remove("attack-move");
+    },
+    { once: true }
+  );
+};
 
 const opponentAttackAnimation = () => {
   const allySprite = document.getElementById("player-pokemon-image");
@@ -321,22 +340,32 @@ const opponentAttackAnimation = () => {
   const deltaX = opponentSpriteRect.left - allySpriteRect.left;
   const deltaY = opponentSpriteRect.top - allySpriteRect.top;
 
-  opponentSprite.style.setProperty('--translate-values', `translate(${-deltaX}px, ${-deltaY}px)`);
+  opponentSprite.style.setProperty(
+    "--translate-values",
+    `translate(${-deltaX}px, ${-deltaY}px)`
+  );
 
-  opponentSprite.classList.add("attack-move")
-  console.log("allyAttackAnimation")
+  opponentSprite.classList.add("attack-move");
+  console.log("allyAttackAnimation");
 
-  opponentSprite.addEventListener("animationend", () => {
-    opponentSprite.classList.remove("attack-move");
-  }, { once: true });
-}
+  opponentSprite.addEventListener(
+    "animationend",
+    () => {
+      opponentSprite.classList.remove("attack-move");
+    },
+    { once: true }
+  );
+};
+
+const setInfoBoxText = (text) => {
+  const allyPokemonActionText = document.getElementById("playerPokemonAction");
+  allyPokemonActionText.textContent = text;
+} 
 
 const endBattle = () => {};
 
-const gainExp = () => {};
-
 const doAIMove = () => {
-  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
+  const allyPokemonActionText = document.getElementById("playerPokemonAction");
 
   // Randomize opponent action
   const randomMoveIndex = Math.floor(
@@ -353,12 +382,23 @@ const doAIMove = () => {
     currentAllyPokemonIndividual,
     currentOpponentPokemonIndividual
   );
-
   // Update ally
   updateAllyPokemon();
   // Update opponent
   updateOpponentPokemon();
-
+  if (currentAllyPokemonIndividual.currentHp == 0) {
+    setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000);
+    console.log("You dead");
+    //presentFailScreen();
+    return;
+  }
+  if (currentOpponentPokemonIndividual.currentHp == 0) {
+    setTimeout(
+      () => pokemonFaintedText(currentOpponentPokemonIndividual),
+      2000
+    );
+    return;
+  }
   allowUserAction = true;
 };
 
@@ -414,8 +454,34 @@ const createPokemonIndivual = (pokemonType, level, moves) => {
     specialDamageStat: 1 + level * pokemonType.specialDamageGrowth,
     physicalDamageStat: 1 + level * pokemonType.physicalDamageGrowth,
     currentHp: pokemonType.health(level),
+    currentExp: 0,
     moves: moves,
   };
+};
+
+const calculateExperienceToNextLevel = (level) => {
+  return level * 15;
+};
+
+const levelUpPokemon = (pokemonIndividual, experience) => {
+  while (experience > 0) {
+    const maxExp = calculateExperienceToNextLevel(pokemonIndividual.level);
+    const experienceToNextLevel = maxExp - pokemonIndividual.currentExp;
+    console.log(experience);
+    if (experience >= experienceToNextLevel) {
+      pokemonIndividual.level += 1;
+      pokemonIndividual.currentHp = pokemonIndividual.pokemonType.health(
+        pokemonIndividual.level
+      );
+      playSound("levelup.mp3");
+      console.log(pokemonIndividual.level);
+      experience = experience - experienceToNextLevel;
+      pokemonIndividual.currentExp = 0;
+    } else {
+      pokemonIndividual.currentExp += experience;
+      experience = 0;
+    }
+  }
 };
 
 // List of pokemonType
@@ -430,7 +496,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   bulbasaur: {
     name: "Bulbasaur",
@@ -442,7 +508,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   charmander: {
     name: "Charmander",
@@ -454,7 +520,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   rattata: {
     name: "Rattata",
@@ -466,7 +532,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   magnemite: {
     name: "Magnemite",
@@ -478,7 +544,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   pidgey: {
     name: "Pidgey",
@@ -491,7 +557,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   snorlax: {
     name: "Snorlax",
@@ -504,7 +570,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   butterfree: {
     name: "Butterfree",
@@ -517,7 +583,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
   beedrill: {
     name: "Beedrill",
@@ -530,7 +596,7 @@ const allPokemon = {
     physicalDefenceGrowth: 3,
     specialDamageGrowth: 3,
     physicalDamageGrowth: 1,
-    baseExp: 64,
+    baseExp: 100,
   },
 };
 
@@ -658,27 +724,25 @@ const pokemonStarterScene = () => {
   console.log("Jag körde pickpokemon funktionen");
 };
 
-const pokemonBattleScene = (playerPokemonIndividual, pokemonEncounter) => {
+const pokemonBattleScene = (pokemonEncounter) => {
   console.log("pokemonBattleScene", {
-    playerPokemonIndividual,
     pokemonEncounter,
   });
 
   const wildPokemonIndividual = createRandomIndividual(pokemonEncounter);
 
-  currentAllyPokemonIndividual = playerPokemonIndividual;
   currentOpponentPokemonIndividual = wildPokemonIndividual;
 
   updateOpponentPokemon();
   updateAllyPokemon();
 
   const pokemonDescText = document.getElementById("playerPokemonAction");
-  pokemonDescText.textContent = `What will ${playerStarterPokemon} do?`;
+  pokemonDescText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
 
   const battleScene = document.querySelector(".battle-scene");
   battleScene.style.display = "block";
 
-  loadPokemonIndividualMoves(playerPokemonIndividual);
+  loadPokemonIndividualMoves(currentAllyPokemonIndividual);
 
   allowUserAction = true;
 };
