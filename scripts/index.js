@@ -127,7 +127,6 @@ const dialogueObject = [
       `Phew, that was a tough decision! But now, I've got my very first Pokémon! This is just the beginning.`,
     buttonText: "Continue",
     backgroundImage: "",
-    action: () => playSound("caughtpokemon.mp3"),
   },
   {
     name: "",
@@ -207,15 +206,16 @@ const loadPokemonIndividualMoves = (pokemonIndividual) => {
 document.getElementById("skill1")
 
 const allyUseMove = (buttonId) => {
+  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do")
   if (!allowUserAction) return;
   allowUserAction = false;
 
   const moveId = currentAllyPokemonIndividual.moves[buttonId]
   const move = moves[moveId]
+  console.log(move.name)
+  allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
 
   console.log("Ally used " + moveId, move)
-
-  
 
   move.performMove(currentOpponentPokemonIndividual, currentAllyPokemonIndividual)
 
@@ -223,16 +223,23 @@ const allyUseMove = (buttonId) => {
   updateAllyPokemon()
 
   if (currentAllyPokemonIndividual.currentHp == 0) {
+    setTimeout(() => pokemonFaintedText(currentAllyPokemonIndividual), 2000)
     console.log("You dead");
     //presentFailScreen();
     return;
   }
 
   if (currentOpponentPokemonIndividual.currentHp == 0) {
+    setTimeout(() => pokemonFaintedText(currentOpponentPokemonIndividual), 2000)
     console.log("You live to tell the tale")
     return;
   }
-  doAIMove()
+  setTimeout(doAIMove, 2000)
+}
+
+const pokemonFaintedText = (pokemonIndividual) => {
+  const allyPokemonActionText = document.querySelector(".what-will-pokemon-do");
+  allyPokemonActionText.textContent = `${pokemonIndividual.pokemonType.name} fainted...`;
 }
 
 const doAIMove = () => {
@@ -324,7 +331,6 @@ const allPokemon = {
     health: healthGenerator(30),
     allySprite: bulbasaur,
     opponentSprite: wildBulbasaur,
-    damage: 2,
     moves: ["tackle"],
     specialDefenceGrowth: 2,
     physicalDefenceGrowth: 3,
@@ -337,7 +343,6 @@ const allPokemon = {
     health: healthGenerator(30),
     allySprite: charmeleon,
     opponentSprite: wildCharmander,
-    damage: 2,
     moves: ["tackle"],
     specialDefenceGrowth: 2,
     physicalDefenceGrowth: 3,
@@ -349,7 +354,6 @@ const allPokemon = {
     health: healthGenerator(30),
     allySprite: "",
     opponentSprite: wildrattata,
-    damage: 2,
     moves: ["tackle"],
     specialDefenceGrowth: 2,
     physicalDefenceGrowth: 3,
@@ -361,7 +365,6 @@ const allPokemon = {
     health: healthGenerator(30),
     allySprite: "",
     opponentSprite: wildmagnemite,
-    damage: 2,
     moves: ["tackle"],
     specialDefenceGrowth: 2,
     physicalDefenceGrowth: 3,
@@ -372,7 +375,6 @@ const allPokemon = {
     name: "Pidgey",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
-    damage: 2,
     allySprite: "",
     opponentSprite: wildPidgey,
     moves: ["tackle"],
@@ -385,7 +387,6 @@ const allPokemon = {
     name: "Snorlax",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
-    damage: 2,
     allySprite: "",
     opponentSprite: wildsnorlax,
     moves: ["tackle"],
@@ -398,7 +399,6 @@ const allPokemon = {
     name: "Butterfree",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
-    damage: 2,
     allySprite: "",
     opponentSprite: wildButterfree,
     moves: ["tackle"],
@@ -411,7 +411,6 @@ const allPokemon = {
     name: "Beedrill",
     level: levelGenerator(ROUTE1_MAX_LEVEL),
     health: healthGenerator(30),
-    damage: 2,
     allySprite: "",
     opponentSprite: wildBeedrill,
     moves: ["tackle"],
@@ -625,6 +624,7 @@ const pickPokemon = (pokemonId) => {
     playerGotStarter = true;
     pokemonScene.style.display = "none";
     playerStarterPokemon = pokemonId;
+    playSound("caughtpokemon.mp3");
   }
 };
 
@@ -647,23 +647,5 @@ const switchBattleMenu = () => {
     mainMenu.style.display = "none";
     menu.style.display = "block";
   }
-};
-
-const dealDamage = (move, pokemon1, pokemon2) => {
-
-  pokemon1Health = pokemon1.health;
-  pokemon2Health = pokemon2.health;
-
-  while(pokemon1Health > 0 || pokemon2Health > 0) {
-
-  }
-};
-
-const startBattle = (wildPokemon) => {
-  const pokemonName = wildPokemon.name;
-  const pokemonLevel = wildPokemon.level;
-  console.log(
-    `A wild ${pokemonName} (Level: ${pokemonLevel}) appears with ${pokemonHealth} HP!`
-  );
 };
 

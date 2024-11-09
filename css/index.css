@@ -348,7 +348,8 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: var(--full-hp)
+  background-color: var(--full-hp);
+  transition: width 1s ease-in-out;
 }
 
 #wildHp,
