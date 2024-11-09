@@ -27,6 +27,16 @@ const jumpingrope = "../images/pokemonjumpingrope.gif";
 const wildSquirtle = "../images/wildsquirtle.gif";
 const wildCharmander = "../images/wildcharmander.gif";
 const wildBulbasaur = "../images/wildbulbasaur.gif";
+const backgroundMusic = new Audio(`../mp3/pewtercitytheme.mp3`);
+backgroundMusic.addEventListener("ended", () => {
+  backgroundMusic.currentTime = 0;
+  backgroundMusic.play();
+});
+const battleMusic = new Audio(`../mp3/wildpokemonencounter.mp3`);
+battleMusic.addEventListener("ended", () => {
+  battleMusic.currentTime = 0;
+  battleMusic.play();
+});
 let prevDialogDiv = null;
 let currentAllyPokemonIndividual = null;
 let currentOpponentPokemonIndividual = null;
@@ -34,6 +44,7 @@ let currentOpponentPokemonIndividual = null;
 const ROUTE1_MAX_LEVEL = 5;
 
 let allowUserAction = false;
+let pokemonFightActive = false;
 
 const calculateDamage = (baseDamage, attackStat, defenseStat) => {
   return (baseDamage * attackStat) / defenseStat;
@@ -230,6 +241,9 @@ document.getElementById("skill1");
 const allyUseMove = async (buttonId) => {
   const allyPokemonActionText = document.getElementById("playerPokemonAction");
   if (!allowUserAction) return;
+  if (buttonId != 0) {
+    return;
+  }
   allowUserAction = false;
   const moveId = currentAllyPokemonIndividual.moves[buttonId];
   const move = moves[moveId];
@@ -641,19 +655,35 @@ const route1 = [
 ];
 
 //Starts game music when the game starts.
-const startGameMusic = (music, duration) => {
-  let audio = new Audio(`../mp3/${music}`);
-  audio.volume = 0;
-  audio.play();
+const startGameMusic = (duration) => {
+  battleMusic.pause();
+  backgroundMusic.volume = 0;
+  backgroundMusic.currentTime = 0;
+  backgroundMusic.play();
 
-  audio.addEventListener("ended", () => {
-    audio.currentTime = 0;
-    audio.play();
+  backgroundMusic.addEventListener("ended", () => {
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.play();
   });
-
   let fadeInterval = setInterval(() => {
-    if (audio.volume < 0.1) {
-      audio.volume = Math.min(audio.volume + 0.05, 0.1);
+    if (backgroundMusic.volume < 0.1) {
+      backgroundMusic.volume = Math.min(backgroundMusic.volume + 0.05, 0.1);
+    } else {
+      clearInterval(fadeInterval);
+    }
+  }, duration / 20);
+};
+
+const startBattleMusic = (duration) => {
+  backgroundMusic.pause();
+  battleMusic.volume = 0;
+  battleMusic.currentTime = 0;
+  battleMusic.play();
+
+ 
+  let fadeInterval = setInterval(() => {
+    if (battleMusic.volume < 0.1) {
+      battleMusic.volume = Math.min(battleMusic.volume + 0.05, 0.1);
     } else {
       clearInterval(fadeInterval);
     }
@@ -728,6 +758,11 @@ const pokemonBattleScene = (pokemonEncounter) => {
   console.log("pokemonBattleScene", {
     pokemonEncounter,
   });
+
+  if (!pokemonFightActive) {
+    startBattleMusic(0)
+    pokemonFightActive = true;
+  }
 
   const wildPokemonIndividual = createRandomIndividual(pokemonEncounter);
 
