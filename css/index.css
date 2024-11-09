@@ -319,6 +319,15 @@ body {
   top: 30%;
 }
 
+.currency-container {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background-color: beige;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .player-pokemon img {
   width: 30%;
   position: absolute;

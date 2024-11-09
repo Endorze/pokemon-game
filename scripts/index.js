@@ -1,6 +1,6 @@
 const { ALL_POKEMON } = allPokemonModule;
 const { ROUTE1 } = route1Module;
-
+let pokeCurrency = 0;
 let currentBackground = -1;
 let playerName = "";
 let playerHealth = 20;
@@ -253,15 +253,13 @@ const allyUseMove = async (buttonId) => {
   if (currentOpponentPokemonIndividual.currentHp == 0) {
     await sleep(2000);
     pokemonFaintedText(currentOpponentPokemonIndividual);
-
+    generatePokeCoins(currentOpponentPokemonIndividual.level);
     levelUpPokemon(
       currentAllyPokemonIndividual,
       currentOpponentPokemonIndividual.pokemonType.baseExp
     );
     updateAllyPokemon();
-
     console.log("You live to tell the tale");
-
     pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)])
     return;
   }
@@ -273,9 +271,6 @@ const allyUseMove = async (buttonId) => {
   allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
 };
 
-const beginRandomEncounter = () => {
-  
-}
 
 const pokemonFaintedText = (pokemonIndividual) => {
   const allyPokemonActionText = document.getElementById("playerPokemonAction");
@@ -283,9 +278,6 @@ const pokemonFaintedText = (pokemonIndividual) => {
 
   setTimeout(() => {
     allyPokemonActionText.textContent = `${pokemonIndividual.pokemonType.name} fainted...`;
-    setTimeout(() => {
-      allyPokemonActionText.textContent = `You won the battle.`;
-    }, 1000);
   }, 1000);
 };
 
@@ -320,6 +312,19 @@ const allyAttackAnimation = () => {
     { once: true }
   );
 };
+
+const generatePokeCoins = (wildPokemonlevel) => {
+
+  for (let i = 0; i < wildPokemonlevel; i++) {
+    for(let j = 0; j <= 10; j++) {
+      pokeCurrency += Math.floor(Math.random(5) * wildPokemonlevel + 1);
+    }
+  }
+
+  const pokedollars = document.getElementById("pokedollars")
+  pokedollars.textContent = "Pokédollars: " + pokeCurrency + "$";
+
+}
 
 const opponentAttackAnimation = () => {
   const allySprite = document.getElementById("player-pokemon-image");

@@ -56,6 +56,18 @@ var route1Module = (function (utilsModule) {
       pokemonId: "caterpie",
       level: levelGenerator(ROUTE1_MAX_LEVEL),
     },
+    {
+      pokemonId: "pidgeotto",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "pidgeott",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "raticate",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
   ];
   return {
     ROUTE1
