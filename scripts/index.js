@@ -1,3 +1,6 @@
+const { ALL_POKEMON } = allPokemonModule;
+const { ROUTE1 } = route1Module;
+
 let currentBackground = -1;
 let playerName = "";
 let playerHealth = 20;
@@ -14,23 +17,7 @@ const pikachuElectric = " ../images/pikachuelectricity.gif";
 const redImage = "../images/rivalred.png";
 const charmanderImage = "../images/charmander.png";
 const redPokeball = "../images/red.avif";
-const wildrattata = "../images/rattata.gif";
-const wildmagnemite = "../images/magnemite.gif";
-const wildPidgey = "../images/pidgey.gif";
-const squirtle = "../images/squirtle.webp";
-const wildsnorlax = "../images/snorlax.gif";
-const bulbasaur = "../images/bulbasaur.png";
-const charmeleon = "../images/charmeleon.webp";
-const wildButterfree = "../images/butterfree.gif";
-const wildBeedrill = "../images/beedrill.gif";
 const jumpingrope = "../images/pokemonjumpingrope.gif";
-const wildSquirtle = "../images/wildsquirtle.gif";
-const wildCharmander = "../images/wildcharmander.gif";
-const wildBulbasaur = "../images/wildbulbasaur.gif";
-const wildKakuna = "../images/wildkakuna.gif";
-const wildWeedle = "../images/wildweelde.gif";
-const wildCaterpie = "../images/wildcaterpie.gif";
-const wildMetapod = "../images/wildmetapod.gif";
 const backgroundMusic = new Audio(`../mp3/pewtercitytheme.mp3`);
 backgroundMusic.addEventListener("ended", () => {
   backgroundMusic.currentTime = 0;
@@ -45,7 +32,7 @@ let prevDialogDiv = null;
 let currentAllyPokemonIndividual = null;
 let currentOpponentPokemonIndividual = null;
 
-const ROUTE1_MAX_LEVEL = 5;
+
 
 let allowUserAction = false;
 let pokemonFightActive = false;
@@ -205,24 +192,14 @@ const dialogueObject = [
     backgroundImage: forest,
     action: () => {
       currentAllyPokemonIndividual = playerPokemonList[0]
-      pokemonBattleScene(route1[randomWildPokemon(route1)])
+      pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)])
     },
   },
 ];
 
-const healthGenerator = (baseHp) => {
-  return (level) => {
-    return 10 + level + Math.floor(level * 0.01 * 2 * baseHp);
-  };
-};
 
-const levelGenerator = (MAX_LEVEL) => {
-  return () => {
-    let randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
-    console.log("levelGenerator" + randomLevel);
-    return randomLevel;
-  };
-};
+
+
 
 const pickFourRandomMoves = (pokemonType, level) => {
   // TODO
@@ -261,6 +238,7 @@ const allyUseMove = async (buttonId) => {
     currentAllyPokemonIndividual
   );
   allyAttackAnimation();
+  playSound("hit.mp3")
   updateOpponentPokemon();
   updateAllyPokemon();
 
@@ -284,7 +262,7 @@ const allyUseMove = async (buttonId) => {
 
     console.log("You live to tell the tale");
 
-    pokemonBattleScene(route1[randomWildPokemon(route1)])
+    pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)])
     return;
   }
 
@@ -400,6 +378,7 @@ const doAIMove = () => {
     currentAllyPokemonIndividual,
     currentOpponentPokemonIndividual
   );
+  playSound("hit.mp3")
   // Update ally
   updateAllyPokemon();
   // Update opponent
@@ -684,6 +663,7 @@ const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
 };
 
 const pickPokemon = (pokemonId) => {
+  console.log(ALL_POKEMON)
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   if (!playerGotStarter) {
     const pokemonType = ALL_POKEMON[pokemonId];
