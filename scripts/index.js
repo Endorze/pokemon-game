@@ -27,6 +27,10 @@ const jumpingrope = "../images/pokemonjumpingrope.gif";
 const wildSquirtle = "../images/wildsquirtle.gif";
 const wildCharmander = "../images/wildcharmander.gif";
 const wildBulbasaur = "../images/wildbulbasaur.gif";
+const wildKakuna = "../images/wildkakuna.gif";
+const wildWeedle = "../images/wildweelde.gif";
+const wildCaterpie = "../images/wildcaterpie.gif";
+const wildMetapod = "../images/wildmetapod.gif";
 const backgroundMusic = new Audio(`../mp3/pewtercitytheme.mp3`);
 backgroundMusic.addEventListener("ended", () => {
   backgroundMusic.currentTime = 0;
@@ -444,7 +448,7 @@ const healPokemon = (pokemonIndividual, healAmount) => {
 };
 
 const createRandomIndividual = (pokemonEncounter) => {
-  const wildPokemonType = allPokemon[pokemonEncounter.pokemonId];
+  const wildPokemonType = ALL_POKEMON[pokemonEncounter.pokemonId];
   const wildPokemonLevel = pokemonEncounter.level();
   const wildPokemonMoves = pickFourRandomMoves(
     wildPokemonType,
@@ -499,160 +503,10 @@ const levelUpPokemon = (pokemonIndividual, experience) => {
 };
 
 // List of pokemonType
-const allPokemon = {
-  squirtle: {
-    name: "Squirtle",
-    health: healthGenerator(30),
-    allySprite: squirtle,
-    opponentSprite: wildSquirtle,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  bulbasaur: {
-    name: "Bulbasaur",
-    health: healthGenerator(30),
-    allySprite: bulbasaur,
-    opponentSprite: wildBulbasaur,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  charmander: {
-    name: "Charmander",
-    health: healthGenerator(30),
-    allySprite: charmeleon,
-    opponentSprite: wildCharmander,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  rattata: {
-    name: "Rattata",
-    health: healthGenerator(30),
-    allySprite: "",
-    opponentSprite: wildrattata,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  magnemite: {
-    name: "Magnemite",
-    health: healthGenerator(30),
-    allySprite: "",
-    opponentSprite: wildmagnemite,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  pidgey: {
-    name: "Pidgey",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-    health: healthGenerator(30),
-    allySprite: "",
-    opponentSprite: wildPidgey,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  snorlax: {
-    name: "Snorlax",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-    health: healthGenerator(30),
-    allySprite: "",
-    opponentSprite: wildsnorlax,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  butterfree: {
-    name: "Butterfree",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-    health: healthGenerator(30),
-    allySprite: "",
-    opponentSprite: wildButterfree,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-  beedrill: {
-    name: "Beedrill",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-    health: healthGenerator(30),
-    allySprite: "",
-    opponentSprite: wildBeedrill,
-    moves: ["tackle"],
-    specialDefenceGrowth: 2,
-    physicalDefenceGrowth: 3,
-    specialDamageGrowth: 3,
-    physicalDamageGrowth: 1,
-    baseExp: 100,
-  },
-};
+
 
 // List of pokemonEncounter
-const route1 = [
-  {
-    pokemonId: "rattata",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "magnemite",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "pidgey",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "snorlax",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "butterfree",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "beedrill",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "charmander",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "squirtle",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-  {
-    pokemonId: "bulbasaur",
-    level: levelGenerator(ROUTE1_MAX_LEVEL),
-  },
-];
+
 
 //Starts game music when the game starts.
 const startGameMusic = (duration) => {
@@ -789,8 +643,7 @@ const updateOpponentPokemon = () => {
 
   wiPokemon.textContent = currentOpponentPokemonIndividual.pokemonType.name;
   wiLevel.textContent = "level " + currentOpponentPokemonIndividual.level;
-  wiPokemonSprite.src =
-    currentOpponentPokemonIndividual.pokemonType.opponentSprite;
+  wiPokemonSprite.src = "../pokemon/" + currentOpponentPokemonIndividual.pokemonType.id + "/front.gif"
 
   updateHealthBar(currentOpponentPokemonIndividual, "wildHp", "opponentHpBar");
 };
@@ -802,7 +655,7 @@ const updateAllyPokemon = () => {
 
   plPokemon.textContent = currentAllyPokemonIndividual.pokemonType.name;
   plLevel.textContent = "level " + currentAllyPokemonIndividual.level;
-  plPokemonSprite.src = currentAllyPokemonIndividual.pokemonType.allySprite;
+  plPokemonSprite.src = "../pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
 
   updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar");
 };
@@ -833,7 +686,7 @@ const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
 const pickPokemon = (pokemonId) => {
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   if (!playerGotStarter) {
-    const pokemonType = allPokemon[pokemonId];
+    const pokemonType = ALL_POKEMON[pokemonId];
     playerPokemonList.push(
       createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
     );

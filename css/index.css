@@ -313,10 +313,10 @@ body {
 }
 
 .wild-pokemon img {
-  width: 20%;
+  height: 150px;
   position: absolute;
   right: 20%;
-  top: 20%;
+  top: 30%;
 }
 
 .player-pokemon img {
@@ -358,7 +358,7 @@ body {
 }
 
 .attack-move {
-  animation: moveToAndBack 0.5s ease-in-out forwards;
+  animation: moveToAndBack 0.3s ease-in-out forwards;
 }
 
 @keyframes fadeIn {
