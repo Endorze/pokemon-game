@@ -158,6 +158,7 @@ const dialogueObject = [
       `Phew, that was a tough decision! But now, I've got my very first Pokémon! This is just the beginning.`,
     buttonText: "Continue",
     backgroundImage: "",
+    action: () => playSound("caughtpokemon.mp3")
   },
   {
     name: "",
@@ -193,11 +194,12 @@ const dialogueObject = [
       `Normally i would be scared of going out on my own, but right now i'm not on my own, i got my strong ${playerStarterPokemon}, lets go to Route 1!`,
     buttonText: "Continue",
     backgroundImage: pokemonCity,
+    action: () => playSound("rustlingbushes.mp3")
   },
   {
     name: "",
-    text: () => `"You hear rustling coming from the bush"`,
-    buttonText: "Continue",
+    text: () => `You hear rustling coming from the bush. *you go closer to investigate*.`,
+    buttonText: "Hello?",
     backgroundImage: forest,
     action: () => {
       currentAllyPokemonIndividual = playerPokemonList[0];
@@ -709,7 +711,6 @@ const pickPokemon = (pokemonId) => {
     playerGotStarter = true;
     pokemonScene.style.display = "none";
     playerStarterPokemon = pokemonId;
-    playSound("caughtpokemon.mp3");
   }
 };
 
