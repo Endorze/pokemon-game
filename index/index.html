@@ -27,6 +27,11 @@
     </div>
     <header class="header"></header>
     <div class="gaming-window">
+      <div id="town">
+        <div id="townbackground">
+  
+        </div>
+      </div>
         <div id="run-away-popup">
             <div id="run-away-window">
                 <h2>Are you sure you want to run away?</h2>
@@ -58,33 +63,15 @@
           <button onclick="self.close()">Quit Game</button>
         </div>
       </div>
-      <div class="select-pokemon-scene">
-        <div class="starters-image">
-          <img src="../images/pickpokemon.jpg" />
-          <div class="select-pokemon-buttons">
-            <button
-              onmouseover="playSound('hover.mp3')"
-              onclick="pickPokemon('squirtle')"
-              id="squirtle-button"
-            >
-              Squirtle
-            </button>
-            <button
-              onmouseover="playSound('hover.mp3')"
-              onclick="pickPokemon('bulbasaur')"
-              id="bulbasaur-button"
-            >
-              Bulbasaur
-            </button>
-            <button
-              onmouseover="playSound('hover.mp3')"
-              onclick="pickPokemon('charmander')"
-              id="charmander-button"
-            >
-              Charmander
-            </button>
+      <div id="select-pokemon-scene">
+          <div id="select-pokemon">
+            <img src="../pokemon/0007-squirtle/front.gif" id="squirtle" onmouseover="playSound('hover.mp3')"
+            onclick="pickPokemon('squirtle')">
+            <img src="../pokemon/0001-bulbasaur/front.gif" id="bulbasaur" onmouseover="playSound('hover.mp3')"
+            onclick="pickPokemon('bulbasaur')">
+            <img src="../pokemon/0004-charmander/front.gif" id="charmander" onmouseover="playSound('hover.mp3')"
+            onclick="pickPokemon('charmander')">
           </div>
-        </div>
         <div class="dialogue-box">
           <h2></h2>
           <p>
@@ -139,7 +126,9 @@
           </div>
           <div class="pokemon-skill-bar">
             <div class="battle-bar-button-container">
-              <button id="skill1" onclick="allyUseMove(0)"></button>
+              <button id="skill1" onclick="allyUseMove(0)">
+                <p id="move1"></p>
+              </button>
               <button id="skill2" onclick="allyUseMove(1)"></button>
             </div>
             <div class="battle-bar-button-container">

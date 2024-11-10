@@ -54,10 +54,10 @@ loading-screen img {
   position: absolute;
   display: flex;
   justify-content: center;
-  width: 60vw;
+  width: 80vw;
   height: 80vh;
   top: 20%;
-  left: 20%;
+  left: 10%;
   bottom: 20%;
   background-color: black;
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bf84c7a9-21b7-4515-8eb9-9bd6212d9031/d2yjudv-e36192f2-8bbc-4327-af98-b92fd0ffb81e.jpg/v1/fill/w_1121,h_713,q_70,strp/versus_red__battle_on_mt__silver__by_serain_d2yjudv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODE0IiwicGF0aCI6IlwvZlwvYmY4NGM3YTktMjFiNy00NTE1LThlYjktOWJkNjIxMmQ5MDMxXC9kMnlqdWR2LWUzNjE5MmYyLThiYmMtNDMyNy1hZjk4LWI5MmZkMGZmYjgxZS5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.NUI7lxwWZ7cXp22NctpR-ZbO8UFYFRr3zyV_pTfYchk");
@@ -122,6 +122,19 @@ loading-screen img {
   background-color: rgb(254, 194, 90);
 }
 
+#town {
+  position: absolute;
+}
+
+#townbackground {
+  position: absolute;
+  background-image: url("../images/town.gif");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
 #run-away-window button {
   padding: 10px;
   width: 100px;
@@ -160,70 +173,44 @@ loading-screen img {
   font-size: 1.2rem;
 }
 
-.select-pokemon-scene {
+#select-pokemon-scene {
   position: absolute;
   display: none;
   top: 0;
+  background-image: url("../images/pickstarter.jpg");
+  background-size: cover;
   min-height: 100%;
-  width: 100%;
+  min-width: 100%;
   background-color: rgb(18, 35, 82);
   z-index: 2;
 }
 
-.select-pokemon-scene img {
-  object-fit: cover;
-  width: 100%;
-}
-
-.starters-image {
-  position: relative;
-}
-
-#charmander-button {
+#select-pokemon img:hover {
   cursor: pointer;
-  position: absolute;
-  border: none;
-  width: 100px;
-  padding: 10px;
-  background-color: rgb(255, 166, 0);
-  box-shadow: 1px 0px 5px 2px rgb(255, 206, 43);
-  -webkit-box-shadow: 1px 0px 5px 2px rgb(255, 206, 43);
-  -moz-box-shadow: 1px 0px 5px 2px rgb(255, 206, 43);
-  bottom: 10%;
-  left: 18vw;
-}
-
-#squirtle-button {
-  cursor: pointer;
-  position: absolute;
-  border: none;
-  width: 100px;
-  padding: 10px;
-  background-color: rgb(120, 174, 255);
-  box-shadow: 1px 0px 5px 2px rgb(101, 237, 255);
-  -webkit-box-shadow: 1px 0px 5px 2px rgb(101, 237, 255);
-  -moz-box-shadow: 1px 0px 5px 2px rgb(101, 237, 255);
-  top: 45%;
-  left: 27vw;
-}
-
-#bulbasaur-button {
-  cursor: pointer;
-  border: none;
-  position: absolute;
-  width: 100px;
-  padding: 10px;
-  background-color: lightgreen;
-  box-shadow: 1px 0px 5px 2px rgb(162, 250, 135);
-  -webkit-box-shadow: 1px 0px 5px 2px rgb(162, 250, 135);
-  -moz-box-shadow: 1px 0px 5px 2px rgb(162, 250, 135);
-  top: 45%;
-  left: 10vw;
-}
-
-.select-pokemon-buttons button:hover {
   background-color: lightgray;
   color: white;
+}
+
+#select-pokemon img {
+  height: 200px;
+}
+
+#squirtle {
+  position: absolute;
+  left: 12%;
+  top: 40%;
+}
+
+#bulbasaur {
+  position: absolute;
+  left: 42%;
+  top: 40%;
+}
+
+#charmander {
+  position: absolute;
+  left: 75%;
+  top: 40%;
 }
 
 .animated-text {
@@ -373,7 +360,7 @@ loading-screen img {
 .player-pokemon img {
   width: 30%;
   position: absolute;
-  bottom: 15%;
+  bottom: 5%;
   left: 10%;
 }
 

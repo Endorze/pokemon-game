@@ -44,6 +44,11 @@ const sleep = async (millis) =>
   new Promise((resolve) => setTimeout(resolve, millis));
 
 const toggleLoadingScreen = async () => {
+  if (!loadingScreenActive) {
+    loadingScreen.style.display = "flex";
+    loadingScreenActive = true;
+    return;
+  }
   if (loadingScreenActive) {
     await sleep(5000);
     loadingScreen.style.display = "none";
@@ -237,6 +242,7 @@ const allyUseMove = async (buttonId) => {
   allowUserAction = false;
   const moveId = currentAllyPokemonIndividual.moves[buttonId];
   const move = moves[moveId];
+  console.log(move.numberOfUses);
 
   await sleep(500);
 
@@ -415,9 +421,11 @@ const runFromBattlePopup = () => {
   runAwayPopup.style.display = "block";
 };
 
-const runFromBattle = () => {
+const runFromBattle = async () => {
   const battleScene = document.querySelector(".battle-scene");
   const runAwayPopup = document.getElementById("run-away-popup");
+  toggleLoadingScreen();
+  await sleep(2000);
   runAwayPopup.style.display = "none";
   battleScene.style.display = "none";
   startGameMusic();
@@ -620,7 +628,7 @@ const dialogue = (dialogueData) => {
 
 //Starts the scene where the player gets to pick starter pokemon.
 const pokemonStarterScene = () => {
-  const pokemonScene = document.querySelector(".select-pokemon-scene");
+  const pokemonScene = document.getElementById("select-pokemon-scene");
   pokemonScene.style.display = "block";
   console.log("Jag körde pickpokemon funktionen");
 };
@@ -706,7 +714,7 @@ const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
 
 const pickPokemon = (pokemonId) => {
   console.log(ALL_POKEMON);
-  const pokemonScene = document.querySelector(".select-pokemon-scene");
+  const pokemonScene = document.getElementById("select-pokemon-scene");
   if (!playerGotStarter) {
     const pokemonType = ALL_POKEMON[pokemonId];
     playerPokemonList.push(
