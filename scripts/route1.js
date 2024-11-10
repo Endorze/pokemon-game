@@ -68,6 +68,50 @@ var route1Module = (function (utilsModule) {
       pokemonId: "raticate",
       level: levelGenerator(ROUTE1_MAX_LEVEL),
     },
+    {
+      pokemonId: "fearow",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "spearow",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "ekans",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "arbok",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "pikachu",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "raichu",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "eevee",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "mimikyu",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "rockruff",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "jigglypuff",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
+    {
+      pokemonId: "mew",
+      level: levelGenerator(ROUTE1_MAX_LEVEL),
+    },
   ];
   return {
     ROUTE1
