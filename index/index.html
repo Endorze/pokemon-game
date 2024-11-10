@@ -27,6 +27,16 @@
     </div>
     <header class="header"></header>
     <div class="gaming-window">
+        <div id="run-away-popup">
+            <div id="run-away-window">
+                <h2>Are you sure you want to run away?</h2>
+                <p>If you run now you've gotten 20 pokedollars.</p>
+                <div>
+                    <button>Yes</button>
+                    <button>No</button>
+                </div>
+            </div>
+        </div>
       <div class="start-screen">
         <div class="start-screen-title">
           <h2>A tale of Pokémon and Fire</h2>
@@ -120,7 +130,7 @@
             <div class="battle-bar-button-container">
               <button
                 style="background-color: #81d4fa"
-                onclick="runFromBattle()"
+                onclick="runFromBattlePopup()"
               >
                 Run
               </button>

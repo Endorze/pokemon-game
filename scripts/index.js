@@ -408,20 +408,11 @@ const doAIMove = () => {
   allowUserAction = true;
 };
 
-const runFromBattle = () => {
+const runFromBattlePopup = () => {
   const battleScene = document.querySelector(".battle-scene");
-  let answer = prompt(
-    "Are you sure you want to run from the battle? Yes or No?"
-  );
-  if (answer.toLowerCase() === "yes") {
-    battleScene.style.display = "none";
-    startGameMusic();
-    return;
-  } else if (answer.toLowerCase() === "no") {
-    return;
-  } else {
-    alert("Please enter 'yes' or 'no'");
-  }
+  const runAwayPopup = document.getElementById("run-away-popup");
+
+  runAwayPopup.style.display = "block";
 };
 
 const startGame = async () => {

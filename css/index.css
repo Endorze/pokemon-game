@@ -64,7 +64,6 @@ loading-screen img {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
 }
 
 .start-screen {
@@ -103,7 +102,30 @@ loading-screen img {
   color: orange;
 }
 
+#run-away-popup {
+  display: none;
+  z-index: 3;
+}
 
+#run-away-window {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  top: 30%;
+  left: 30%;
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  background-color: rgb(254, 194, 90);
+}
+
+#run-away-window button {
+  padding: 10px;
+  width: 100px;
+}
 
 .start-screen-buttons button:hover {
   cursor: pointer;
