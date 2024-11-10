@@ -10,7 +10,9 @@ html {
 }
 
 body {
-  background-color: black;
+  background-image: url("../images/cutebackground.jpg");
+  background-size: cover;
+  background-position: center;
   position: relative;
   font-family: ROBOTO, arial, "Times New Roman", Times, serif;
 }
