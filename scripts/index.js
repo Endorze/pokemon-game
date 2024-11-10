@@ -86,6 +86,7 @@ const moves = {
     name: "Tackle",
     baseDamage: 20,
     priority: 1,
+    numberOfUses: 40,
     performMove: simplePhysicalMove,
     performAllyAnimation: () => {},
     performOpponentAnimation: () => {},
@@ -105,6 +106,7 @@ const moves = {
     name: "Quick Attack",
     baseDamage: 40,
     priority: 2,
+    numberOfUses: 20,
     performMove: simplePhysicalMove,
   },
 };
@@ -409,11 +411,22 @@ const doAIMove = () => {
 };
 
 const runFromBattlePopup = () => {
-  const battleScene = document.querySelector(".battle-scene");
   const runAwayPopup = document.getElementById("run-away-popup");
-
   runAwayPopup.style.display = "block";
 };
+
+const runFromBattle = () => {
+  const battleScene = document.querySelector(".battle-scene");
+  const runAwayPopup = document.getElementById("run-away-popup");
+  runAwayPopup.style.display = "none";
+  battleScene.style.display = "none";
+  startGameMusic();
+}
+
+const closeRunFromBattlePopup = () => {
+  const runAwayPopup = document.getElementById("run-away-popup");
+  runAwayPopup.style.display = "none";
+}
 
 const startGame = async () => {
   playSound("start-game.mp3");
