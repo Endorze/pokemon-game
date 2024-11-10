@@ -1,4 +1,4 @@
-var allPokemonModule = (function () {
+var pokemonModule = (function () {
   const healthGenerator = (baseHp) => {
     return (level) => {
       return 10 + level + Math.floor(level * 0.01 * 2 * baseHp);

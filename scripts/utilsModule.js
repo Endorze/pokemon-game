@@ -1,4 +1,8 @@
 var utilsModule = (function () {
+  
+  const sleep = async (millis) =>
+    new Promise((resolve) => setTimeout(resolve, millis));
+
   const levelGenerator = (MAX_LEVEL) => {
     return () => {
       let randomLevel = Math.floor(Math.random() * MAX_LEVEL) + 1;
@@ -8,5 +12,6 @@ var utilsModule = (function () {
   };
   return {
     levelGenerator,
+    sleep
   };
 })();
