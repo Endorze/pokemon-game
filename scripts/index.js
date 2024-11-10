@@ -34,7 +34,7 @@ let currentOpponentPokemonIndividual = null;
 let allowUserAction = false;
 let pokemonFightActive = false;
 let loadingScreenActive = true;
-const loadingScreen = document.getElementById("loading-screen")
+const loadingScreen = document.getElementById("loading-screen");
 
 const calculateDamage = (baseDamage, attackStat, defenseStat) => {
   return (baseDamage * attackStat) / defenseStat;
@@ -50,9 +50,7 @@ const toggleLoadingScreen = async () => {
     loadingScreenActive = false;
     return;
   }
-
-}
-
+};
 toggleLoadingScreen();
 
 function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
@@ -202,15 +200,11 @@ const dialogueObject = [
     buttonText: "Continue",
     backgroundImage: forest,
     action: () => {
-      currentAllyPokemonIndividual = playerPokemonList[0]
-      pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)])
+      currentAllyPokemonIndividual = playerPokemonList[0];
+      pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
     },
   },
 ];
-
-
-
-
 
 const pickFourRandomMoves = (pokemonType, level) => {
   // TODO
@@ -249,7 +243,7 @@ const allyUseMove = async (buttonId) => {
     currentAllyPokemonIndividual
   );
   allyAttackAnimation();
-  playSound("hit.mp3")
+  playSound("hit.mp3");
   updateOpponentPokemon();
   updateAllyPokemon();
 
@@ -271,7 +265,7 @@ const allyUseMove = async (buttonId) => {
     );
     updateAllyPokemon();
     console.log("You live to tell the tale");
-    pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)])
+    pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
     return;
   }
 
@@ -281,7 +275,6 @@ const allyUseMove = async (buttonId) => {
   await sleep(2500);
   allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
 };
-
 
 const pokemonFaintedText = (pokemonIndividual) => {
   const allyPokemonActionText = document.getElementById("playerPokemonAction");
@@ -325,17 +318,15 @@ const allyAttackAnimation = () => {
 };
 
 const generatePokeCoins = (wildPokemonlevel) => {
-
   for (let i = 0; i < wildPokemonlevel; i++) {
-    for(let j = 0; j <= 10; j++) {
+    for (let j = 0; j <= 10; j++) {
       pokeCurrency += Math.floor(Math.random(5) * wildPokemonlevel + 1);
     }
   }
 
-  const pokedollars = document.getElementById("pokedollars")
+  const pokedollars = document.getElementById("pokedollars");
   pokedollars.textContent = "Pokédollars: " + pokeCurrency + "$";
-
-}
+};
 
 const opponentAttackAnimation = () => {
   const allySprite = document.getElementById("player-pokemon-image");
@@ -372,7 +363,7 @@ const opponentAttackAnimation = () => {
 const setInfoBoxText = (text) => {
   const allyPokemonActionText = document.getElementById("playerPokemonAction");
   allyPokemonActionText.textContent = text;
-} 
+};
 
 const endBattle = () => {};
 
@@ -394,7 +385,7 @@ const doAIMove = () => {
     currentAllyPokemonIndividual,
     currentOpponentPokemonIndividual
   );
-  playSound("hit.mp3")
+  playSound("hit.mp3");
   // Update ally
   updateAllyPokemon();
   // Update opponent
@@ -416,8 +407,10 @@ const doAIMove = () => {
 };
 
 const runFromBattle = () => {
-  const battleScene = document.querySelector(".battle-scene")
-  let answer = prompt("Are you sure you want to run from the battle? Yes or No?")
+  const battleScene = document.querySelector(".battle-scene");
+  let answer = prompt(
+    "Are you sure you want to run from the battle? Yes or No?"
+  );
   if (answer.toLowerCase() === "yes") {
     battleScene.style.display = "none";
     startGameMusic();
@@ -427,7 +420,16 @@ const runFromBattle = () => {
   } else {
     alert("Please enter 'yes' or 'no'");
   }
-  
+};
+
+const startGame = async () => {
+  playSound("start-game.mp3");
+  await sleep(1500);
+  switchBackground();
+};
+
+const nextScene = async () => {
+  switchBackground();
 }
 // List of pokemonIndividual
 const playerPokemonList = [
@@ -513,9 +515,7 @@ const levelUpPokemon = (pokemonIndividual, experience) => {
 
 // List of pokemonType
 
-
 // List of pokemonEncounter
-
 
 //Starts game music when the game starts.
 const startGameMusic = (duration) => {
@@ -543,7 +543,6 @@ const startBattleMusic = (duration) => {
   battleMusic.currentTime = 0;
   battleMusic.play();
 
- 
   let fadeInterval = setInterval(() => {
     if (battleMusic.volume < 0.1) {
       battleMusic.volume = Math.min(battleMusic.volume + 0.05, 0.1);
@@ -574,6 +573,7 @@ const switchBackground = () => {
 
 //Sets the dialogue text, uses switchBackground to switch out background image and text.
 const dialogue = (dialogueData) => {
+  allowUserAction = true;
   const gamingWindow = document.querySelector(".gaming-window");
   gamingWindow.style.backgroundImage = `url('${dialogueData.backgroundImage}')`;
 
@@ -590,10 +590,12 @@ const dialogue = (dialogueData) => {
   const button = document.createElement("button");
   button.classList.add("animated-button");
   button.textContent = dialogueData.buttonText;
-  button.addEventListener("click", () => {
-    if (button.textContent) {
-      setTimeout(switchBackground, 200);
+  button.addEventListener("click", async () => {
+    if (allowUserAction) {
       playSound("hover.mp3");
+      allowUserAction = false;
+      await sleep(1000);
+      nextScene();
 
       if (dialogueData.action) {
         dialogueData.action();
@@ -623,7 +625,7 @@ const pokemonBattleScene = (pokemonEncounter) => {
   });
 
   if (!pokemonFightActive) {
-    startBattleMusic(0)
+    startBattleMusic(0);
     pokemonFightActive = true;
   }
 
@@ -652,7 +654,10 @@ const updateOpponentPokemon = () => {
 
   wiPokemon.textContent = currentOpponentPokemonIndividual.pokemonType.name;
   wiLevel.textContent = "level " + currentOpponentPokemonIndividual.level;
-  wiPokemonSprite.src = "../pokemon/" + currentOpponentPokemonIndividual.pokemonType.id + "/front.gif"
+  wiPokemonSprite.src =
+    "../pokemon/" +
+    currentOpponentPokemonIndividual.pokemonType.id +
+    "/front.gif";
 
   updateHealthBar(currentOpponentPokemonIndividual, "wildHp", "opponentHpBar");
 };
@@ -664,7 +669,8 @@ const updateAllyPokemon = () => {
 
   plPokemon.textContent = currentAllyPokemonIndividual.pokemonType.name;
   plLevel.textContent = "level " + currentAllyPokemonIndividual.level;
-  plPokemonSprite.src = "../pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
+  plPokemonSprite.src =
+    "../pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
 
   updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar");
 };
@@ -693,7 +699,7 @@ const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
 };
 
 const pickPokemon = (pokemonId) => {
-  console.log(ALL_POKEMON)
+  console.log(ALL_POKEMON);
   const pokemonScene = document.querySelector(".select-pokemon-scene");
   if (!playerGotStarter) {
     const pokemonType = ALL_POKEMON[pokemonId];
