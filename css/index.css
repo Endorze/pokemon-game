@@ -177,8 +177,9 @@ loading-screen img {
   position: absolute;
   display: none;
   top: 0;
-  background-image: url("../images/pickstarter.jpg");
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2f034c12-720e-4a22-b1a2-26daad0a7bd7/d5ykndk-7c29cc3c-c01d-4b04-a5d2-450ca30301d9.jpg/v1/fill/w_1246,h_641,q_70,strp/pokemon_center__udk__by_atomicwasabi_d5ykndk-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTg2IiwicGF0aCI6IlwvZlwvMmYwMzRjMTItNzIwZS00YTIyLWIxYTItMjZkYWFkMGE3YmQ3XC9kNXlrbmRrLTdjMjljYzNjLWMwMWQtNGIwNC1hNWQyLTQ1MGNhMzAzMDFkOS5qcGciLCJ3aWR0aCI6Ijw9MTkxNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.jcN8en60BbiJtFFtXwA2ncGkTI9QreTTx89l8JuNFhI");
   background-size: cover;
+  background-position: center;
   min-height: 100%;
   min-width: 100%;
   background-color: rgb(18, 35, 82);
@@ -187,8 +188,7 @@ loading-screen img {
 
 #select-pokemon img:hover {
   cursor: pointer;
-  background-color: lightgray;
-  color: white;
+  height: 250px;
 }
 
 #select-pokemon img {
@@ -197,7 +197,7 @@ loading-screen img {
 
 #squirtle {
   position: absolute;
-  left: 12%;
+  left: 22%;
   top: 40%;
 }
 
@@ -209,7 +209,7 @@ loading-screen img {
 
 #charmander {
   position: absolute;
-  left: 75%;
+  left: 65%;
   top: 40%;
 }
 
