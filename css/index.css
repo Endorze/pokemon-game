@@ -17,6 +17,24 @@ body {
   font-family: ROBOTO, arial, "Times New Roman", Times, serif;
 }
 
+#loading-screen {
+  min-width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  background-color: black;
+  z-index: 10;
+  animation: fadeOut 5s ease-out forwards;
+}
+
+loading-screen img {
+  height: 100px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -378,6 +396,27 @@ body {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
   }
 }
 

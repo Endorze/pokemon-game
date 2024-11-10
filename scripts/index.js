@@ -31,11 +31,10 @@ battleMusic.addEventListener("ended", () => {
 let prevDialogDiv = null;
 let currentAllyPokemonIndividual = null;
 let currentOpponentPokemonIndividual = null;
-
-
-
 let allowUserAction = false;
 let pokemonFightActive = false;
+let loadingScreenActive = true;
+const loadingScreen = document.getElementById("loading-screen")
 
 const calculateDamage = (baseDamage, attackStat, defenseStat) => {
   return (baseDamage * attackStat) / defenseStat;
@@ -43,6 +42,18 @@ const calculateDamage = (baseDamage, attackStat, defenseStat) => {
 
 const sleep = async (millis) =>
   new Promise((resolve) => setTimeout(resolve, millis));
+
+const toggleLoadingScreen = async () => {
+  if (loadingScreenActive) {
+    await sleep(5000);
+    loadingScreen.style.display = "none";
+    loadingScreenActive = false;
+    return;
+  }
+
+}
+
+toggleLoadingScreen();
 
 function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
   const damageDealt = Math.ceil(
@@ -404,6 +415,20 @@ const doAIMove = () => {
   allowUserAction = true;
 };
 
+const runFromBattle = () => {
+  const battleScene = document.querySelector(".battle-scene")
+  let answer = prompt("Are you sure you want to run from the battle? Yes or No?")
+  if (answer.toLowerCase() === "yes") {
+    battleScene.style.display = "none";
+    startGameMusic();
+    return;
+  } else if (answer.toLowerCase() === "no") {
+    return;
+  } else {
+    alert("Please enter 'yes' or 'no'");
+  }
+  
+}
 // List of pokemonIndividual
 const playerPokemonList = [
   // {

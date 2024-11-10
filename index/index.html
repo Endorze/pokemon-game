@@ -1,129 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <script src="../scripts/utils.js"></script>
-    <script src="../scripts/allpokemon.js"></script>
-    <script src="../scripts/route1.js"></script>
-    <script src="../scripts/index.js"></script>
+    <link rel="stylesheet" href="../css/index.css" />
+    <script src="../scripts/utils.js" defer></script>
+    <script src="../scripts/allpokemon.js" defer></script>
+    <script src="../scripts/route1.js" defer></script>
+    <script src="../scripts/index.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet" />
-</head>
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-    <header class="header">
-    </header>
-    <div class="gaming-window">
-        <div class="start-screen">
-            <div class="start-screen-title">
-                <h2>A tale of Pokémon and Fire</h2>
-            </div>
-            <div class="start-screen-copyright-text">
-                <p>This website contains material that is protected by copyright. I acknowledge and respect copyright
-                    and do not own rights to this material.</p>
-            </div>
-            <div class="start-screen-buttons">
-                <button onclick="switchBackground()" onmouseover="playSound('hover.mp3')">Start Game</button>
-                <button onclick="self.close()">Quit Game</button>
-            </div>
-        </div>
-        <div class="select-pokemon-scene">
-            <div class="starters-image">
-                <img src="../images/pickpokemon.jpg">
-                <div class="select-pokemon-buttons">
-                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('squirtle')" id="squirtle-button">Squirtle</button>
-                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('bulbasaur')" id="bulbasaur-button">Bulbasaur</button>
-                    <button onmouseover="playSound('hover.mp3')" onclick="pickPokemon('charmander')" id="charmander-button">Charmander</button>
-                </div>
-            </div>
-            <div class="dialogue-box">
-                <h2></h2>
-                <p>They look very excited to meet you, go on now, pick out your very first starter Pokémon!<br>
-                <p></p>
-            </div>
-        </div>
-        <div class="battle-scene">
-            <div class="currency-container">
-                <p id="pokedollars"></p>
-            </div>
-            <div class="wild-pokemon-info-container">
-                <div class="wild-pokemon-info">
-                    <div>
-                        <p id="wildpokemon">Pikachu</p>
-                        <p id="wildlevel">Level 5</p>
-                    </div>
-                    <div class="health-bar">
-                        <div id="opponentHpBar" class="health-bar-overlay"></div>
-                        <p id="wildHp"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="wild-pokemon">
-                <img src="../images/pikachu.png" id="random-wild-pokemon">
-            </div>
-            <div class="battle-bar">
-                <div class="what-will-pokemon-do">
-                    <p id="playerPokemonAction">What will charmander do?</p>
-                </div>
-                <div class="battle-bar-main-menu">
-                    <div class="battle-bar-button-container">
-                        <button style="background-color: #E57373;" onclick="switchBattleMenu()"><span>Fight</span></button>
-                        <button style="background-color: #FFF176;">Bag</button>
-                    </div>
-                    <div class="battle-bar-button-container">
-                        <button style="background-color: #81D4FA;">Run</button>
-                        <button style="background-color: #A5D6A7">Pokémon</button>
-                    </div>
-                </div>
-                <div class="pokemon-skill-bar">
-                    <div class="battle-bar-button-container">
-                        <button id="skill1" onclick="allyUseMove(0)"></button>
-                        <button id="skill2" onclick="allyUseMove(1)"></button>
-                    </div>
-                    <div class="battle-bar-button-container">
-                        <button id="skill3" onclick="allyUseMove(2)"></button>
-                        <button id="skill4" onclick="allyUseMove(3)"></button>
-                        <button onclick="switchBattleMenu()">Back</button>
-                    </div>
-                </div>
-            </div>
-            <div class="bag-bar">
-                <div>
-                    <button>Fight</button>
-                    <button>Bag</button>
-                </div>
-                <div>
-                    <button>Run</button>
-                    <button>Pokémon</button>
-                </div>
-            </div>
-            <div class="items-bar">
-             
-            </div>
-            <div class="player-pokemon-info-container">
-                <div class="player-pokemon-info">
-                    <div>
-                        <p id="playerpokemon"></p>
-                        <p id="playerlevel"></p>
-                    </div>
-                    <div class="health-bar">
-                        <div id="allyHpBar" class="health-bar-overlay"></div>
-                        <p id="playerHp"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="player-pokemon">
-                <img src="../images/pidgey.png" id="player-pokemon-image">
-            </div>
-        </div>
+  <body>
+    <div id="loading-screen">
+        <img src="../images/loading.gif">
+      <img src="../images/loadingbulba.gif" />
+      <div class="progress-bar">
+        <img src="../images/loading-dots-bouncing-dots.gif" />
+      </div>
     </div>
-</body>
-
+    <header class="header"></header>
+    <div class="gaming-window">
+      <div class="start-screen">
+        <div class="start-screen-title">
+          <h2>A tale of Pokémon and Fire</h2>
+        </div>
+        <div class="start-screen-copyright-text">
+          <p>
+            This website contains material that is protected by copyright. I
+            acknowledge and respect copyright and do not own rights to this
+            material.
+          </p>
+        </div>
+        <div class="start-screen-buttons">
+          <button
+            onclick="switchBackground()"
+            onmouseover="playSound('hover.mp3')"
+          >
+            Start Game
+          </button>
+          <button onclick="self.close()">Quit Game</button>
+        </div>
+      </div>
+      <div class="select-pokemon-scene">
+        <div class="starters-image">
+          <img src="../images/pickpokemon.jpg" />
+          <div class="select-pokemon-buttons">
+            <button
+              onmouseover="playSound('hover.mp3')"
+              onclick="pickPokemon('squirtle')"
+              id="squirtle-button"
+            >
+              Squirtle
+            </button>
+            <button
+              onmouseover="playSound('hover.mp3')"
+              onclick="pickPokemon('bulbasaur')"
+              id="bulbasaur-button"
+            >
+              Bulbasaur
+            </button>
+            <button
+              onmouseover="playSound('hover.mp3')"
+              onclick="pickPokemon('charmander')"
+              id="charmander-button"
+            >
+              Charmander
+            </button>
+          </div>
+        </div>
+        <div class="dialogue-box">
+          <h2></h2>
+          <p>
+            They look very excited to meet you, go on now, pick out your very
+            first starter Pokémon!<br />
+          </p>
+          <p></p>
+        </div>
+      </div>
+      <div class="battle-scene">
+        <div class="currency-container">
+          <p id="pokedollars"></p>
+        </div>
+        <div class="wild-pokemon-info-container">
+          <div class="wild-pokemon-info">
+            <div>
+              <p id="wildpokemon">Pikachu</p>
+              <p id="wildlevel">Level 5</p>
+            </div>
+            <div class="health-bar">
+              <div id="opponentHpBar" class="health-bar-overlay"></div>
+              <p id="wildHp"></p>
+            </div>
+          </div>
+        </div>
+        <div class="wild-pokemon">
+          <img src="../images/pikachu.png" id="random-wild-pokemon" />
+        </div>
+        <div class="battle-bar">
+          <div class="what-will-pokemon-do">
+            <p id="playerPokemonAction"></p>
+          </div>
+          <div class="battle-bar-main-menu">
+            <div class="battle-bar-button-container">
+              <button
+                style="background-color: #e57373"
+                onclick="switchBattleMenu()"
+              >
+                <span>Fight</span>
+              </button>
+              <button style="background-color: #fff176">Bag</button>
+            </div>
+            <div class="battle-bar-button-container">
+              <button
+                style="background-color: #81d4fa"
+                onclick="runFromBattle()"
+              >
+                Run
+              </button>
+              <button style="background-color: #a5d6a7">Pokémon</button>
+            </div>
+          </div>
+          <div class="pokemon-skill-bar">
+            <div class="battle-bar-button-container">
+              <button id="skill1" onclick="allyUseMove(0)"></button>
+              <button id="skill2" onclick="allyUseMove(1)"></button>
+            </div>
+            <div class="battle-bar-button-container">
+              <button id="skill3" onclick="allyUseMove(2)"></button>
+              <button id="skill4" onclick="allyUseMove(3)"></button>
+              <button onclick="switchBattleMenu()">Back</button>
+            </div>
+          </div>
+        </div>
+        <div class="bag-bar">
+          <div>
+            <button>Fight</button>
+            <button>Bag</button>
+          </div>
+          <div>
+            <button>Run</button>
+            <button>Pokémon</button>
+          </div>
+        </div>
+        <div class="items-bar"></div>
+        <div class="player-pokemon-info-container">
+          <div class="player-pokemon-info">
+            <div>
+              <p id="playerpokemon"></p>
+              <p id="playerlevel"></p>
+            </div>
+            <div class="health-bar">
+              <div id="allyHpBar" class="health-bar-overlay"></div>
+              <p id="playerHp"></p>
+            </div>
+          </div>
+        </div>
+        <div class="player-pokemon">
+          <img src="../images/pidgey.png" id="player-pokemon-image" />
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
