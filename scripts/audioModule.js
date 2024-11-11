@@ -1,5 +1,5 @@
 var audioModule = (function () {
-  const backgroundMusic = new Audio(`../mp3/pewtercitytheme.mp3`);
+  const backgroundMusic = new Audio(`../mp3/littleroot.mp3`);
   backgroundMusic.addEventListener("ended", () => {
     backgroundMusic.currentTime = 0;
     backgroundMusic.play();

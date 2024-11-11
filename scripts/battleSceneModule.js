@@ -29,12 +29,10 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     console.log("pokemonBattleScene", {
       pokemonEncounter,
     });
-
     if (!pokemonFightActive) {
       startBattleMusic(0);
       pokemonFightActive = true;
     }
-
     const wildPokemonIndividual = createRandomIndividual(pokemonEncounter);
     currentOpponentPokemonIndividual = wildPokemonIndividual;
 
@@ -331,6 +329,11 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     runAwayPopup.style.display = "none";
   };
 
+  const startBattle = () => {
+    currentAllyPokemonIndividual = playerPokemonList[0];
+    pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
+  }
+
   return {
     switchBattleMenu,
     pokemonBattleScene,
@@ -338,5 +341,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     runFromBattlePopup,
     runFromBattle,
     closeRunFromBattlePopup,
+    startBattle,
   };
 })(audioModule, pokemonUtilsModule);

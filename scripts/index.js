@@ -1,6 +1,6 @@
 const { ALL_POKEMON } = pokemonModule;
 const { ROUTE1 } = route1Module;
-const { pokemonBattleScene } = battleModule;
+const { pokemonBattleScene, startBattle } = battleModule;
 const { createPokemonIndivual, calculateDamage } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
@@ -8,8 +8,6 @@ const { sleep } = utilsModule;
 let pokeCurrency = 0;
 let currentBackground = -1;
 let playerName = "";
-let playerHealth = 20;
-const MAX_PLAYER_HEALTH = 20;
 let playerGotStarter = false;
 let playerStarterPokemon = "";
 let playerStarterPokemonImage = "";
@@ -162,33 +160,7 @@ const dialogueObject = [
       `He's been having quite the rough time since the passing of his Pidgeotto, maybe you could try to cheer him on when you see him? In any case, good luck out there, go explore the Pangea just like your father did! And when you're in the big leagues dont forget about ole Professor Oak!`,
     buttonText: "Continue",
     backgroundImage: profoak2,
-  },
-  {
-    name: "You",
-    text: () =>
-      `I should probably get going, i've got the entire region of Pangea to explore and all kinds of wonderful Pokémon to see!`,
-    buttonText: "Lets explore!",
-    backgroundImage: pokemonCity,
-  },
-  {
-    name: "",
-    text: () =>
-      `Normally i would be scared of going out on my own, but right now i'm not on my own, i got my strong ${playerStarterPokemon}, lets go to Route 1!`,
-    buttonText: "Continue",
-    backgroundImage: pokemonCity,
-    action: () => playSound("rustlingbushes.mp3"),
-  },
-  {
-    name: "",
-    text: () =>
-      `You hear rustling coming from the bush. *you go closer to investigate*.`,
-    buttonText: "Hello?",
-    backgroundImage: forest,
-    onBegin: () => playSound("rustlingbushes.mp3"),
-    action: () => {
-      currentAllyPokemonIndividual = playerPokemonList[0];
-      pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
-    },
+    action: () => loadTown()
   },
 ];
 
@@ -229,7 +201,7 @@ const onDialogueAction = async () => {
 const goToNextDialogue = () => {
   const startScreen = document.getElementById("start-screen");
   if (!musicActive) {
-    startGameMusic("pewtercitytheme.mp3", 10000);
+    startGameMusic("littleroot.mp3", 10000);
     musicActive = true;
   }
   startScreen.style.display = "none";
@@ -359,6 +331,7 @@ const [enableTownClock, disableTownClock] = (function() {
         if (playerTargetX + 2 > playerMaxX) {
           if (!enteringWilderness) {
             enterWilderness();
+            console.log("Attempting to enter wilderness.")
             enteringWilderness = true;
             return;
           }
@@ -384,15 +357,29 @@ const [enableTownClock, disableTownClock] = (function() {
   return [enableTownClock, disableTownClock];
 })();
 
+let spriteState = "";
+
 const updatePlayerSprite = () => {
   const allySprite = document.getElementById("player-sprite")
+  const spriteSource = "../images/character.gif"
+  const newSpriteState = playerRunning + playerDirection;
+  const shouldUpdateSprite = spriteState != newSpriteState;
+  spriteState = newSpriteState;
+
   if (playerRunning) {
     if (playerDirection == "left") {
-      allySprite.src = `../images/character.gif?${new Date().getTime()}`;
-      // Set image to running left
+      if (shouldUpdateSprite) {
+        allySprite.src = spriteSource;
+        allySprite.style.transform = "scaleX(1)"
+        console.log(allySprite.src)
+        // Set image to running left
+      }
     } else {
-      allySprite.src = `../images/character.gif?${new Date().getTime()}`;
-      // Set image to running right
+      if(shouldUpdateSprite) {
+        allySprite.src = `../images/character.gif`;
+        allySprite.style.transform = "scaleX(-1)"
+        // Set image to running right
+      }
     }
   } else {
     if (playerDirection == "left") {
@@ -411,8 +398,9 @@ const enterWilderness = async () => {
   }, 2, 30);
 
   console.log("Animation done");
-
+  startBattle();
   disableTownClock();
+  
 }
 
 const returnFromWilderness = async () => {
@@ -429,6 +417,7 @@ const returnFromWilderness = async () => {
     playerTargetX -= playerSpeed * deltaTime;
   }, 1.5, 30);
 
+  enteringWilderness = false;
   allowUserMovementInput = true;
 }
 

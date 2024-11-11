@@ -1,5 +1,12 @@
-This is the beginning of my own fan-made Pokémon game.
+This is the start of my own pokemon-fanmade game, in the future pokemon will be replaced by my ownmade monsters/heroes, but for now i'm sticking to pokemon.
 
+To play you must start game, go through dialogue.
+Movement:
 
-It will be story driven with pokemonbattles.
-Combattype is yet to be decided, i am not sure if i want a idle type of combat or if i actually want the normal turn based combat.
+Key a = go left;
+Key d = go right;
+
+To play pokemon battles you simply go all the way to the right, go through the Wilderness arrowsign.
+To run from battle simply press run and confirm, go back the same way if you wish to battle again.
+
+The battles are at the moment INFINITE, so exit when you feel finished.
