@@ -1,1 +1,1 @@
-var DEV_MODE = false;
+var DEV_MODE = true;

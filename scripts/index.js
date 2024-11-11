@@ -197,9 +197,12 @@ const pickFourRandomMoves = (pokemonType, level) => {
   return [pokemonType.moves[0]];
 };
 
-const loadTown = () => {
+const loadTown = async () => {
   const town = document.getElementById("town");
   town.style.display = "block";
+
+  
+  returnFromWilderness();
 };
 
 const startGame = async () => {
@@ -276,6 +279,7 @@ const randomWildPokemon = (wildPokemonList) => {
   return random;
 };
 
+let allowUserMovementInput = true;
 const playerStartX = 50;
 
 const playerMaxX = 90;
@@ -297,6 +301,7 @@ let playerX = playerStartX;
 let playerTargetX = playerStartX;
 
 let playerSpeed = 25;
+let enteringWilderness = false;
 
 const setCameraAndPlayerProperties = () => {
   const town = document.getElementById("town");
@@ -324,20 +329,126 @@ const deltaTimeSeconds = 1 / 60;
 
 console.log(deltaTimeSeconds);
 
-setInterval(() => {
+let playerDirection = "left";
+let playerRunning = false;
 
-  if (keyADown) {
-    playerTargetX -= playerSpeed * deltaTimeSeconds;
-  } else if (keyDDown) {
-    playerTargetX += playerSpeed * deltaTimeSeconds;
+const [enableTownClock, disableTownClock] = (function() {
+
+  let intervalId = null;
+
+  const enableTownClock = () => {
+    intervalId = setInterval(async () => {
+
+      if (allowUserMovementInput) {
+        if (keyADown) {
+          playerTargetX -= playerSpeed * deltaTimeSeconds;
+          playerRunning = true;
+          playerDirection = "left";
+        } else if (keyDDown) {
+          playerTargetX += playerSpeed * deltaTimeSeconds;
+          playerRunning = true;
+          playerDirection = "right";
+        } else {
+          playerRunning = false;
+        }
+    
+        playerTargetX = Math.min(playerMaxX, Math.max(playerMinX, playerTargetX));
+        cameraTargetX = playerTargetX; // Follow player
+        cameraTargetX = Math.min(cameraMaxX, Math.max(cameraMinX, cameraTargetX));
+    
+        if (playerTargetX + 2 > playerMaxX) {
+          if (!enteringWilderness) {
+            enterWilderness();
+            enteringWilderness = true;
+            return;
+          }
+        }
+      }
+
+      updatePlayerSprite();
+    
+      cameraX = cameraX + (cameraTargetX - cameraX) * cameraLagSpeed;
+      playerX = playerX + (playerTargetX - playerX) * playerLagSpeed;
+    
+      setCameraAndPlayerProperties();
+    }, deltaTimeSeconds * 1000);
   }
 
-  playerTargetX = Math.min(playerMaxX, Math.max(playerMinX, playerTargetX));
-  cameraTargetX = playerTargetX; // Follow player
-  cameraTargetX = Math.min(cameraMaxX, Math.max(cameraMinX, cameraTargetX));
+  const disableTownClock = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
 
-  cameraX = cameraX + (cameraTargetX - cameraX) * cameraLagSpeed;
-  playerX = playerX + (playerTargetX - playerX) * playerLagSpeed;
+  return [enableTownClock, disableTownClock];
+})();
 
-  setCameraAndPlayerProperties();
-}, deltaTimeSeconds * 1000)
+const updatePlayerSprite = () => {
+  const allySprite = document.getElementById("player-sprite")
+  if (playerRunning) {
+    if (playerDirection == "left") {
+      allySprite.src = `../images/character.gif?${new Date().getTime()}`;
+      // Set image to running left
+    } else {
+      allySprite.src = `../images/character.gif?${new Date().getTime()}`;
+      // Set image to running right
+    }
+  } else {
+    if (playerDirection == "left") {
+      // Set image to idle left
+    } else {
+      // Set image to idle right
+    }
+  }
+}
+
+const enterWilderness = async () => {
+  allowUserMovementInput = false;
+  
+  await animate((time, deltaTime) => {
+    playerTargetX += playerSpeed * deltaTime;
+  }, 2, 30);
+
+  console.log("Animation done");
+
+  disableTownClock();
+}
+
+const returnFromWilderness = async () => {
+
+  enableTownClock();
+
+  allowUserMovementInput = false;
+  playerX = playerMaxX + 15;
+  playerTargetX = playerX;
+
+  await sleep(2000);
+
+  await animate((time, deltaTime) => {
+    playerTargetX -= playerSpeed * deltaTime;
+  }, 1.5, 30);
+
+  allowUserMovementInput = true;
+}
+
+const animate = (animationFunction, durationSeconds, frameRate) => {
+
+  return new Promise(res => {
+    let time = 0;
+    let deltaTime = durationSeconds / frameRate;
+    const id = setInterval(() => {
+      
+      if (time > durationSeconds) {
+        clearInterval(id);
+        res();
+        return;
+      }
+  
+      time += deltaTime;
+      animationFunction(time / durationSeconds, deltaTime)
+  
+    }, deltaTime * 1000);
+  });
+
+}

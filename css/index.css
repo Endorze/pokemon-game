@@ -144,13 +144,13 @@ loading-screen img {
   background-color: rgb(254, 194, 90);
 }
 
-#scrollable-world *:not(.background) {
+#scrollable-world >*:not(.background) {
   position: absolute;
   transform: translateX(-50%);
 }
 
 .on-ground {
-  bottom: 5%;
+  bottom: 5.5%;
 }
 
 .clickable:hover {
@@ -163,13 +163,13 @@ loading-screen img {
 }
 
 .player-character {
-  width: 50px;
-  height: 50px;
-  background-color: blue;
   position: absolute;
   transform: translate(-50%);
-  bottom: 10%;
   z-index: 3;
+}
+
+.player-character img {
+  transform: translateY(7%);
 }
 
 #player-character {
