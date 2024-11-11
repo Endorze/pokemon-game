@@ -36,8 +36,14 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     }
 
     const wildPokemonIndividual = createRandomIndividual(pokemonEncounter);
-
     currentOpponentPokemonIndividual = wildPokemonIndividual;
+
+    const wildPokemonCry =
+      "../pokemon/" +
+      currentOpponentPokemonIndividual.pokemonType.id +
+      "/cry.mp3";
+    console.log(wildPokemonCry);
+    playSound(wildPokemonCry);
 
     updateOpponentPokemon();
     updateAllyPokemon();
