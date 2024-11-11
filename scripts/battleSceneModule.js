@@ -332,6 +332,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   const startBattle = () => {
     currentAllyPokemonIndividual = playerPokemonList[0];
     pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
+    startBattleMusic();
   }
 
   return {

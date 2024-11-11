@@ -153,6 +153,15 @@ loading-screen img {
   bottom: 5.5%;
 }
 
+.road {
+  position: absolute; /* Lägg till detta om det behövs */
+  left: 0;
+  height: 6%;
+  background-image: url(../images/road.png);
+  background-repeat: repeat-x;
+  width: 100%;
+}
+
 .clickable:hover {
   opacity: .7;
 }
@@ -169,7 +178,7 @@ loading-screen img {
 }
 
 .player-character img {
-  transform: translateY(7%);
+  transform: translateY(10%);
 }
 
 #player-character {
@@ -199,6 +208,15 @@ loading-screen img {
 .background {
   position: absolute;
   height: 100%;
+
+  
+}
+
+#background-parallax {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: calc(.8 * var(--cameraX));
 }
 
 #townbackground {
@@ -434,11 +452,15 @@ loading-screen img {
 }
 
 .wild-pokemon img {
-  height: 175px;
+  height: 25%;
   position: absolute;
   object-fit: cover;
   right: 25%;
   top: 30%;
+}
+
+#shop img {
+  transform: translateY(10%);
 }
 
 .currency-container {

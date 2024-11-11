@@ -360,7 +360,7 @@ const [enableTownClock, disableTownClock] = (function() {
 let spriteState = "";
 
 const updatePlayerSprite = () => {
-  const allySprite = document.getElementById("player-sprite")
+  const allySprite = document.getElementById("player-character")
   const spriteSource = "../images/character.gif"
   const newSpriteState = playerRunning + playerDirection;
   const shouldUpdateSprite = spriteState != newSpriteState;
