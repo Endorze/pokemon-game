@@ -66,6 +66,27 @@ loading-screen img {
   background-repeat: no-repeat;
 }
 
+.kill-counter {
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+  top: 5%;
+  margin-left: auto;
+  left: 0;
+  margin-right: auto;
+  right: 0;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+}
+
+.kill-counter img {
+  height: 30px;
+}
+
 .dialogue-container {
   display: none;
   position: absolute;
@@ -366,11 +387,16 @@ loading-screen img {
 
 .currency-container {
   position: absolute;
+  width: 200px;
+  height: 50px;
   top: 5%;
   right: 5%;
-  background-color: beige;
+  background-color: white;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .player-pokemon img {

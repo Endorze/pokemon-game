@@ -1,7 +1,7 @@
 var battleModule = (function (audioModule, pokemonUtilsModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
   const { createRandomIndividual, levelUpPokemon } = pokemonUtilsModule;
-
+  let pokemonSlayed = 0;
   const loadPokemonIndividualMoves = (pokemonIndividual) => {
     const skill1 = document.getElementById("skill1");
     const skill2 = document.getElementById("skill2");
@@ -133,6 +133,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     const allyPokemonActionText = document.getElementById(
       "playerPokemonAction"
     );
+    const killCounter = document.getElementById("kill-counter-text");
+
     if (!allowUserAction) return;
     if (buttonId != 0) {
       return;
@@ -164,6 +166,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     }
 
     if (currentOpponentPokemonIndividual.currentHp == 0) {
+      pokemonSlayed += 1;
       await sleep(2000);
       pokemonFaintedText(currentOpponentPokemonIndividual);
       generatePokeCoins(currentOpponentPokemonIndividual.level);
@@ -172,6 +175,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
         currentOpponentPokemonIndividual.pokemonType.baseExp
       );
       updateAllyPokemon();
+      killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
       console.log("You live to tell the tale");
       pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
       return;
