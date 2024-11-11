@@ -275,3 +275,69 @@ const randomWildPokemon = (wildPokemonList) => {
   console.log(random + " Played randomWildPokemon function");
   return random;
 };
+
+const playerStartX = 50;
+
+const playerMaxX = 90;
+const playerMinX = -90;
+
+const cameraMaxX = 50;
+const cameraMinX = -50;
+
+let keyADown = false;
+let keyDDown = false;
+
+let cameraLagSpeed = 0.05;
+let playerLagSpeed = 0.4;
+
+let cameraX = playerStartX;
+let cameraTargetX = playerStartX;
+
+let playerX = playerStartX;
+let playerTargetX = playerStartX;
+
+let playerSpeed = 25;
+
+const setCameraAndPlayerProperties = () => {
+  const town = document.getElementById("town");
+  town.style.setProperty("--cameraX", `${cameraX}%`);
+  town.style.setProperty("--playerX", `${playerX}%`);
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.code === "KeyA") {
+    keyADown = true;
+  } else if (e.code === "KeyD") {
+    keyDDown = true;
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  if (e.code === "KeyA") {
+    keyADown = false;
+  } else if (e.code === "KeyD") {
+    keyDDown = false;
+  }
+});
+
+const deltaTimeSeconds = 1 / 60;
+
+console.log(deltaTimeSeconds);
+
+setInterval(() => {
+
+  if (keyADown) {
+    playerTargetX -= playerSpeed * deltaTimeSeconds;
+  } else if (keyDDown) {
+    playerTargetX += playerSpeed * deltaTimeSeconds;
+  }
+
+  playerTargetX = Math.min(playerMaxX, Math.max(playerMinX, playerTargetX));
+  cameraTargetX = playerTargetX; // Follow player
+  cameraTargetX = Math.min(cameraMaxX, Math.max(cameraMinX, cameraTargetX));
+
+  cameraX = cameraX + (cameraTargetX - cameraX) * cameraLagSpeed;
+  playerX = playerX + (playerTargetX - playerX) * playerLagSpeed;
+
+  setCameraAndPlayerProperties();
+}, deltaTimeSeconds * 1000)

@@ -10,11 +10,11 @@ html {
 }
 
 body {
-  background-image: url("../images/cutebackground.jpg");
-  background-size: cover;
-  background-position: center;
   position: relative;
   font-family: ROBOTO, arial, "Times New Roman", Times, serif;
+  background-image: url("../images/background.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #loading-screen {
@@ -29,35 +29,26 @@ body {
   background-color: black;
   z-index: 10;
   animation: fadeOut 5s ease-out forwards;
+  pointer-events: none;
 }
 
 loading-screen img {
   height: 100px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 20vh;
-  width: 100vw;
-  color: white;
-  background-image: url("https://bouncycastlenetwork-res.cloudinary.com/image/upload/f_auto,q_auto,c_limit,w_1000/ff36cb86b0aefad50ddd401ff138fde5");
-  background-position: center;
-}
-
-.header img {
-  width: 5%;
-  object-fit: contain;
-}
-
 .gaming-window {
+  overflow: hidden;
+  margin-top: 2%;
   position: absolute;
   display: flex;
   justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
   aspect-ratio: 16/9;
-  width: 80vw;
-  top: 20%;
-  left: 10%;
+  width: 85vw;
+  top: 0;
   background-color: black;
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bf84c7a9-21b7-4515-8eb9-9bd6212d9031/d2yjudv-e36192f2-8bbc-4327-af98-b92fd0ffb81e.jpg/v1/fill/w_1121,h_713,q_70,strp/versus_red__battle_on_mt__silver__by_serain_d2yjudv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODE0IiwicGF0aCI6IlwvZlwvYmY4NGM3YTktMjFiNy00NTE1LThlYjktOWJkNjIxMmQ5MDMxXC9kMnlqdWR2LWUzNjE5MmYyLThiYmMtNDMyNy1hZjk4LWI5MmZkMGZmYjgxZS5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.NUI7lxwWZ7cXp22NctpR-ZbO8UFYFRr3zyV_pTfYchk");
   background-size: cover;
@@ -153,36 +144,61 @@ loading-screen img {
   background-color: rgb(254, 194, 90);
 }
 
+#scrollable-world *:not(.background) {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.on-ground {
+  bottom: 5%;
+}
+
+.clickable:hover {
+  opacity: .7;
+}
+
+.player-cottage img:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.player-character {
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+  position: absolute;
+  transform: translate(-50%);
+  bottom: 10%;
+  z-index: 3;
+}
+
+#player-character {
+  left: var(--playerX);
+}
+
 #town {
+  --cameraX: 0%;
+  --playerX: 0%;
+
   display: none;
   position: absolute;
-  z-index: 20;
   top: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
 }
 
-.dancing-eevee img {
+#scrollable-world {
   position: absolute;
-  bottom: 5.5%;
-  left: 20px;
-  height: 15%;
+  width: 100%;
+  height: 100%;
+  left: calc(50% + -1 * var(--cameraX));
+  height: 100%;
 }
 
-.player-cottage img {
+.background {
   position: absolute;
-  bottom: 5.5%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  height: 60%;
-}
-
-.player-cottage img:hover {
-  opacity: 0.8;
-  cursor: pointer;
+  height: 100%;
 }
 
 #townbackground {
@@ -192,6 +208,19 @@ loading-screen img {
   background-position: center;
   width: 100%;
   height: 100%;
+  background-position: 0 0;
+  z-index: 0;
+}
+
+#townbackground2 {
+  position: absolute;
+  background-image: url("../images/town.gif");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  background-position: 0 0;
+  z-index: 0;
 }
 
 #run-away-window button {
@@ -216,19 +245,24 @@ loading-screen img {
   align-items: center;
   bottom: 0;
   left: 0;
-  height: 10vh;
-  background-color: lightblue;
+  height: 20vh;
+  background-color: lightgray;
   opacity: 100%;
   animation: fadeIn 0.3s;
 }
 
 .dialogue-box button {
   padding: 15px;
+  width: 8vw;
   cursor: pointer;
 }
 
 .dialogue-box h2 {
   color: rgb(3, 3, 2);
+  font-size: 1.5rem;
+}
+
+.dialogue-box p {
   font-size: 1.2rem;
 }
 
@@ -242,7 +276,7 @@ loading-screen img {
   min-height: 100%;
   min-width: 100%;
   background-color: rgb(18, 35, 82);
-  z-index: 5;
+  z-index: 1;
 }
 
 #select-pokemon img:hover {
@@ -256,20 +290,20 @@ loading-screen img {
 
 #squirtle {
   position: absolute;
-  left: 22%;
-  top: 45%;
+  left: 20%;
+  top: 50%;
 }
 
 #bulbasaur {
   position: absolute;
-  left: 42%;
-  top: 45%;
+  left: 45%;
+  top: 50%;
 }
 
 #charmander {
   position: absolute;
-  left: 65%;
-  top: 45%;
+  left: 70%;
+  top: 50%;
 }
 
 .animated-text {
@@ -502,15 +536,5 @@ loading-screen img {
   }
   100% {
     transform: translate(0, 0);
-  }
-}
-
-@media (max-height: 900px) {
-  .dancing-eevee img {
- 
-  }
-
-  .player-cottage img {
-    bottom: 20px;
   }
 }
