@@ -39,7 +39,6 @@ loading-screen img {
 .gaming-window {
   overflow: hidden;
   margin-top: 1em;
-  padding: 2em;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -248,7 +247,7 @@ loading-screen img {
   left: 0;
   height: 20vh;
   background-color: lightgray;
-  opacity: 100%;
+  opacity: 90%;
   animation: fadeIn 0.3s;
 }
 
