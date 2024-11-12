@@ -316,9 +316,9 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   const runFromBattle = async () => {
     const battleScene = document.querySelector(".battle-scene");
     const runAwayPopup = document.getElementById("run-away-popup");
+    runAwayPopup.style.display = "none";
     toggleLoadingScreen();
     if (!DEV_MODE) await sleep(2000);
-    runAwayPopup.style.display = "none";
     battleScene.style.display = "none";
     loadTown();
     startGameMusic();
@@ -333,7 +333,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     currentAllyPokemonIndividual = playerPokemonList[0];
     pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
     startBattleMusic();
-  }
+  };
 
   return {
     switchBattleMenu,

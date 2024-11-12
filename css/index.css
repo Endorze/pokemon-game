@@ -208,8 +208,6 @@ loading-screen img {
 .background {
   position: absolute;
   height: 100%;
-
-  
 }
 
 #background-parallax {
@@ -217,28 +215,6 @@ loading-screen img {
   width: 100%;
   height: 100%;
   left: calc(.8 * var(--cameraX));
-}
-
-#townbackground {
-  position: absolute;
-  background-image: url("../images/town.gif");
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  height: 100%;
-  background-position: 0 0;
-  z-index: 0;
-}
-
-#townbackground2 {
-  position: absolute;
-  background-image: url("../images/town.gif");
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  height: 100%;
-  background-position: 0 0;
-  z-index: 0;
 }
 
 #run-away-window button {

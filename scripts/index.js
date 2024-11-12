@@ -255,10 +255,10 @@ let allowUserMovementInput = true;
 const playerStartX = 50;
 
 const playerMaxX = 90;
-const playerMinX = -90;
+const playerMinX = -190;
 
 const cameraMaxX = 50;
-const cameraMinX = -50;
+const cameraMinX = -150;
 
 let keyADown = false;
 let keyDDown = false;
