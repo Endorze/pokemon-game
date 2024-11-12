@@ -197,7 +197,7 @@ loading-screen img {
 .top-grass {
     position: absolute; /* Lägg till detta om det behövs */
     left: 0;
-    height: 4%;
+    height: 3%;
     background-image: url(../images/grass.png);
     background-repeat: repeat-x;
     width: 100%;
@@ -214,10 +214,6 @@ loading-screen img {
 }
 
 .clickable:hover {
-  opacity: .7;
-}
-
-.player-cottage img:hover {
   opacity: 0.8;
   cursor: pointer;
 }
