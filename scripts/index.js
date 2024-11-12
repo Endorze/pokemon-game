@@ -517,11 +517,11 @@ const addPokemonToTeam = (id) => {
   );
 }
 
-addPokemonToTeam("charmander");
-addPokemonToTeam("bulbasaur");
-addPokemonToTeam("squirtle");
-addPokemonToTeam("pidgeott");
-addPokemonToTeam("butterfree");
-addPokemonToTeam("beedrill");
+// addPokemonToTeam("charmander");
+// addPokemonToTeam("bulbasaur");
+// addPokemonToTeam("squirtle");
+// addPokemonToTeam("pidgeott");
+// addPokemonToTeam("butterfree");
+// addPokemonToTeam("beedrill");
 
 console.log(playerPokemonList);
