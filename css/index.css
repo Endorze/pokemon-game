@@ -191,6 +191,26 @@ loading-screen img {
   background-image: url(../images/road.png);
   background-repeat: repeat-x;
   width: 100%;
+  z-index: 1;
+}
+
+.top-grass {
+    position: absolute; /* Lägg till detta om det behövs */
+    left: 0;
+    height: 4%;
+    background-image: url(../images/grass.png);
+    background-repeat: repeat-x;
+    width: 100%;
+}
+
+.bot-grass {
+  position: absolute; /* Lägg till detta om det behövs */
+    left: 0;
+    height: 3%;
+    background-image: url(../images/grass.png);
+    background-repeat: repeat-x;
+    width: 100%;
+    z-index: 2;
 }
 
 .clickable:hover {
