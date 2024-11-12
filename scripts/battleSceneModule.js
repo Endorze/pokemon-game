@@ -112,16 +112,24 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   }
 
   const setCurrentPokemon = async (index) => {
-    playSound("buttonhover.mp3")
-    await sleep(500)
-    const pokemonList = document.getElementById("battle-pokemonlist-menu")
-    pokemonList.style.display = "none";
-    currentAllyPokemonIndividual = playerPokemonList[index];
-    updateAllyPokemon();
-    console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
-    await sleep(1000)
-    doAIMove();
-
+    if (playerPokemonList[index] != null) {
+      if (playerPokemonList[index] == currentAllyPokemonIndividual) {
+        console.log(currentAllyPokemonIndividual.pokemonType.name + " is already fighting.")
+        return;
+      }
+      playSound("buttonhover.mp3")
+      await sleep(500)
+      const pokemonList = document.getElementById("battle-pokemonlist-menu")
+      pokemonList.style.display = "none";
+      currentAllyPokemonIndividual = playerPokemonList[index];
+      updateAllyPokemon();
+      console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
+      await sleep(1000)
+      doAIMove();
+    } else {
+      console.log("Thats not a pokemon");
+      return;
+    }
   }
 
   const updateOpponentPokemon = () => {

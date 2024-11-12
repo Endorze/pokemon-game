@@ -206,7 +206,7 @@ var pokemonModule = (function () {
     },
     jigglypuff: {
       id: "0039-jigglypuff",
-      name: "Jifflypuff",
+      name: "Jigglypuff",
       health: healthGenerator(30),
       moves: ["tackle"],
       specialDefenceGrowth: 2,

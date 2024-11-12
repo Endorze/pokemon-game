@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="../css/town.css" />
+  <link rel="stylesheet" href="../css/battleScene.css" />
   <script src="../scripts/constants.js" defer></script>
   <script src="../scripts/utilsModule.js" defer></script>
   <script src="../scripts/audioModule.js" defer></script>
@@ -58,7 +60,7 @@
               background-image: url(../images/grass.png);
               background-repeat: repeat-x;
               "></div>
-              <div class="road" style="
+        <div class="road" style="
                     left: 0%;
                     bottom: 0%;
                     width: 400vw;
@@ -182,42 +184,48 @@
       </div>
       <div id="battle-pokemonlist-menu">
         <div class="pokemon-buttons">
-          <button id="select-pokemon-0" onclick="battleModule.setCurrentPokemon(0)" onmouseover="playSound(`hover.mp3`)">
+          <button id="select-pokemon-0" onclick="battleModule.setCurrentPokemon(0)"
+            onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-0-icon">
             <div id="select-pokemon-0-active"></div>
             <div id="select-pokemon-0-name"></div>
             <div id="select-pokemon-0-level"></div>
             <div id="select-pokemon-0-hp-text"></div>
           </button>
-          <button id="select-pokemon-1" onclick="battleModule.setCurrentPokemon(1)" onmouseover="playSound(`hover.mp3`)">
+          <button id="select-pokemon-1" onclick="battleModule.setCurrentPokemon(1)"
+            onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-1-icon">
             <div id="select-pokemon-1-active"></div>
             <div id="select-pokemon-1-name"></div>
             <div id="select-pokemon-1-level"></div>
             <div id="select-pokemon-1-hp-text"></div>
           </button>
-          <button id="select-pokemon-2" onclick="battleModule.setCurrentPokemon(2)" onmouseover="playSound(`hover.mp3`)">
+          <button id="select-pokemon-2" onclick="battleModule.setCurrentPokemon(2)"
+            onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-2-icon">
             <div id="select-pokemon-2-active"></div>
             <div id="select-pokemon-2-name"></div>
             <div id="select-pokemon-2-level"></div>
             <div id="select-pokemon-2-hp-text"></div>
           </button>
-          <button id="select-pokemon-3" onclick="battleModule.setCurrentPokemon(3)" onmouseover="playSound(`hover.mp3`)">
+          <button id="select-pokemon-3" onclick="battleModule.setCurrentPokemon(3)"
+            onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-3-icon">
             <div id="select-pokemon-3-active"></div>
             <div id="select-pokemon-3-name"></div>
             <div id="select-pokemon-3-level"></div>
             <div id="select-pokemon-3-hp-text"></div>
           </button>
-          <button id="select-pokemon-4" onclick="battleModule.setCurrentPokemon(4)" onmouseover="playSound(`hover.mp3`)">
+          <button id="select-pokemon-4" onclick="battleModule.setCurrentPokemon(4)"
+            onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-4-icon">
             <div id="select-pokemon-4-active"></div>
             <div id="select-pokemon-4-name"></div>
             <div id="select-pokemon-4-level"></div>
             <div id="select-pokemon-4-hp-text"></div>
           </button>
-          <button id="select-pokemon-5" onclick="battleModule.setCurrentPokemon(5)" onmouseover="playSound(`hover.mp3`)">
+          <button id="select-pokemon-5" onclick="battleModule.setCurrentPokemon(5)"
+            onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-5-icon">
             <div id="select-pokemon-5-active"></div>
             <div id="select-pokemon-5-name"></div>
