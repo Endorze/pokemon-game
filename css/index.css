@@ -136,7 +136,7 @@ loading-screen img {
   width: 100%;
   height: 100%;
   background-color: white;
-  z-index: 10;
+  z-index: 5;
 }
 
 .menu {
@@ -157,7 +157,6 @@ loading-screen img {
 
 #run-away-popup {
   display: none;
-  z-index: 3;
 }
 
 #run-away-window {
@@ -191,7 +190,6 @@ loading-screen img {
   background-image: url(../images/road.png);
   background-repeat: repeat-x;
   width: 100%;
-  z-index: 1;
 }
 
 .top-grass {
@@ -210,7 +208,6 @@ loading-screen img {
     background-image: url(../images/grass.png);
     background-repeat: repeat-x;
     width: 100%;
-    z-index: 2;
 }
 
 .clickable:hover {
@@ -221,7 +218,6 @@ loading-screen img {
 .player-character {
   position: absolute;
   transform: translate(-50%);
-  z-index: 3;
 }
 
 .player-character img {
@@ -267,6 +263,18 @@ loading-screen img {
 #run-away-window button {
   padding: 10px;
   width: 100px;
+}
+
+#battle-pokemonlist-menu {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.pokemon-buttons button {
+  min-width: 20%;
 }
 
 .start-screen-buttons button:hover {
@@ -317,7 +325,6 @@ loading-screen img {
   min-height: 100%;
   min-width: 100%;
   background-color: rgb(18, 35, 82);
-  z-index: 1;
 }
 
 #select-pokemon img:hover {
@@ -356,7 +363,7 @@ loading-screen img {
   display: block;
 }
 
-.battle-scene {
+#battle-scene {
   position: absolute;
   display: none;
   top: 0;
@@ -366,7 +373,6 @@ loading-screen img {
   background-position: center;
   height: 100%;
   width: 100%;
-  z-index: 2;
 }
 
 .battle-bar {
@@ -375,7 +381,6 @@ loading-screen img {
   position: absolute;
   bottom: 5px;
   left: 1vw;
-  z-index: 1;
 }
 
 .bag-bar {
@@ -500,11 +505,11 @@ loading-screen img {
   align-items: center;
 }
 
-.player-pokemon img {
-  width: 30%;
+#player-pokemon-image {
   position: absolute;
-  bottom: 5%;
-  left: 10%;
+  object-fit: cover;
+  bottom: 20%;
+  left: 20%;
 }
 
 .health-bar {

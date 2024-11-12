@@ -484,11 +484,12 @@ const loadGame = () => {
 
     playerPokemonList.push(...data.user.userPokemon.map(pokemonSave => ({
       ...pokemonSave,
-      pokemonType: Object.values(ALL_POKEMON).find(pokemonType => pokemonType.id === pokemonSave.pokemonType )
+      pokemonType: Object.values(ALL_POKEMON).find(pokemonType => pokemonType.id === pokemonSave.pokemonType)
     })).filter(individual => individual.pokemonType != null));
     pokeCurrency = data.user.userMoney;
     console.log(pokeCurrency)
     loadTown();
+    startGameMusic();
   }
 };
 
@@ -508,3 +509,19 @@ const openMenu = (e) => {
 }
 
 document.addEventListener("keydown", openMenu);
+
+const addPokemonToTeam = (id) => {
+  const pokemonType = ALL_POKEMON[id];
+  playerPokemonList.push(
+    createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
+  );
+}
+
+addPokemonToTeam("charmander");
+addPokemonToTeam("bulbasaur");
+addPokemonToTeam("squirtle");
+addPokemonToTeam("pidgeott");
+addPokemonToTeam("butterfree");
+addPokemonToTeam("beedrill");
+
+console.log(playerPokemonList);

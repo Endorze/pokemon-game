@@ -1,306 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <script src="../scripts/constants.js" defer></script>
-    <script src="../scripts/utilsModule.js" defer></script>
-    <script src="../scripts/audioModule.js" defer></script>
-    <script src="../scripts/pokemonModule.js" defer></script>
-    <script src="../scripts/pokemonUtilsModule.js" defer></script>
-    <script src="../scripts/route1.js" defer></script>
-    <script src="../scripts/battleSceneModule.js" defer></script>
-    <script src="../scripts/index.js" defer></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <div id="loading-screen">
-      <img src="../images/loading.gif" />
-      <img src="../images/loadingbulba.gif" />
-      <div class="progress-bar">
-        <img src="../images/loading-dots-bouncing-dots.gif" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/index.css" />
+  <script src="../scripts/constants.js" defer></script>
+  <script src="../scripts/utilsModule.js" defer></script>
+  <script src="../scripts/audioModule.js" defer></script>
+  <script src="../scripts/pokemonModule.js" defer></script>
+  <script src="../scripts/pokemonUtilsModule.js" defer></script>
+  <script src="../scripts/route1.js" defer></script>
+  <script src="../scripts/battleSceneModule.js" defer></script>
+  <script src="../scripts/index.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div id="loading-screen">
+    <img src="../images/loading.gif" />
+    <img src="../images/loadingbulba.gif" />
+    <div class="progress-bar">
+      <img src="../images/loading-dots-bouncing-dots.gif" />
+    </div>
+  </div>
+  <div class="gaming-window">
+    <div id="main-menu" class="main-menu">
+      <div class="menu">
+        <button onclick="saveGame()">Save</button>
       </div>
     </div>
-    <div class="gaming-window">
-      <div id="main-menu" class="main-menu">
-        <div class="menu">
-          <button onclick="saveGame()">Save</button>
-        </div>
+    <div id="dialogue-scene" class="dialogue-container">
+      <div id="dialogue" class="dialogue-box">
+        <h2 id="dialogue-name"></h2>
+        <p id="dialogue-text" class="animated-text"></p>
+        <button class="animated-button" onclick="onDialogueAction()">
+          Next
+        </button>
       </div>
-      <div id="dialogue-scene" class="dialogue-container">
-        <div id="dialogue" class="dialogue-box">
-          <h2 id="dialogue-name"></h2>
-          <p id="dialogue-text" class="animated-text"></p>
-          <button class="animated-button" onclick="onDialogueAction()">
-            Next
-          </button>
+    </div>
+    <div id="town">
+      <div id="scrollable-world">
+        <div id="background-parallax" class="background">
+          <img class="background" style="right: 0%" src="../images/town.gif" />
+          <img class="background" style="left: 0%" src="../images/town.gif" />
+          <img class="background" style="right: 99.9%; transform: scaleX(-1)" src="../images/town.gif" />
         </div>
-      </div>
-      <div id="town">
-        <div id="scrollable-world">
-          <div id="background-parallax" class="background">
-            <img
-              class="background"
-              style="right: 0%"
-              src="../images/town.gif"
-            />
-            <img class="background" style="left: 0%" src="../images/town.gif" />
-            <img
-              class="background"
-              style="right: 99.9%; transform: scaleX(-1)"
-              src="../images/town.gif"
-            />
-          </div>
-          <div
-            class="road"
-            style="
-              left: 0%;
-              bottom: 0%;
-              width: 400vw;
-              background-image: url(../images/road.png);
-              background-repeat: repeat-x;
-            "
-          ></div>
-          <div
-            class="top-grass"
-            style="
+        <div class="top-grass" style="
               left: 0%;
               bottom: 5%;
               width: 400vw;
               background-image: url(../images/grass.png);
               background-repeat: repeat-x;
-            "
-          ></div>
-          <div
-            class="bot-grass"
-            style="
+              "></div>
+              <div class="road" style="
+                    left: 0%;
+                    bottom: 0%;
+                    width: 400vw;
+                    background-image: url(../images/road.png);
+                    background-repeat: repeat-x;
+                  "></div>
+        <div class="bot-grass" style="
               left: 0%;
               bottom: 1%;
               width: 400vw;
               background-image: url(../images/grass.png);
               background-repeat: repeat-x;
-            "
-          ></div>
-          <img
-            class="on-ground clickable"
-            style="left: 50%; height: 65%"
-            src="../images/brokenhouse.png"
-          />
-          <img
-            id="lab"
-            class="on-ground clickable"
-            style="left: 0%; height: 65%"
-            src="../images/lab.png"
-          />
-          <img
-            id="shop"
-            class="on-ground clickable"
-            style="left: -50%; height: 65%"
-            src="../images/shop.png"
-          />
-          <img
-            id="shop"
-            class="on-ground clickable"
-            style="left: -90%; height: 65%"
-            src="../images/petshop.png"
-          />
-          <img
-            class="on-ground"
-            style="left: -100%; height: 10%; transform: scaleX(-1)"
-            src="../images/riolu.gif"
-          />
-          <img
-            class="on-ground"
-            style="left: -80%; height: 8%"
-            src="../images/sylveon.gif"
-          />
-          <img
-            class="on-ground"
-            style="left: 25%; height: 15%"
-            src="../images/dancingeevee.gif"
-          />
-          <img
-            class="on-ground clickable"
-            style="left: 90%; height: 15%"
-            src="../images/wildsign.png"
-          />
-          <div
-            id="player-character"
-            class="player-character on-ground"
-            style="height: 10%"
-          >
-            <img
-              src="../images/character.gif"
-              id="player-sprite"
-              style="height: 100%"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div id="start-screen" class="start-screen">
-        <div class="start-screen-title">
-          <h2>A tale of Pokémon and Fire</h2>
-        </div>
-        <div class="start-screen-copyright-text">
-          <p>
-            This website contains material that is protected by copyright. I
-            acknowledge and respect copyright and do not own rights to this
-            material.
-          </p>
-        </div>
-        <div class="start-screen-buttons">
-          <button
-            onclick="startGame()"
-            onmouseover="audioModule.playSound('hover.mp3')"
-          >
-            New Game
-          </button>
-          <button id="load-button" onclick="loadGame()">Continue Game</button>
-          <button onclick="self.close()">Quit Game</button>
-        </div>
-      </div>
-      <div id="select-pokemon-scene" class="select-pokemon-scene">
-        <div id="select-pokemon">
-          <img
-            src="../pokemon/0007-squirtle/front.gif"
-            id="squirtle"
-            onmouseover="audioModule.playSound('hover.mp3')"
-            onclick="pickPokemon('squirtle')"
-          />
-          <img
-            src="../pokemon/0001-bulbasaur/front.gif"
-            id="bulbasaur"
-            onmouseover="audioModule.playSound('hover.mp3')"
-            onclick="pickPokemon('bulbasaur')"
-          />
-          <img
-            src="../pokemon/0004-charmander/front.gif"
-            id="charmander"
-            onmouseover="audioModule.playSound('hover.mp3')"
-            onclick="pickPokemon('charmander')"
-          />
-        </div>
-      </div>
-      <div class="battle-scene">
-        <div class="currency-container">
-          <p id="pokedollars"></p>
-        </div>
-        <div class="wild-pokemon-info-container">
-          <div class="wild-pokemon-info">
-            <div>
-              <p id="wildpokemon">Pikachu</p>
-              <p id="wildlevel">Level 5</p>
-            </div>
-            <div class="health-bar">
-              <div id="opponentHpBar" class="health-bar-overlay"></div>
-              <p id="wildHp"></p>
-            </div>
-          </div>
-        </div>
-        <div class="wild-pokemon">
-          <img src="" id="random-wild-pokemon" />
-        </div>
-        <div class="battle-bar">
-          <div class="what-will-pokemon-do">
-            <p id="playerPokemonAction"></p>
-          </div>
-          <div class="battle-bar-main-menu">
-            <div class="battle-bar-button-container">
-              <button
-                style="background-color: #e57373"
-                onclick="battleModule.switchBattleMenu()"
-              >
-                <span>Fight</span>
-              </button>
-              <button style="background-color: #fff176">Bag</button>
-            </div>
-            <div class="battle-bar-button-container">
-              <button
-                style="background-color: #81d4fa"
-                onclick="battleModule.runFromBattlePopup()"
-              >
-                Run
-              </button>
-              <button style="background-color: #a5d6a7">Pokémon</button>
-            </div>
-          </div>
-          <div class="pokemon-skill-bar">
-            <div class="battle-bar-button-container">
-              <button id="skill1" onclick="battleModule.allyUseMove(0)">
-                <p id="move1"></p>
-              </button>
-              <button
-                id="skill2"
-                onclick="battleModule.allyUseMove(1)"
-              ></button>
-            </div>
-            <div class="battle-bar-button-container">
-              <button
-                id="skill3"
-                onclick="battleModule.allyUseMove(2)"
-              ></button>
-              <button
-                id="skill4"
-                onclick="battleModule.allyUseMove(3)"
-              ></button>
-              <button onclick="battleModule.switchBattleMenu()">Back</button>
-            </div>
-          </div>
-        </div>
-        <div class="bag-bar">
-          <div>
-            <button>Fight</button>
-            <button>Bag</button>
-          </div>
-          <div>
-            <button>Run</button>
-            <button>Pokémon</button>
-          </div>
-        </div>
-        <div class="items-bar"></div>
-        <div class="player-pokemon-info-container">
-          <div class="player-pokemon-info">
-            <div>
-              <p id="playerpokemon"></p>
-              <p id="playerlevel"></p>
-            </div>
-            <div class="health-bar">
-              <div id="allyHpBar" class="health-bar-overlay"></div>
-              <p id="playerHp"></p>
-            </div>
-          </div>
-        </div>
-        <div class="player-pokemon">
-          <img src="" id="player-pokemon-image" />
-        </div>
-        <div class="kill-container">
-          <div id="kill-counter" class="kill-counter">
-            <img src="../images/skull.png" />
-            <p id="kill-counter-text">Pokemon slain: 0:</p>
-          </div>
-        </div>
-        <div id="run-away-popup">
-          <div id="run-away-window">
-            <h2>Are you sure you want to run away?</h2>
-            <p>If you run now you've gotten 20 pokedollars.</p>
-            <div>
-              <button onclick="battleModule.runFromBattle()">Yes</button>
-              <button onclick="battleModule.closeRunFromBattlePopup()">
-                No
-              </button>
-            </div>
-          </div>
+            "></div>
+        <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
+        <img id="lab" class="on-ground clickable" style="left: 0%; height: 65%" src="../images/lab.png" />
+        <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/shop.png" />
+        <img id="shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png" />
+        <img class="on-ground" style="left: -100%; height: 10%; transform: scaleX(-1)" src="../images/riolu.gif" />
+        <img class="on-ground" style="left: -80%; height: 8%" src="../images/sylveon.gif" />
+        <img class="on-ground" style="left: 25%; height: 15%" src="../images/dancingeevee.gif" />
+        <img class="on-ground clickable" style="left: 90%; height: 15%" src="../images/wildsign.png" />
+        <div id="player-character" class="player-character on-ground" style="height: 10%">
+          <img src="../images/character.gif" id="player-sprite" style="height: 100%" />
         </div>
       </div>
     </div>
-  </body>
+    <div id="battle-scene">
+      <div class="currency-container">
+        <p id="pokedollars"></p>
+      </div>
+      <div class="wild-pokemon-info-container">
+        <div class="wild-pokemon-info">
+          <div>
+            <p id="wildpokemon">Pikachu</p>
+            <p id="wildlevel">Level 5</p>
+          </div>
+          <div class="health-bar">
+            <div id="opponentHpBar" class="health-bar-overlay"></div>
+            <p id="wildHp"></p>
+          </div>
+        </div>
+      </div>
+      <div class="wild-pokemon">
+        <img src="" id="random-wild-pokemon" />
+      </div>
+      <div class="player-pokemon">
+        <img src="" id="player-pokemon-image" />
+      </div>
+      <div class="battle-bar">
+        <div class="what-will-pokemon-do">
+          <p id="playerPokemonAction"></p>
+        </div>
+        <div class="battle-bar-main-menu">
+          <div class="battle-bar-button-container">
+            <button style="background-color: #e57373" onclick="battleModule.switchBattleMenu()">
+              <span>Fight</span>
+            </button>
+            <button style="background-color: #fff176">Bag</button>
+          </div>
+          <div class="battle-bar-button-container">
+            <button style="background-color: #81d4fa" onclick="battleModule.runFromBattlePopup()">
+              Run
+            </button>
+            <button style="background-color: #a5d6a7" onclick="battleModule.showPokemonTeam()">Pokémon</button>
+          </div>
+        </div>
+        <div class="pokemon-skill-bar">
+          <div class="battle-bar-button-container">
+            <button id="skill1" onclick="battleModule.allyUseMove(0)">
+              <p id="move1"></p>
+            </button>
+            <button id="skill2" onclick="battleModule.allyUseMove(1)"></button>
+          </div>
+          <div class="battle-bar-button-container">
+            <button id="skill3" onclick="battleModule.allyUseMove(2)"></button>
+            <button id="skill4" onclick="battleModule.allyUseMove(3)"></button>
+            <button onclick="battleModule.switchBattleMenu()">Back</button>
+          </div>
+        </div>
+      </div>
+      <div class="bag-bar">
+        <div>
+          <button>Fight</button>
+          <button>Bag</button>
+        </div>
+        <div>
+          <button>Run</button>
+          <button>Pokémon</button>
+        </div>
+      </div>
+      <div class="items-bar"></div>
+      <div class="player-pokemon-info-container">
+        <div class="player-pokemon-info">
+          <div>
+            <p id="playerpokemon"></p>
+            <p id="playerlevel"></p>
+          </div>
+          <div class="health-bar">
+            <div id="allyHpBar" class="health-bar-overlay"></div>
+            <p id="playerHp"></p>
+          </div>
+        </div>
+      </div>
+      <div class="kill-container">
+        <div id="kill-counter" class="kill-counter">
+          <img src="../images/skull.png" />
+          <p id="kill-counter-text">Pokemon slain: 0:</p>
+        </div>
+      </div>
+      <div id="run-away-popup">
+        <div id="run-away-window">
+          <h2>Are you sure you want to run away?</h2>
+          <p>If you run now you've gotten 20 pokedollars.</p>
+          <div>
+            <button onclick="battleModule.runFromBattle()">Yes</button>
+            <button onclick="battleModule.closeRunFromBattlePopup()">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="battle-pokemonlist-menu">
+        <div class="pokemon-buttons">
+          <button id="select-pokemon-0" onclick="battleModule.setCurrentPokemon(0)">
+            <img id="select-pokemon-0-icon">
+            <div id="select-pokemon-0-active"></div>
+            <div id="select-pokemon-0-name"></div>
+            <div id="select-pokemon-0-level"></div>
+            <div id="select-pokemon-0-hp-text"></div>
+          </button>
+          <button id="select-pokemon-1" onclick="battleModule.setCurrentPokemon(1)">
+            <img id="select-pokemon-1-icon">
+            <div id="select-pokemon-1-active"></div>
+            <div id="select-pokemon-1-name"></div>
+            <div id="select-pokemon-1-level"></div>
+            <div id="select-pokemon-1-hp-text"></div>
+          </button>
+          <button id="select-pokemon-2" onclick="battleModule.setCurrentPokemon(2)">
+            <img id="select-pokemon-2-icon">
+            <div id="select-pokemon-2-active"></div>
+            <div id="select-pokemon-2-name"></div>
+            <div id="select-pokemon-2-level"></div>
+            <div id="select-pokemon-2-hp-text"></div>
+          </button>
+          <button id="select-pokemon-3" onclick="battleModule.setCurrentPokemon(3)">
+            <img id="select-pokemon-3-icon">
+            <div id="select-pokemon-3-active"></div>
+            <div id="select-pokemon-3-name"></div>
+            <div id="select-pokemon-3-level"></div>
+            <div id="select-pokemon-3-hp-text"></div>
+          </button>
+          <button id="select-pokemon-4" onclick="battleModule.setCurrentPokemon(4)">
+            <img id="select-pokemon-4-icon">
+            <div id="select-pokemon-4-active"></div>
+            <div id="select-pokemon-4-name"></div>
+            <div id="select-pokemon-4-level"></div>
+            <div id="select-pokemon-4-hp-text"></div>
+          </button>
+          <button id="select-pokemon-5" onclick="battleModule.setCurrentPokemon(5)">
+            <img id="select-pokemon-5-icon">
+            <div id="select-pokemon-5-active"></div>
+            <div id="select-pokemon-5-name"></div>
+            <div id="select-pokemon-5-level"></div>
+            <div id="select-pokemon-5-hp-text"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="start-screen" class="start-screen">
+      <div class="start-screen-title">
+        <h2>A tale of Pokémon and Fire</h2>
+      </div>
+      <div class="start-screen-copyright-text">
+        <p>
+          This website contains material that is protected by copyright. I
+          acknowledge and respect copyright and do not own rights to this
+          material.
+        </p>
+      </div>
+      <div class="start-screen-buttons">
+        <button onclick="startGame()" onmouseover="audioModule.playSound('hover.mp3')">
+          New Game
+        </button>
+        <button id="load-button" onclick="loadGame()">Continue Game</button>
+        <button onclick="self.close()">Quit Game</button>
+      </div>
+    </div>
+    <div id="select-pokemon-scene" class="select-pokemon-scene">
+      <div id="select-pokemon">
+        <img src="../pokemon/0007-squirtle/front.gif" id="squirtle" onmouseover="audioModule.playSound('hover.mp3')"
+          onclick="pickPokemon('squirtle')" />
+        <img src="../pokemon/0001-bulbasaur/front.gif" id="bulbasaur" onmouseover="audioModule.playSound('hover.mp3')"
+          onclick="pickPokemon('bulbasaur')" />
+        <img src="../pokemon/0004-charmander/front.gif" id="charmander" onmouseover="audioModule.playSound('hover.mp3')"
+          onclick="pickPokemon('charmander')" />
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
