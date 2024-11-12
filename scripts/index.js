@@ -160,7 +160,7 @@ const dialogueObject = [
       `He's been having quite the rough time since the passing of his Pidgeotto, maybe you could try to cheer him on when you see him? In any case, good luck out there, go explore the Pangea just like your father did! And when you're in the big leagues dont forget about ole Professor Oak!`,
     buttonText: "Continue",
     backgroundImage: profoak2,
-    action: () => loadTown()
+    action: () => loadTown(),
   },
 ];
 
@@ -172,8 +172,7 @@ const pickFourRandomMoves = (pokemonType, level) => {
 const loadTown = async () => {
   const town = document.getElementById("town");
   town.style.display = "block";
-
-  
+  console.log(playerPokemonList[0])
   returnFromWilderness();
 };
 
@@ -279,7 +278,7 @@ const setCameraAndPlayerProperties = () => {
   const town = document.getElementById("town");
   town.style.setProperty("--cameraX", `${cameraX}%`);
   town.style.setProperty("--playerX", `${playerX}%`);
-}
+};
 
 document.addEventListener("keydown", (e) => {
   if (e.code === "KeyA") {
@@ -289,7 +288,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-document.addEventListener('keyup', (e) => {
+document.addEventListener("keyup", (e) => {
   if (e.code === "KeyA") {
     keyADown = false;
   } else if (e.code === "KeyD") {
@@ -304,13 +303,11 @@ console.log(deltaTimeSeconds);
 let playerDirection = "left";
 let playerRunning = false;
 
-const [enableTownClock, disableTownClock] = (function() {
-
+const [enableTownClock, disableTownClock] = (function () {
   let intervalId = null;
 
   const enableTownClock = () => {
     intervalId = setInterval(async () => {
-
       if (allowUserMovementInput) {
         if (keyADown) {
           playerTargetX -= playerSpeed * deltaTimeSeconds;
@@ -323,15 +320,21 @@ const [enableTownClock, disableTownClock] = (function() {
         } else {
           playerRunning = false;
         }
-    
-        playerTargetX = Math.min(playerMaxX, Math.max(playerMinX, playerTargetX));
+
+        playerTargetX = Math.min(
+          playerMaxX,
+          Math.max(playerMinX, playerTargetX)
+        );
         cameraTargetX = playerTargetX; // Follow player
-        cameraTargetX = Math.min(cameraMaxX, Math.max(cameraMinX, cameraTargetX));
-    
+        cameraTargetX = Math.min(
+          cameraMaxX,
+          Math.max(cameraMinX, cameraTargetX)
+        );
+
         if (playerTargetX + 2 > playerMaxX) {
           if (!enteringWilderness) {
             enterWilderness();
-            console.log("Attempting to enter wilderness.")
+            console.log("Attempting to enter wilderness.");
             enteringWilderness = true;
             return;
           }
@@ -339,20 +342,20 @@ const [enableTownClock, disableTownClock] = (function() {
       }
 
       updatePlayerSprite();
-    
+
       cameraX = cameraX + (cameraTargetX - cameraX) * cameraLagSpeed;
       playerX = playerX + (playerTargetX - playerX) * playerLagSpeed;
-    
+
       setCameraAndPlayerProperties();
     }, deltaTimeSeconds * 1000);
-  }
+  };
 
   const disableTownClock = () => {
     if (intervalId) {
       clearInterval(intervalId);
       intervalId = null;
     }
-  }
+  };
 
   return [enableTownClock, disableTownClock];
 })();
@@ -360,8 +363,8 @@ const [enableTownClock, disableTownClock] = (function() {
 let spriteState = "";
 
 const updatePlayerSprite = () => {
-  const allySprite = document.getElementById("player-character")
-  const spriteSource = "../images/character.gif"
+  const allySprite = document.getElementById("player-character");
+  const spriteSource = "../images/character.gif";
   const newSpriteState = playerRunning + playerDirection;
   const shouldUpdateSprite = spriteState != newSpriteState;
   spriteState = newSpriteState;
@@ -370,14 +373,14 @@ const updatePlayerSprite = () => {
     if (playerDirection == "left") {
       if (shouldUpdateSprite) {
         allySprite.src = spriteSource;
-        allySprite.style.transform = "scaleX(1)"
-        console.log(allySprite.src)
+        allySprite.style.transform = "scaleX(1)";
+        console.log(allySprite.src);
         // Set image to running left
       }
     } else {
-      if(shouldUpdateSprite) {
+      if (shouldUpdateSprite) {
         allySprite.src = `../images/character.gif`;
-        allySprite.style.transform = "scaleX(-1)"
+        allySprite.style.transform = "scaleX(-1)";
         // Set image to running right
       }
     }
@@ -388,23 +391,25 @@ const updatePlayerSprite = () => {
       // Set image to idle right
     }
   }
-}
+};
 
 const enterWilderness = async () => {
   allowUserMovementInput = false;
-  
-  await animate((time, deltaTime) => {
-    playerTargetX += playerSpeed * deltaTime;
-  }, 2, 30);
+
+  await animate(
+    (time, deltaTime) => {
+      playerTargetX += playerSpeed * deltaTime;
+    },
+    2,
+    30
+  );
 
   console.log("Animation done");
   startBattle();
   disableTownClock();
-  
-}
+};
 
 const returnFromWilderness = async () => {
-
   enableTownClock();
 
   allowUserMovementInput = false;
@@ -413,31 +418,93 @@ const returnFromWilderness = async () => {
 
   await sleep(2000);
 
-  await animate((time, deltaTime) => {
-    playerTargetX -= playerSpeed * deltaTime;
-  }, 1.5, 30);
+  await animate(
+    (time, deltaTime) => {
+      playerTargetX -= playerSpeed * deltaTime;
+    },
+    1.5,
+    30
+  );
 
   enteringWilderness = false;
   allowUserMovementInput = true;
-}
+};
 
 const animate = (animationFunction, durationSeconds, frameRate) => {
-
-  return new Promise(res => {
+  return new Promise((res) => {
     let time = 0;
     let deltaTime = durationSeconds / frameRate;
     const id = setInterval(() => {
-      
       if (time > durationSeconds) {
         clearInterval(id);
         res();
         return;
       }
-  
+
       time += deltaTime;
-      animationFunction(time / durationSeconds, deltaTime)
-  
+      animationFunction(time / durationSeconds, deltaTime);
     }, deltaTime * 1000);
   });
+};
 
+const fetchData = () => {
+  return {
+    user: {
+      userPokemon: playerPokemonList.map(pokemonIndividual => ({
+        ...pokemonIndividual,
+        pokemonType: pokemonIndividual.pokemonType.id
+      })),
+      userMoney: pokeCurrency,
+    },
+  };
+};
+
+const checkForLocalData = () => {
+  const loadbutton = document.getElementById("load-button");
+  if (localStorage.getItem("saveGame") === null) {
+    return;
+  } else {
+    loadbutton.style.display = "block";
+  }
 }
+
+checkForLocalData();
+
+const saveGame = () => {
+  const data = fetchData();
+  localStorage.setItem("saveGame", JSON.stringify(data));
+  console.log("Saved game");
+  console.log(data);
+};
+
+const loadGame = () => {
+  const savedData = localStorage.getItem("saveGame");
+  if (savedData) {
+    const data = JSON.parse(savedData);
+
+    playerPokemonList.push(...data.user.userPokemon.map(pokemonSave => ({
+      ...pokemonSave,
+      pokemonType: Object.values(ALL_POKEMON).find(pokemonType => pokemonType.id === pokemonSave.pokemonType )
+    })).filter(individual => individual.pokemonType != null));
+    pokeCurrency = data.user.userMoney;
+    console.log(pokeCurrency)
+    loadTown();
+  }
+};
+
+let menuOpen = false;
+const openMenu = (e) => {
+  const menu = document.getElementById("main-menu")
+  if (e.key == "Escape") {
+    if (!menuOpen) {
+      console.log("Open menu")
+      menu.style.display = "block";
+      menuOpen = true;
+    } else {
+      menu.style.display = "none";
+      menuOpen = false;
+    }
+  }
+}
+
+document.addEventListener("keydown", openMenu);
