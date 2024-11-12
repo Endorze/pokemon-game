@@ -80,29 +80,25 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     const pokemonList = document.getElementById("battle-pokemonlist-menu")
     if (!listOfPokemon) {
       pokemonList.style.display = "block";
-
       for (let i = 0; i < 6; i++) {
         const buttonElement = document.getElementById(`select-pokemon-${i}`);
         const buttonIcon = document.getElementById(`select-pokemon-${i}-icon`);
         const buttonName = document.getElementById(`select-pokemon-${i}-name`);
         const buttonLevel = document.getElementById(`select-pokemon-${i}-level`);
-
         const buttonHpText = document.getElementById(`select-pokemon-${i}-hp-text`);
-
-
         const pokemonIndividual = playerPokemonList[i];
 
         if (pokemonIndividual) {
           console.log(pokemonIndividual);
           buttonElement.style.display = "block";
-            buttonIcon.src = "../pokemon/" + pokemonIndividual.pokemonType.id + "/front.gif";
-            buttonName.textContent = pokemonIndividual.name;
-            buttonLevel.textContent = pokemonIndividual.level;
-            buttonHpText.textContent = pokemonIndividual.currentHp;
-          // Update each element
+          buttonIcon.src = "../pokemon/" + pokemonIndividual.pokemonType.id + "/front.gif";
+          buttonName.textContent = pokemonIndividual.name;
+          buttonLevel.textContent = pokemonIndividual.level;
+          buttonHpText.textContent = pokemonIndividual.currentHp;
+          listOfPokemon = true;
         } else {
           console.log("Hej")
-          // Set inactive
+          return;
         }
       }
       console.log("Trying to show pokemon team")
@@ -116,6 +112,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   }
 
   const setCurrentPokemon = async (index) => {
+    playSound("buttonhover.mp3")
+    await sleep(500)
     const pokemonList = document.getElementById("battle-pokemonlist-menu")
     pokemonList.style.display = "none";
     currentAllyPokemonIndividual = playerPokemonList[index];
@@ -123,7 +121,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
     await sleep(1000)
     doAIMove();
-    
+
   }
 
   const updateOpponentPokemon = () => {

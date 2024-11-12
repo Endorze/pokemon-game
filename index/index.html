@@ -182,48 +182,56 @@
       </div>
       <div id="battle-pokemonlist-menu">
         <div class="pokemon-buttons">
-          <button id="select-pokemon-0" onclick="battleModule.setCurrentPokemon(0)">
+          <button id="select-pokemon-0" onclick="battleModule.setCurrentPokemon(0)" onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-0-icon">
             <div id="select-pokemon-0-active"></div>
             <div id="select-pokemon-0-name"></div>
             <div id="select-pokemon-0-level"></div>
             <div id="select-pokemon-0-hp-text"></div>
           </button>
-          <button id="select-pokemon-1" onclick="battleModule.setCurrentPokemon(1)">
+          <button id="select-pokemon-1" onclick="battleModule.setCurrentPokemon(1)" onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-1-icon">
             <div id="select-pokemon-1-active"></div>
             <div id="select-pokemon-1-name"></div>
             <div id="select-pokemon-1-level"></div>
             <div id="select-pokemon-1-hp-text"></div>
           </button>
-          <button id="select-pokemon-2" onclick="battleModule.setCurrentPokemon(2)">
+          <button id="select-pokemon-2" onclick="battleModule.setCurrentPokemon(2)" onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-2-icon">
             <div id="select-pokemon-2-active"></div>
             <div id="select-pokemon-2-name"></div>
             <div id="select-pokemon-2-level"></div>
             <div id="select-pokemon-2-hp-text"></div>
           </button>
-          <button id="select-pokemon-3" onclick="battleModule.setCurrentPokemon(3)">
+          <button id="select-pokemon-3" onclick="battleModule.setCurrentPokemon(3)" onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-3-icon">
             <div id="select-pokemon-3-active"></div>
             <div id="select-pokemon-3-name"></div>
             <div id="select-pokemon-3-level"></div>
             <div id="select-pokemon-3-hp-text"></div>
           </button>
-          <button id="select-pokemon-4" onclick="battleModule.setCurrentPokemon(4)">
+          <button id="select-pokemon-4" onclick="battleModule.setCurrentPokemon(4)" onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-4-icon">
             <div id="select-pokemon-4-active"></div>
             <div id="select-pokemon-4-name"></div>
             <div id="select-pokemon-4-level"></div>
             <div id="select-pokemon-4-hp-text"></div>
           </button>
-          <button id="select-pokemon-5" onclick="battleModule.setCurrentPokemon(5)">
+          <button id="select-pokemon-5" onclick="battleModule.setCurrentPokemon(5)" onmouseover="playSound(`hover.mp3`)">
             <img id="select-pokemon-5-icon">
             <div id="select-pokemon-5-active"></div>
             <div id="select-pokemon-5-name"></div>
             <div id="select-pokemon-5-level"></div>
             <div id="select-pokemon-5-hp-text"></div>
           </button>
+        </div>
+        <div id="select-pokemon-container">
+          <div id="select-pokemon-text">Choose a Pokémon.</div>
+          <button onclick="battleModule.showPokemonTeam()">Cancel</button>
+        </div>
+        <div id="select-pokemon-trees">
+          <img src="../images/tree.png" id="tree1-menu">
+          <img src="../images/tree.png" id="tree2-menu">
         </div>
       </div>
     </div>
