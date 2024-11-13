@@ -5,7 +5,7 @@ const { createPokemonIndivual, calculateDamage } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
 
-let pokeCurrency = 0;
+let pokeCurrency = 500000;
 let currentBackground = -1;
 let playerName = "";
 let playerGotStarter = false;

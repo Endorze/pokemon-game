@@ -16,6 +16,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 15000,
     },
     bulbasaur: {
       id: "0001-bulbasaur",
@@ -27,6 +28,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 15000,
     },
     charmander: {
       id: "0004-charmander",
@@ -38,6 +40,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 15000,
     },
     rattata: {
       id: "0019-rattata",
@@ -49,6 +52,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 1000,
     },
     raticate: {
       id: "0020-raticate",
@@ -60,6 +64,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     magnemite: {
       id: "0081-magnemite",
@@ -71,6 +76,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     pidgey: {
       id: "0016-pidgey",
@@ -82,6 +88,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 1000,
     },
     pidgeotto: {
       id: "0017-pidgeotto",
@@ -93,6 +100,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     pidgeott: {
       id: "0018-pidgeott",
@@ -104,6 +112,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 15000,
     },
     spearow: {
       id: "0021-spearow",
@@ -115,6 +124,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 1000,
     },
     fearow: {
       id: "0022-fearow",
@@ -126,6 +136,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     ekans: {
       id: "0023-ekans",
@@ -137,6 +148,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 1000,
     },
     arbok: {
       id: "0024-arbok",
@@ -148,6 +160,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     pikachu: {
       id: "0025-pikachu",
@@ -159,6 +172,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     raichu: {
       id: "0026-raichu",
@@ -170,6 +184,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 15000,
     },
     mew: {
       id: "0151-mew",
@@ -181,6 +196,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 100000,
     },
     eevee: {
       id: "0133-eevee",
@@ -192,6 +208,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 15000,
     },
     mimikyu: {
       id: "0778-mimikyu",
@@ -203,6 +220,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     jigglypuff: {
       id: "0039-jigglypuff",
@@ -214,6 +232,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 2000,
     },
     rockruff: {
       id: "0744-rockruff",
@@ -225,6 +244,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     snorlax: {
       id: "0143-snorlax",
@@ -236,6 +256,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 25000,
     },
     butterfree: {
       id: "0012-butterfree",
@@ -247,6 +268,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     beedrill: {
       id: "0015-beedrill",
@@ -258,6 +280,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 5000,
     },
     kakuna: {
       id: "0014-kakuna",
@@ -269,6 +292,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 2000,
     },
     weedle: {
       id: "0013-weedle",
@@ -280,6 +304,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 500,
     },
     caterpie: {
       id: "0010-caterpie",
@@ -291,6 +316,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 500,
     },
     metapod: {
       id: "0011-metapod",
@@ -302,6 +328,7 @@ var pokemonModule = (function () {
       specialDamageGrowth: 3,
       physicalDamageGrowth: 1,
       baseExp: 100,
+      basePrice: 2000,
     },
   };
   

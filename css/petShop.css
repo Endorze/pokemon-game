@@ -10,3 +10,9 @@
     border-radius: 5rem;
     background-color: beige;
 }
+
+#shop-item-container {
+    width: 400px;
+    height: 200px;
+    background-color: white;
+}

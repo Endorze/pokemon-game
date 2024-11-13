@@ -55,7 +55,8 @@
         </div>
         <div id="info-box" style="left: 90%;">
           <p>Welcome to my early access fan-game.<br><br>
-          To walk around, press A or D, the town continues to the left, go past the wilderness sign to the right for Pokémon battles!</p>
+            To walk around, press A or D, the town continues to the left, go past the wilderness sign to the right for
+            Pokémon battles! <br><br> Press ESC and Save to save your progress.</p>
         </div>
         <div class="top-grass" style="
               left: 0%;
@@ -80,11 +81,14 @@
             "></div>
         <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
         <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/shop.png" />
-        <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png" onclick="shopModule.openShop()"/>
-        <img id="purple-portal" class="on-ground clickable" style="left: -180%; height: 50%" src="../images/purpleportal.png" />
-        <img id="purple-portal" class="on-ground clickable" style="left: -125%; height: 80%" src="../images/town-tree.png" />
+        <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
+          onclick="shopModule.openShop()" />
+        <img id="purple-portal" class="on-ground clickable" style="left: -180%; height: 50%"
+          src="../images/purpleportal.png" />
+        <img id="purple-portal" class="on-ground clickable" style="left: -125%; height: 80%"
+          src="../images/town-tree.png" />
         <img id="mine" class="on-ground clickable" style="left: -154%; height: 40%"
-        src="../images/miningbackground.png" />
+          src="../images/miningbackground.png" />
         <img class="on-ground" style="left: -100%; height: 10%; transform: scaleX(-1)" src="../images/riolu.gif" />
         <img class="on-ground" style="left: -80%; height: 8%" src="../images/sylveon.gif" />
         <img class="on-ground" style="left: 25%; height: 15%" src="../images/dancingeevee.gif" />
@@ -94,8 +98,22 @@
           <img src="../images/character.gif" id="player-sprite" style="height: 100%" />
         </div>
       </div>
-      <div id="pet-shop-interface">
-
+    </div>
+    <div id="pet-shop-interface">
+      <div id="shop-item-container">
+        <img id="shop-image-1">
+        <p id="shop-price-3"></p>
+        <button onclick="shopModule.buyItem(0)">Buy item</button>
+      </div>
+      <div id="shop-item-container">
+        <img id="shop-image-2">
+        <p id="shop-price-3"></p>
+        <button onclick="shopModule.buyItem(1)">Buy item</button>
+      </div>
+      <div id="shop-item-container">
+        <img id="shop-image-3">
+        <p id="shop-price-3"></p>
+        <button onclick="shopModule.buyItem(2)">Buy item</button>
       </div>
     </div>
 
@@ -127,16 +145,19 @@
         </div>
         <div class="battle-bar-main-menu">
           <div class="battle-bar-button-container">
-            <button style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)" onclick="battleModule.switchBattleMenu()">
+            <button style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)"
+              onclick="battleModule.switchBattleMenu()">
               <span>Fight</span>
             </button>
             <button style="background: linear-gradient(to bottom, #fff176 60%, #c0b659 40%)">Bag</button>
           </div>
           <div class="battle-bar-button-container">
-            <button style="background: linear-gradient(to bottom, #81d4fa 60%, #6cb1d1 40%)" onclick="battleModule.runFromBattlePopup()">
+            <button style="background: linear-gradient(to bottom, #81d4fa 60%, #6cb1d1 40%)"
+              onclick="battleModule.runFromBattlePopup()">
               Run
             </button>
-            <button style="background: linear-gradient(to bottom, #a5d6a7 60%, #84ac86 40%)" onclick="battleModule.showPokemonTeam()">Pokémon</button>
+            <button style="background: linear-gradient(to bottom, #a5d6a7 60%, #84ac86 40%)"
+              onclick="battleModule.showPokemonTeam()">Pokémon</button>
           </div>
         </div>
         <div class="pokemon-skill-bar">
