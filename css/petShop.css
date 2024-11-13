@@ -1,0 +1,12 @@
+#pet-shop-interface {
+    position: absolute;
+    margin: auto;
+    display: none;
+    left: 0;
+    right: 0;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 5rem;
+    background-color: beige;
+}
