@@ -55,7 +55,7 @@
         </div>
         <div id="info-box" style="left: 90%;">
           <p>Welcome to my early access fan-game.<br><br>
-            To walk around, press A or D, the town continues to the left, go past the wilderness sign to the right for
+            To walk around, press A or D.<br><br> The town continues to the left, go there and interract with the petshop if you want to buy extra Pokémon, it has new Pokémon every 30 minutes! Go past the wilderness sign to the right for
             Pokémon battles! <br><br> Press ESC and Save to save your progress.</p>
         </div>
         <div class="top-grass" style="
@@ -100,21 +100,25 @@
       </div>
     </div>
     <div id="pet-shop-interface">
+      <div id="shop-item1-frame"></div>
+      <div id="shop-item2-frame"></div>
+      <div id="shop-item3-frame"></div>
       <div id="shop-item-container1">
         <img id="shop-image-1">
-        <p id="shop-price-3"></p>
-        <button onclick="shopModule.buyItem(0)">Buy item</button>
+        <p id="shop-price-1"></p>
       </div>
       <div id="shop-item-container2">
         <img id="shop-image-2">
-        <p id="shop-price-3"></p>
-        <button onclick="shopModule.buyItem(1)">Buy item</button>
+        <p id="shop-price-2"></p>
       </div>
       <div id="shop-item-container3">
         <img id="shop-image-3">
         <p id="shop-price-3"></p>
-        <button onclick="shopModule.buyItem(2)">Buy item</button>
       </div>
+      <button id="shop-button-1" onclick="shopModule.buyItem(0)">Purchase</button>
+      <button id="shop-button-2" onclick="shopModule.buyItem(1)">Purchase</button>
+      <button id="shop-button-3" onclick="shopModule.buyItem(2)">Purchase</button>
+      <img id="exit-shop-button" src="../images/cross.png" onclick="shopModule.openShop()">
     </div>
 
     <div id="battle-scene">

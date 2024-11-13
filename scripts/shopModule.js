@@ -38,16 +38,12 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule) {
         const seed = generateShopSeed();
         currentShopItems = selectItems(3, seed);
 
-        const itemElements = [
-            document.getElementById("shop-image-1"),
-            document.getElementById("shop-image-2"),
-            document.getElementById("shop-image-3")
-        ];
-
         currentShopItems.forEach((pokemon, index) => {
-            if (pokemon && itemElements[index]) {
-                itemElements[index].src = `../pokemon/${pokemon.id}/front.gif`; // Ange rätt sökväg
-                itemElements[index].alt = pokemon.name;
+            const pokemonImage = document.getElementById(`shop-image-${index + 1}`);
+            const pokemonName = document.getElementById(`shop-price-${index + 1}`);
+            if (pokemon && pokemonImage) {
+                pokemonImage.src = `../pokemon/${pokemon.id}/front.gif`; // Ange rätt sökväg
+                pokemonName.alt = pokemon.name;
 
                 const nameElement = document.getElementById(`shop-price-${index + 1}`);
                 if (nameElement) {
@@ -73,8 +69,6 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule) {
                 createPokemonIndivual(selectedPokemon, 5, [selectedPokemon.moves[0]])
               );
 
-            // Lägg till logik för att ge spelaren Pokémonen (exempelvis lägga till i spelarens Pokémon-lista)
-            // playerPokemonList.push(selectedPokemon); // Exempel på hur man kan lägga till Pokémon i spelarens lista
         } else {
             console.log("Not enough currency to buy this item.");
         }
@@ -94,6 +88,8 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule) {
             allowUserMovementInput = true;
         }
     };
+
+    
 
     return {
         openShop,
