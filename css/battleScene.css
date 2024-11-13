@@ -229,9 +229,9 @@
 .player-pokemon-info {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 2%;
     border-radius: 5px;
-    background-color: white;
+    background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
     color: black;
     width: 20vw;
 }
@@ -241,7 +241,7 @@
     justify-content: space-between;
     padding: 10px;
     border-radius: 5px;
-    background-color: white;
+    background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
     color: black;
     width: 20vw;
 }
@@ -254,13 +254,34 @@
     top: 30%;
 }
 
+.kill-counter {
+    position: absolute;
+    width: 10%;
+    height: 5%;
+    padding: 1%;
+    margin-left: auto;
+    right: 5%;
+    margin-right: auto;
+    right: 18.5%;
+    bottom: 3%;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
+    border-radius: 10px;
+    display: flex;
+  }
+  
+  .kill-counter img {
+    height: 30px;
+  }
+
 .currency-container {
     position: absolute;
-    width: 200px;
-    height: 50px;
-    top: 5%;
+    width: 10%;
+    height: 5%;
+    bottom: 3%;
     right: 5%;
-    background-color: white;
+    background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
     padding: 10px;
     border-radius: 10px;
     display: flex;
@@ -289,7 +310,7 @@
 
 .health-bar-overlay {
 
-    --full-hp: rgb(18, 211, 18);
+    --full-hp: rgb(111, 211, 111);
     --half-hp: rgb(202, 173, 44);
     --low-hp: rgb(211, 27, 27);
   
@@ -310,23 +331,3 @@
     animation: moveToAndBack 0.3s ease-in-out forwards;
   }
 
-  .kill-counter {
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    padding: 10px;
-    top: 5%;
-    margin-left: auto;
-    left: 0;
-    margin-right: auto;
-    right: 0;
-    align-items: center;
-    gap: 10px;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-  }
-  
-  .kill-counter img {
-    height: 30px;
-  }

@@ -29,9 +29,6 @@
   <div id="loading-screen">
     <img src="../images/loading.gif" />
     <img id="eevee-loading-screen" src="../images/jumpingeevee.gif" />
-    <div class="progress-bar">
-      <img src="../images/loading-dots-bouncing-dots.gif" />
-    </div>
   </div>
 
   <div class="gaming-window">
@@ -78,7 +75,6 @@
               background-repeat: repeat-x;
             "></div>
         <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
-        <img id="lab" class="on-ground clickable" style="left: 0%; height: 65%" src="../images/lab.png" />
         <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/shop.png" />
         <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png" onclick="shopModule.openShop()"/>
         <img id="purple-portal" class="on-ground clickable" style="left: -180%; height: 50%" src="../images/purpleportal.png" />
@@ -88,7 +84,7 @@
         <img class="on-ground" style="left: -100%; height: 10%; transform: scaleX(-1)" src="../images/riolu.gif" />
         <img class="on-ground" style="left: -80%; height: 8%" src="../images/sylveon.gif" />
         <img class="on-ground" style="left: 25%; height: 15%" src="../images/dancingeevee.gif" />
-        <img class="on-ground" style="left: -24%; height: 12%; width: 14%;" src="../images/townbench.png" />
+        <img class="on-ground" style="left: 13%; height: 12%; width: 14%;" src="../images/townbench.png" />
         <img class="on-ground clickable" style="left: 90%; height: 15%" src="../images/wildsign.png" />
         <div id="player-character" class="player-character on-ground" style="height: 10%">
           <img src="../images/character.gif" id="player-sprite" style="height: 100%" />
@@ -101,7 +97,7 @@
 
     <div id="battle-scene">
       <div class="currency-container">
-        <p id="pokedollars"></p>
+        <p id="pokedollars">Pokedollars: 0$</p>
       </div>
       <div class="wild-pokemon-info-container">
         <div class="wild-pokemon-info">
@@ -127,16 +123,16 @@
         </div>
         <div class="battle-bar-main-menu">
           <div class="battle-bar-button-container">
-            <button style="background-color: #e57373" onclick="battleModule.switchBattleMenu()">
+            <button style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)" onclick="battleModule.switchBattleMenu()">
               <span>Fight</span>
             </button>
-            <button style="background-color: #fff176">Bag</button>
+            <button style="background: linear-gradient(to bottom, #fff176 60%, #c0b659 40%)">Bag</button>
           </div>
           <div class="battle-bar-button-container">
-            <button style="background-color: #81d4fa" onclick="battleModule.runFromBattlePopup()">
+            <button style="background: linear-gradient(to bottom, #81d4fa 60%, #6cb1d1 40%)" onclick="battleModule.runFromBattlePopup()">
               Run
             </button>
-            <button style="background-color: #a5d6a7" onclick="battleModule.showPokemonTeam()">Pokémon</button>
+            <button style="background: linear-gradient(to bottom, #a5d6a7 60%, #84ac86 40%)" onclick="battleModule.showPokemonTeam()">Pokémon</button>
           </div>
         </div>
         <div class="pokemon-skill-bar">
@@ -179,7 +175,7 @@
       <div class="kill-container">
         <div id="kill-counter" class="kill-counter">
           <img src="../images/skull.png" />
-          <p id="kill-counter-text">Pokemon slain: 0:</p>
+          <p id="kill-counter-text">Pokemon slain: 0</p>
         </div>
       </div>
       <div id="run-away-popup">
