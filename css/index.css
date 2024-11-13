@@ -21,6 +21,10 @@ body {
   background-size: cover;
 }
 
+#eevee-loading-screen {
+  width: 5%;
+}
+
 #loading-screen {
   min-width: 100%;
   min-height: 100vh;
