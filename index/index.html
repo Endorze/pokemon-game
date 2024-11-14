@@ -55,7 +55,9 @@
         </div>
         <div id="info-box" style="left: 90%;">
           <p>Welcome to my early access fan-game.<br><br>
-            To walk around, press A or D.<br><br> The town continues to the left, go there and interract with the petshop if you want to buy extra Pokémon, it has new Pokémon every 30 minutes! Go past the wilderness sign to the right for
+            To walk around, press A or D.<br><br> The town continues to the left, go there and interract with the
+            petshop if you want to buy extra Pokémon, it has new Pokémon every 30 minutes! Go past the wilderness sign
+            to the right for
             Pokémon battles! <br><br> Press ESC and Save to save your progress.</p>
         </div>
         <div class="top-grass" style="
@@ -147,36 +149,29 @@
         <div class="what-will-pokemon-do">
           <p id="playerPokemonAction"></p>
         </div>
-        <div class="battle-bar-main-menu">
-          <div class="battle-bar-button-container">
-            <button style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)"
-              onclick="battleModule.switchBattleMenu()">
-              <span>Fight</span>
-            </button>
-            <button style="background: linear-gradient(to bottom, #fff176 60%, #c0b659 40%)">Bag</button>
-          </div>
-          <div class="battle-bar-button-container">
-            <button style="background: linear-gradient(to bottom, #81d4fa 60%, #6cb1d1 40%)"
-              onclick="battleModule.runFromBattlePopup()">
-              Run
-            </button>
-            <button style="background: linear-gradient(to bottom, #a5d6a7 60%, #84ac86 40%)"
-              onclick="battleModule.showPokemonTeam()">Pokémon</button>
-          </div>
+        <div id="battle-bar-main-menu">
+          <button id="fight-button" style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)"
+            onclick="battleModule.switchBattleMenu()">
+            <span>Fight</span>
+          </button>
+          <button id="bag-button" style="background: linear-gradient(to bottom, #fff176 60%, #c0b659 40%)">Bag</button>
+
+          <button id="run-button" style="background: linear-gradient(to bottom, #81d4fa 60%, #6cb1d1 40%)"
+            onclick="battleModule.runFromBattlePopup()">
+            Run
+          </button>
+          <button id="pokemon-button" style="background: linear-gradient(to bottom, #a5d6a7 60%, #84ac86 40%)"
+            onclick="battleModule.showPokemonTeam()">Pokémon</button>
         </div>
-        <div class="pokemon-skill-bar">
-          <div class="battle-bar-button-container">
-            <button id="skill1" onclick="battleModule.allyUseMove(0)">
-              <p id="move1"></p>
-            </button>
-            <button id="skill2" onclick="battleModule.allyUseMove(1)"></button>
-          </div>
-          <div class="battle-bar-button-container">
-            <button id="skill3" onclick="battleModule.allyUseMove(2)"></button>
-            <button id="skill4" onclick="battleModule.allyUseMove(3)"></button>
-            <button onclick="battleModule.switchBattleMenu()">Back</button>
-          </div>
-        </div>
+      </div>
+      <div id="pokemon-skill-bar">
+        <button id="skill1" onclick="battleModule.allyUseMove(0)">
+          <p id="move1"></p>
+        </button>
+          <button id="skill2" onclick="battleModule.allyUseMove(1)"></button>
+          <button id="skill3" onclick="battleModule.allyUseMove(2)"></button>
+          <button id="skill4" onclick="battleModule.allyUseMove(3)"></button>
+          <button id="back-button" onclick="battleModule.switchBattleMenu()">Back</button>
       </div>
       <div class="bag-bar">
         <div>
@@ -211,12 +206,10 @@
         <div id="run-away-window">
           <h2>Are you sure you want to run away?</h2>
           <p>If you run now you've gotten 20 pokedollars.</p>
-          <div>
-            <button onclick="battleModule.runFromBattle()">Yes</button>
-            <button onclick="battleModule.closeRunFromBattlePopup()">
-              No
-            </button>
-          </div>
+          <button onclick="battleModule.runFromBattle()">Yes</button>
+          <button onclick="battleModule.closeRunFromBattlePopup()">
+            No
+          </button>
         </div>
       </div>
       <div id="battle-pokemonlist-menu">

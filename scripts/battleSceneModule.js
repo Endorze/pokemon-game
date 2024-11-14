@@ -63,8 +63,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   const switchBattleMenu = () => {
     if (!allowUserAction) return;
 
-    const menu = document.querySelector(".pokemon-skill-bar");
-    const mainMenu = document.querySelector(".battle-bar-main-menu");
+    const menu = document.getElementById("pokemon-skill-bar");
+    const mainMenu = document.getElementById("battle-bar-main-menu");
 
     if (mainMenu.style.display === "none") {
       mainMenu.style.display = "block";
