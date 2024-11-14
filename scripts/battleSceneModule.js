@@ -243,7 +243,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
       updateAllyPokemon();
       killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
       console.log("You live to tell the tale");
-      pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
+      pokemonBattleScene(ROUTE2[randomWildPokemon(ROUTE2)]);
       return;
     }
 
@@ -406,7 +406,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     const battleScene = document.getElementById("battle-scene");
     battleScene.style.display = "block";
     currentAllyPokemonIndividual = playerPokemonList[0];
-    pokemonBattleScene(ROUTE1[randomWildPokemon(ROUTE1)]);
+    pokemonBattleScene(ROUTE2[randomWildPokemon(ROUTE2)]);
     startBattleMusic();
   };
 

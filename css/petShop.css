@@ -8,7 +8,7 @@
     width: 80%;
     height: 80%;
     border-radius: 5rem;
-    background: linear-gradient(to bottom, rgb(112, 56, 126) 90%, rgb(76, 14, 83) 10%);
+    background: linear-gradient(to bottom, rgba(112, 56, 126, 0.9) 90%, rgb(76, 14, 83, 0.9) 10%);
 }
 
 #shop-item-container1 {

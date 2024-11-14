@@ -1,5 +1,7 @@
 const { ALL_POKEMON } = pokemonModule;
 const { ROUTE1 } = route1Module;
+const { ROUTE2 } = route2Module;
+const { ROUTE3 } = route3Module;
 const { pokemonBattleScene, startBattle } = battleModule;
 const { createPokemonIndivual, calculateDamage } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
