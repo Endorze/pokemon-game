@@ -11,9 +11,9 @@ var pokemonUtilsModule = (function () {
     pokemonIndividual.currentHp = actualNewHp;
   };
   
-  const createRandomIndividual = (pokemonEncounter) => {
-    const wildPokemonType = ALL_POKEMON[pokemonEncounter.pokemonId];
-    const wildPokemonLevel = pokemonEncounter.level();
+  const createRandomIndividual = (pokemonId, level) => {
+    const wildPokemonType = ALL_POKEMON[pokemonId];
+    const wildPokemonLevel = level;
     const wildPokemonMoves = pickFourRandomMoves(
       wildPokemonType,
       wildPokemonLevel

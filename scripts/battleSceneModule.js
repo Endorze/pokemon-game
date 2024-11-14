@@ -4,6 +4,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   const { sleep } = utilsModule;
 
   let pokemonSlayed = 0;
+  let currentWave = 1;
+
   const loadPokemonIndividualMoves = (pokemonIndividual) => {
     const skill1 = document.getElementById("skill1");
     const skill2 = document.getElementById("skill2");
@@ -22,10 +24,10 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
         pokeCurrency += Math.floor(Math.random(5) * wildPokemonlevel + 1);
       }
     }
-
     const pokedollars = document.getElementById("pokedollars");
     pokedollars.textContent = "Pokédollars: " + pokeCurrency + "$";
   };
+
 
   const pokemonBattleScene = (pokemonEncounter) => {
     console.log("pokemonBattleScene", {
@@ -35,7 +37,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
       startBattleMusic(0);
       pokemonFightActive = true;
     }
-    const wildPokemonIndividual = createRandomIndividual(pokemonEncounter);
+    const wildPokemonIndividual = createRandomIndividual(pokemonEncounter.pokemonId, pokemonEncounter.level = currentWave);
+
     currentOpponentPokemonIndividual = wildPokemonIndividual;
 
     const wildPokemonCry =
@@ -58,7 +61,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
 
     allowUserAction = true;
   };
-
 
   const switchBattleMenu = () => {
     if (!allowUserAction) return;
@@ -101,6 +103,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
           return;
         }
       }
+
       console.log("Trying to show pokemon team")
       listOfPokemon = true;
       return;
@@ -116,16 +119,20 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
       if (playerPokemonList[index] == currentAllyPokemonIndividual) {
         console.log(currentAllyPokemonIndividual.pokemonType.name + " is already fighting.")
         return;
+      } else if (playerPokemonList[index].currentHp > 0) {
+        playSound("buttonhover.mp3")
+        await sleep(500)
+        const pokemonList = document.getElementById("battle-pokemonlist-menu")
+        pokemonList.style.display = "none";
+        currentAllyPokemonIndividual = playerPokemonList[index];
+        listOfPokemon = false;
+        updateAllyPokemon();
+        console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
+        await sleep(1000)
+        doAIMove();
+      } else {
+        console.log(playerPokemonList[index], "has fainted")
       }
-      playSound("buttonhover.mp3")
-      await sleep(500)
-      const pokemonList = document.getElementById("battle-pokemonlist-menu")
-      pokemonList.style.display = "none";
-      currentAllyPokemonIndividual = playerPokemonList[index];
-      updateAllyPokemon();
-      console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
-      await sleep(1000)
-      doAIMove();
     } else {
       console.log("Thats not a pokemon");
       return;
@@ -219,13 +226,13 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     if (currentAllyPokemonIndividual.currentHp == 0) {
       await sleep(2000);
       pokemonFaintedText(currentAllyPokemonIndividual);
-      console.log("You dead");
-      //presentFailScreen();
       return;
     }
 
     if (currentOpponentPokemonIndividual.currentHp == 0) {
       pokemonSlayed += 1;
+      currentWave += 1;
+      console.log(currentAllyPokemonIndividual);
       await sleep(2000);
       pokemonFaintedText(currentOpponentPokemonIndividual);
       generatePokeCoins(currentOpponentPokemonIndividual.level);
@@ -323,11 +330,16 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     // Update opponent
     updateOpponentPokemon();
     if (currentAllyPokemonIndividual.currentHp == 0) {
-      if (!DEV_MOVE) await sleep(2000);
-      pokemonFaintedText(currentAllyPokemonIndividual);
-      console.log("You dead");
-      //presentFailScreen();
-      return;
+      const hasAlivePokemon = playerPokemonList.some(pokemon => pokemon.currentHp > 0);
+        if (hasAlivePokemon) {
+          await sleep(2000);
+          showPokemonTeam();
+          pokemonFaintedText(currentAllyPokemonIndividual);
+          return;
+        } else {
+        //presentFailScreen();
+        console.log("Game over")
+      }
     }
     if (currentOpponentPokemonIndividual.currentHp == 0) {
       if (!DEV_MODE) await sleep(2000);
