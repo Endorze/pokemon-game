@@ -10,16 +10,12 @@
   <link rel="stylesheet" href="../css/battleScene.css" />
   <link rel="stylesheet" href="../css/petShop.css" />
   <script src="../scripts/constants.js" defer></script>
+  <script src="../scripts/sharedData.js" defer></script>
   <script src="../scripts/utilsModule.js" defer></script>
   <script src="../scripts/audioModule.js" defer></script>
   <script src="../scripts/pokemonModule.js" defer></script>
   <script src="../scripts/pokemonUtilsModule.js" defer></script>
-  <script src="../scripts/route1.js" defer></script>
-  <script src="../scripts/route2.js" defer></script>
-  <script src="../scripts/route3.js" defer></script>
-  <script src="../scripts/route4.js" defer></script>
-  <script src="../scripts/route5.js" defer></script>
-  <script src="../scripts/route6.js" defer></script>
+  <script src="../scripts/routes.js" defer></script>
   <script src="../scripts/battleSceneModule.js" defer></script>
   <script src="../scripts/shopModule.js" defer></script>
   <script src="../scripts/index.js" defer></script>
@@ -89,7 +85,7 @@
         <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
         <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/shop.png" />
         <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
-          onclick="shopModule.openShop()" />
+          onclick="shopModule.openPetShop()" />
         <img id="purple-portal" class="on-ground clickable" style="left: -180%; height: 50%"
           src="../images/purpleportal.png" />
         <img id="purple-portal" class="on-ground clickable" style="left: -125%; height: 80%"
@@ -125,7 +121,10 @@
       <button id="shop-button-1" onclick="shopModule.buyItem(0)">Purchase</button>
       <button id="shop-button-2" onclick="shopModule.buyItem(1)">Purchase</button>
       <button id="shop-button-3" onclick="shopModule.buyItem(2)">Purchase</button>
-      <img id="exit-shop-button" src="../images/cross.png" onclick="shopModule.openShop()">
+      <img id="exit-shop-button" src="../images/cross.png" onclick="shopModule.openPetShop()">
+      <div id="petshop-currency-container">
+        <p id="petshop-currency">My currency hehe</p>
+      </div>
     </div>
 
     <div id="battle-scene">

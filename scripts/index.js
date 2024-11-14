@@ -1,13 +1,11 @@
 const { ALL_POKEMON } = pokemonModule;
-const { ROUTE1 } = route1Module;
-const { ROUTE2 } = route2Module;
-const { ROUTE3 } = route3Module;
+const { ALL_ROUTES } = routesModule;
 const { pokemonBattleScene, startBattle } = battleModule;
 const { createPokemonIndivual, calculateDamage } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
+const { setPokeCurrency, getPokeCurrency } = sharedDataModule;
 
-let pokeCurrency = 500000;
 let currentBackground = -1;
 let playerName = "";
 let playerGotStarter = false;
@@ -405,7 +403,6 @@ const enterWilderness = async () => {
     2,
     30
   );
-
   console.log("Animation done");
   startBattle();
   disableTownClock();
@@ -456,7 +453,7 @@ const fetchData = () => {
         ...pokemonIndividual,
         pokemonType: pokemonIndividual.pokemonType.id
       })),
-      userMoney: pokeCurrency,
+      userMoney: getPokeCurrency() || 0,
     },
   };
 };
@@ -471,6 +468,7 @@ const checkForLocalData = () => {
 }
 
 checkForLocalData();
+
 
 const saveGame = () => {
   const data = fetchData();
@@ -488,8 +486,9 @@ const loadGame = () => {
       ...pokemonSave,
       pokemonType: Object.values(ALL_POKEMON).find(pokemonType => pokemonType.id === pokemonSave.pokemonType)
     })).filter(individual => individual.pokemonType != null));
-    pokeCurrency = data.user.userMoney;
-    console.log(pokeCurrency)
+
+    setPokeCurrency(data.user.userMoney);
+    console.log(getPokeCurrency())
     loadTown();
     startGameMusic();
   }

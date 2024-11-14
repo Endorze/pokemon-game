@@ -1,10 +1,12 @@
-var battleModule = (function (audioModule, pokemonUtilsModule) {
+var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
   const { createRandomIndividual, levelUpPokemon } = pokemonUtilsModule;
   const { sleep } = utilsModule;
+  const { ALL_ROUTES } = routesModule;
+  const { addPokeCurrency, getPokeCurrency } = sharedDataModule;
 
   let pokemonSlayed = 0;
-  let currentWave = 1;
+  let currentWave = 0;
 
   const loadPokemonIndividualMoves = (pokemonIndividual) => {
     const skill1 = document.getElementById("skill1");
@@ -14,21 +16,23 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
 
     const move1Id = pokemonIndividual.pokemonType.moves[0];
     const move1 = moves[move1Id];
-
     skill1.textContent = move1.name;
   };
 
+  //Generates pokecoins per when opponent pokemon faints.
   const generatePokeCoins = (wildPokemonlevel) => {
+    let totalPokeCoins = 0;
     for (let i = 0; i < wildPokemonlevel; i++) {
       for (let j = 0; j <= 10; j++) {
-        pokeCurrency += Math.floor(Math.random(5) * wildPokemonlevel + 1);
+        totalPokeCoins += Math.floor(Math.random(5) * wildPokemonlevel + 1);
       }
     }
     const pokedollars = document.getElementById("pokedollars");
-    pokedollars.textContent = "Pokédollars: " + pokeCurrency + "$";
+    sharedDataModule.addPokeCurrency(totalPokeCoins);
+    pokedollars.textContent = "Pokédollars: " + sharedDataModule.getPokeCurrency() + "$";
   };
 
-
+  //Sets up the battle scene, updates ally and opponent pokemon.
   const pokemonBattleScene = (pokemonEncounter) => {
     console.log("pokemonBattleScene", {
       pokemonEncounter,
@@ -38,7 +42,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
       pokemonFightActive = true;
     }
     const wildPokemonIndividual = createRandomIndividual(pokemonEncounter.pokemonId, pokemonEncounter.level = currentWave);
-
     currentOpponentPokemonIndividual = wildPokemonIndividual;
 
     const wildPokemonCry =
@@ -53,15 +56,14 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
 
     const pokemonDescText = document.getElementById("playerPokemonAction");
     pokemonDescText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
-
     const battleScene = document.getElementById("battle-scene");
     battleScene.style.display = "block";
 
     loadPokemonIndividualMoves(currentAllyPokemonIndividual);
-
     allowUserAction = true;
   };
 
+  //Switches from options menu to battlemenu
   const switchBattleMenu = () => {
     if (!allowUserAction) return;
 
@@ -77,6 +79,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     }
   };
 
+
+  //Toggles display on div, shows your pokemonteam.
   let listOfPokemon = false;
   const showPokemonTeam = () => {
     const pokemonList = document.getElementById("battle-pokemonlist-menu")
@@ -103,7 +107,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
           return;
         }
       }
-
       console.log("Trying to show pokemon team")
       listOfPokemon = true;
       return;
@@ -114,6 +117,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     }
   }
 
+  //When you pick pokemon in pokemonmenu you set it to be your fighting pokemon.
   const setCurrentPokemon = async (index) => {
     if (playerPokemonList[index] != null) {
       if (playerPokemonList[index] == currentAllyPokemonIndividual) {
@@ -139,6 +143,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     }
   }
 
+  //Updates information on opponent pokemon.
   const updateOpponentPokemon = () => {
     const wiPokemon = document.getElementById("wildpokemon");
     const wiLevel = document.getElementById("wildlevel");
@@ -158,6 +163,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     );
   };
 
+  //Updates information on ally pokemon.
   const updateAllyPokemon = () => {
     const plPokemon = document.getElementById("playerpokemon");
     const plLevel = document.getElementById("playerlevel");
@@ -172,6 +178,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar");
   };
 
+  //Updates healthbar visuals based on current% health.
   const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
     const hpTextElement = document.getElementById(hpBarTextId);
     const hpOverlayElement = document.getElementById(hpBarOverlayId);
@@ -195,6 +202,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     hpOverlayElement.style.backgroundColor = `var(--full-hp)`;
   };
 
+
+  //Executes ally fightingmove, updates information about ally and opponent pokemon, starts fight again if opponent faints.
   const allyUseMove = async (buttonId) => {
     const allyPokemonActionText = document.getElementById(
       "playerPokemonAction"
@@ -209,9 +218,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     const moveId = currentAllyPokemonIndividual.moves[buttonId];
     const move = moves[moveId];
     console.log(move.numberOfUses);
-
     await sleep(500);
-
     allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
 
     move.performMove(
@@ -232,6 +239,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     if (currentOpponentPokemonIndividual.currentHp == 0) {
       pokemonSlayed += 1;
       currentWave += 1;
+      let route = fetchRoute(currentWave);
       console.log(currentAllyPokemonIndividual);
       await sleep(2000);
       pokemonFaintedText(currentOpponentPokemonIndividual);
@@ -243,16 +251,24 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
       updateAllyPokemon();
       killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
       console.log("You live to tell the tale");
-      pokemonBattleScene(ROUTE2[randomWildPokemon(ROUTE2)]);
+      pokemonBattleScene(route[randomWildPokemon(route)]);
       return;
     }
-
     await sleep(2000);
     doAIMove();
-
     await sleep(2500);
     allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
   };
+
+  const fetchRoute = (currentWave) => {
+    const wave_number = currentWave;
+    const num_routes = ALL_ROUTES.length;
+    const encounters_per_route = 10;
+    const route_index = Math.floor(wave_number / encounters_per_route) % num_routes;
+    return ALL_ROUTES[route_index];
+  }
+
+
 
   const pokemonFaintedText = (pokemonIndividual) => {
     const allyPokemonActionText = document.getElementById(
@@ -297,12 +313,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     );
   };
 
-  const setInfoBoxText = (text) => {
-    const allyPokemonActionText = document.getElementById(
-      "playerPokemonAction"
-    );
-    allyPokemonActionText.textContent = text;
-  };
 
   const doAIMove = async () => {
     const allyPokemonActionText = document.getElementById(
@@ -331,12 +341,12 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     updateOpponentPokemon();
     if (currentAllyPokemonIndividual.currentHp == 0) {
       const hasAlivePokemon = playerPokemonList.some(pokemon => pokemon.currentHp > 0);
-        if (hasAlivePokemon) {
-          await sleep(2000);
-          showPokemonTeam();
-          pokemonFaintedText(currentAllyPokemonIndividual);
-          return;
-        } else {
+      if (hasAlivePokemon) {
+        await sleep(2000);
+        showPokemonTeam();
+        pokemonFaintedText(currentAllyPokemonIndividual);
+        return;
+      } else {
         //presentFailScreen();
         console.log("Game over")
       }
@@ -403,10 +413,11 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
   };
 
   const startBattle = () => {
+    let route = fetchRoute(currentWave)
     const battleScene = document.getElementById("battle-scene");
     battleScene.style.display = "block";
     currentAllyPokemonIndividual = playerPokemonList[0];
-    pokemonBattleScene(ROUTE2[randomWildPokemon(ROUTE2)]);
+    pokemonBattleScene(route[randomWildPokemon(route)]);
     startBattleMusic();
   };
 
@@ -421,4 +432,5 @@ var battleModule = (function (audioModule, pokemonUtilsModule) {
     showPokemonTeam,
     setCurrentPokemon,
   };
-})(audioModule, pokemonUtilsModule);
+
+})(audioModule, pokemonUtilsModule, routesModule, sharedDataModule);

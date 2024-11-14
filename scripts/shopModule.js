@@ -1,9 +1,8 @@
 // Definiera shopModule som tar pokemonModule som parameter och importerar ALL_POKEMON
-var shopModule = (function (pokemonModule, pokemonUtilsModule) {
-
+var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule) {
+    const { removePokeCurrency } = sharedDataModule;
     const { createPokemonIndivual } = pokemonUtilsModule;
     const { ALL_POKEMON } = pokemonModule;
-    let pokeCurrency = 500000;
 
     let currentShopItems = [];
     let toggleShopInterface = false;
@@ -62,8 +61,8 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule) {
             return;
         }
 
-        if (pokeCurrency >= selectedPokemon.basePrice) {
-            pokeCurrency -= selectedPokemon.basePrice;
+        if (sharedDataModule.getPokeCurrency() >= selectedPokemon.basePrice) {
+            removePokeCurrency(selectedPokemon.basePrice);
             console.log(`You bought ${selectedPokemon.name} for ${selectedPokemon.basePrice} currency. Remaining currency: ${pokeCurrency}`);
             playerPokemonList.push(
                 createPokemonIndivual(selectedPokemon, 5, [selectedPokemon.moves[0]])
@@ -74,12 +73,14 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule) {
         }
     };
 
-    const openShop = () => {
+    const openPetShop = () => {
         const petShopInterface = document.getElementById("pet-shop-interface");
+        const playerCurrency = document.getElementById("petshop-currency")
         if (!toggleShopInterface) {
             console.log("Open shop");
             allowUserMovementInput = false;
             petShopInterface.style.display = "block";
+            playerCurrency.textContent = getPokeCurrency() + "$ Pokédollars"
             generateShopItems();
             toggleShopInterface = true;
         } else {
@@ -92,7 +93,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule) {
     
 
     return {
-        openShop,
+        openPetShop,
         buyItem,
     };
-})(pokemonModule, pokemonUtilsModule);
+})(pokemonModule, pokemonUtilsModule, sharedDataModule);
