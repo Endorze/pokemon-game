@@ -41,7 +41,7 @@ body {
 }
 
 loading-screen img {
-  height: 100px;
+  width: 5%;
 }
 
 #load-button {
@@ -59,7 +59,7 @@ loading-screen img {
   left: 0;
   right: 0;
   aspect-ratio: 16/9;
-  width: 85vw;
+  width: 85%;
   top: 0;
   background-color: black;
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bf84c7a9-21b7-4515-8eb9-9bd6212d9031/d2yjudv-e36192f2-8bbc-4327-af98-b92fd0ffb81e.jpg/v1/fill/w_1121,h_713,q_70,strp/versus_red__battle_on_mt__silver__by_serain_d2yjudv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODE0IiwicGF0aCI6IlwvZlwvYmY4NGM3YTktMjFiNy00NTE1LThlYjktOWJkNjIxMmQ5MDMxXC9kMnlqdWR2LWUzNjE5MmYyLThiYmMtNDMyNy1hZjk4LWI5MmZkMGZmYjgxZS5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.NUI7lxwWZ7cXp22NctpR-ZbO8UFYFRr3zyV_pTfYchk");
@@ -90,9 +90,9 @@ loading-screen img {
 }
 
 .start-screen {
-  padding: 5rem;
+  padding: 5%;
   color: white;
-  max-width: 30vw;
+  width: 30%;
 }
 
 .start-screen-title {
@@ -100,16 +100,16 @@ loading-screen img {
   background-size: cover;
   background-position: center;
   display: inline-block;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  width: 300px;
+  padding: 10%;
+  margin-bottom: 1%;
+  width: 100%;
 }
 
 .start-screen-copyright-text {
   margin-bottom: 1rem;
   background-color: rgb(29, 28, 28);
-  padding: 20px;
-  width: 300px;
+  padding: 5%;
+  width: 100%;
 }
 
 .start-screen-buttons {
@@ -119,8 +119,9 @@ loading-screen img {
 }
 
 .start-screen-buttons button {
-  min-width: 300px;
-  padding: 15px;
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 4%;
   background-color: rgb(29, 28, 28);
   color: orange;
 }
@@ -146,9 +147,10 @@ loading-screen img {
 }
 
 .menu button {
-  width: 300px;
-  padding: 20px;
-  font-size: 1rem;
+  width: 20%;
+  padding: 2%;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
 }
 
@@ -163,21 +165,21 @@ loading-screen img {
 .dialogue-box {
   position: absolute;
   width: 100%;
-  padding: 1rem;
+  padding: 3%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   bottom: 0;
   left: 0;
-  height: 20vh;
+  height: 20%;
   background-color: lightgray;
   opacity: 90%;
   animation: fadeIn 0.3s;
 }
 
 .dialogue-box button {
-  padding: 15px;
-  width: 8vw;
+  padding: 1%;
+  width: 10%;
   cursor: pointer;
 }
 
@@ -204,11 +206,11 @@ loading-screen img {
 
 #select-pokemon img:hover {
   cursor: pointer;
-  height: 250px;
+  height: 32%;
 }
 
 #select-pokemon img {
-  height: 200px;
+  height: 30%;
 }
 
 #squirtle {
