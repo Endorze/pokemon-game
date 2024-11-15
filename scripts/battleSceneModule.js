@@ -6,7 +6,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   const { addPokeCurrency, getPokeCurrency } = sharedDataModule;
 
   let pokemonSlayed = 0;
-  let currentWave = 0;
+  let currentWave = 1;
 
   const loadPokemonIndividualMoves = (pokemonIndividual) => {
     const skill1 = document.getElementById("skill1");
@@ -163,6 +163,20 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     );
   };
 
+  const performAttack = async (moveIndex) => {
+    if (currentOpponentPokemonIndividual.speed > currentAllyPokemonIndividual.speed) {
+      doAIMove();
+      await sleep(2000);
+      allyUseMove(moveIndex);
+    } else {
+      allyUseMove(moveIndex);
+      await sleep(2000)
+      doAIMove();
+      console.log(currentAllyPokemonIndividual.currentHp)
+    }
+  }
+
+
   //Updates information on ally pokemon.
   const updateAllyPokemon = () => {
     const plPokemon = document.getElementById("playerpokemon");
@@ -198,7 +212,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
       hpOverlayElement.style.backgroundColor = `var(--half-hp)`;
       return;
     }
-
     hpOverlayElement.style.backgroundColor = `var(--full-hp)`;
   };
 
@@ -217,7 +230,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     allowUserAction = false;
     const moveId = currentAllyPokemonIndividual.moves[buttonId];
     const move = moves[moveId];
-    console.log(move.numberOfUses);
     await sleep(500);
     allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
 
@@ -250,13 +262,10 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
       );
       updateAllyPokemon();
       killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
-      console.log("You live to tell the tale");
       pokemonBattleScene(route[randomWildPokemon(route)]);
       return;
     }
     await sleep(2000);
-    doAIMove();
-    await sleep(2500);
     allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
   };
 
@@ -317,6 +326,10 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
       "playerPokemonAction"
     );
 
+    if (currentOpponentPokemonIndividual.currentHp == 0) {
+      return;
+    }
+
     // Randomize opponent action
     const randomMoveIndex = Math.floor(
       Math.random() * currentOpponentPokemonIndividual.moves.length
@@ -345,7 +358,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
         pokemonFaintedText(currentAllyPokemonIndividual);
         return;
       } else {
-        //presentFailScreen();
+        await sleep(2000);
+        loadTown();
         console.log("Game over")
       }
     }
@@ -431,6 +445,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     startBattle,
     showPokemonTeam,
     setCurrentPokemon,
+    performAttack,
   };
 
 })(audioModule, pokemonUtilsModule, routesModule, sharedDataModule);

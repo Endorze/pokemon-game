@@ -1,7 +1,7 @@
 const { ALL_POKEMON } = pokemonModule;
 const { ALL_ROUTES } = routesModule;
-const { pokemonBattleScene, startBattle, updateHealthBar } = battleModule;
-const { createPokemonIndivual, calculateDamage } = pokemonUtilsModule;
+const { pokemonBattleScene, startBattle, updateHealthBar, performAttack } = battleModule;
+const { createPokemonIndivual, calculateDamage, calculateStat } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
 const { setPokeCurrency, getPokeCurrency } = sharedDataModule;
@@ -54,11 +54,14 @@ toggleLoadingScreen();
 function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
   const damageDealt = Math.ceil(
     calculateDamage(
+      userPokemonIndividual.level,
       this.baseDamage,
-      userPokemonIndividual.physicalDamageStat,
-      targetPokemonIndividual.physicalDefenceStat
+      calculateStat(userPokemonIndividual.pokemonType.attack, userPokemonIndividual.level),
+      calculateStat(targetPokemonIndividual.pokemonType.defense, targetPokemonIndividual.level)
     )
   );
+  console.log(damageDealt)
+  console.log("Target defense, level.", targetPokemonIndividual.pokemonType.defense)
   targetPokemonIndividual.currentHp = Math.max(
     targetPokemonIndividual.currentHp - damageDealt,
     0
@@ -68,9 +71,10 @@ function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
 function simpleSpecialMove(targetPokemonIndividual, userPokemonIndividual) {
   const damageDealt = Math.ceil(
     calculateDamage(
+      userPokemonIndividual.level,
       this.baseDamage,
-      userPokemonIndividual.specialDamageStat,
-      targetPokemonIndividual.specialDefenceStat
+      calculateStat(userPokemonIndividual.pokemonType.spatk, userPokemonIndividual.level),
+      calculateStat(targetPokemonIndividual.pokemonType.spdef, targetPokemonIndividual.level)
     )
   );
   targetPokemonIndividual.currentHp = Math.max(
@@ -82,7 +86,7 @@ function simpleSpecialMove(targetPokemonIndividual, userPokemonIndividual) {
 const moves = {
   tackle: {
     name: "Tackle",
-    baseDamage: 20,
+    baseDamage: 40,
     priority: 1,
     numberOfUses: 40,
     performMove: simplePhysicalMove,
@@ -434,6 +438,7 @@ const returnFromWilderness = async () => {
 
 
 const healPokemonTeam = async () => {
+  playSound("pokemonshopheal.mp3")
   if (!playerPokemonList) {
       return;
   }
@@ -443,10 +448,12 @@ const healPokemonTeam = async () => {
   }
   updateVisiblePokemonInfo(playerPokemonList);
   if (!allowUserAction) {
-    allowUserAction = true;
-    playSound("pokemonshopheal.mp3")
-    await sleep(3000);
     allowUserAction = false;
+    allowUserMovementInput = false;
+
+    await sleep(3000);
+    allowUserMovementInput = true;
+    allowUserAction = true;
   } 
 }
 

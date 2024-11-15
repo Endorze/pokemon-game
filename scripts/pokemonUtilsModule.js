@@ -1,8 +1,9 @@
 var pokemonUtilsModule = (function () {
-  const calculateDamage = (baseDamage, attackStat, defenseStat) => {
-    return (baseDamage * attackStat) / defenseStat;
+  const calculateDamage = (level, baseDamage, attackStat, defenseStat) => {
+    return Math.ceil((((2 * level / 5 + 2) * baseDamage * (attackStat/defenseStat)) / 50));
   };
-  
+  // Other Stats = (floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + 5) x Nature
+
   const createRandomIndividual = (pokemonId, level) => {
     const wildPokemonType = ALL_POKEMON[pokemonId];
     const wildPokemonLevel = level;
@@ -18,15 +19,16 @@ var pokemonUtilsModule = (function () {
     );
     return wildPokemonIndividual;
   };
+
+  const calculateStat = (baseStat, level) => {
+      return Math.floor(0.01 * (2 * baseStat) * level + 5);
+  }
   
   const createPokemonIndivual = (pokemonType, level, moves) => {
+    console.log(pokemonType)
     return {
       pokemonType: pokemonType,
       level: level,
-      specialDefenceStat: 1 + level * pokemonType.specialDefenceGrowth,
-      physicalDefenceStat: 1 + level * pokemonType.physicalDefenceGrowth,
-      specialDamageStat: 1 + level * pokemonType.specialDamageGrowth,
-      physicalDamageStat: 1 + level * pokemonType.physicalDamageGrowth,
       currentHp: pokemonType.health(level),
       currentExp: 0,
       moves: moves,
@@ -44,9 +46,6 @@ var pokemonUtilsModule = (function () {
       console.log(experience);
       if (experience >= experienceToNextLevel) {
         pokemonIndividual.level += 1;
-        pokemonIndividual.currentHp = pokemonIndividual.pokemonType.health(
-          pokemonIndividual.level
-        );
         playSound("levelup.mp3");
         console.log(pokemonIndividual.level);
         experience = experience - experienceToNextLevel;
@@ -62,6 +61,7 @@ var pokemonUtilsModule = (function () {
     calculateDamage,
     createRandomIndividual,
     createPokemonIndivual,
-    levelUpPokemon
+    levelUpPokemon,
+    calculateStat,
   };
 })();

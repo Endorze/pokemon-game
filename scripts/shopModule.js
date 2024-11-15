@@ -46,8 +46,8 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         const timeLeft = getShopResetTime();
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
-    
-        console.log(`Time left until next reset: ${minutes}m ${seconds}s`);
+
+        // console.log(`Time left until next reset: ${minutes}m ${seconds}s`);
         shopInfoText.textContent = `Time left until next reset: ${minutes}m ${seconds}s`
     };
     setInterval(updateCountdown, 1000);
@@ -81,11 +81,11 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
 
         if (sharedDataModule.getPokeCurrency() >= selectedPokemon.basePrice) {
             removePokeCurrency(selectedPokemon.basePrice);
-            console.log(`You bought ${selectedPokemon.name} for ${selectedPokemon.basePrice} currency. Remaining currency: ${pokeCurrency}`);
+            console.log(`You bought ${selectedPokemon.name} for ${selectedPokemon.basePrice} currency. Remaining currency: ${sharedDataModule.basePrice}`);
             playerPokemonList.push(
                 createPokemonIndivual(selectedPokemon, 5, [selectedPokemon.moves[0]])
-              );
-              updateVisiblePokemonInfo();
+            );
+            updateVisiblePokemonInfo(playerPokemonList);
 
         } else {
             console.log("Not enough currency to buy this item.");
