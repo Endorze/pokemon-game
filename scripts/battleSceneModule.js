@@ -422,6 +422,8 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   return {
     switchBattleMenu,
     pokemonBattleScene,
+    updateHealthBar,
+    updateAllyPokemon,
     allyUseMove,
     runFromBattlePopup,
     runFromBattle,

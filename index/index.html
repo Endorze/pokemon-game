@@ -18,6 +18,7 @@
   <script src="../scripts/routes.js" defer></script>
   <script src="../scripts/battleSceneModule.js" defer></script>
   <script src="../scripts/shopModule.js" defer></script>
+  <script src="../scripts/healShop.js" defer></script>
   <script src="../scripts/index.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,7 +56,7 @@
           <img class="background" style="right: 99.9%; transform: scaleX(-1)" src="../images/town.gif" />
         </div>
 
-        
+
         <div id="info-box" style="left: 90%;">
           <p>Welcome to my early access fan-game.<br><br>
             To walk around, press A or D.<br><br> The town continues to the left, go there and interract with the
@@ -85,7 +86,7 @@
               background-repeat: repeat-x;
             "></div>
         <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
-        <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" />
+        <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" onclick="healPokemonTeam()"/>
         <img id="shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png" />
         <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
           onclick="shopModule.openPetShop()" />
@@ -106,42 +107,71 @@
       </div>
 
       <div id="visible-pokemon-container">
+
         <div id="visible-pokemon-0">
           <img id="visible-pokemon-image0">
           <p id="visible-pokemon-name0"></p>
           <p id="visible-pokemon-level0"></p>
-          <div id="visible-pokemon-healthbar1"></div>
+          <div id="visible-pokemon-healthbar0">
+            <div id="visible-pokemon-healthbaroverlay0" class="health-bar-overlay"></div>
+            <p id="pokemon-health0"></p>
+          </div>
         </div>
-  
+
         <div id="visible-pokemon-1">
           <img id="visible-pokemon-image1">
           <p id="visible-pokemon-name1"></p>
-          <div id="visible-pokemon-healthbar1"></div>
+          <p id="visible-pokemon-level1"></p>
+          <div id="visible-pokemon-healthbar1">
+            <div id="visible-pokemon-healthbaroverlay1" class="health-bar-overlay"></div>
+            <p id="pokemon-health1"></p>
+          </div>
         </div>
-  
+
         <div id="visible-pokemon-2">
           <img id="visible-pokemon-image2">
           <p id="visible-pokemon-name2"></p>
-          <div id="visible-pokemon-healthbar2" class=""></div>
+          <p id="visible-pokemon-level2"></p>
+          <div id="visible-pokemon-healthbar2">
+            <div id="visible-pokemon-healthbaroverlay2" class="health-bar-overlay"></div>
+            <p id="pokemon-health2"></p>
+          </div>
         </div>
-  
+
         <div id="visible-pokemon-3">
           <img id="visible-pokemon-image3">
           <p id="visible-pokemon-name3"></p>
-          <div id="visible-pokemon-healthbar3"></div>
+          <p id="visible-pokemon-level3"></p>
+          <div id="visible-pokemon-healthbar3">
+            <div id="visible-pokemon-healthbaroverlay3" class="health-bar-overlay"></div>
+            <p id="pokemon-health3"></p>
+          </div>
         </div>
-  
+
         <div id="visible-pokemon-4">
           <img id="visible-pokemon-image4">
           <p id="visible-pokemon-name4"></p>
-          <div id="visible-pokemon-healthbar4"></div>
+          <p id="visible-pokemon-level4"></p>
+          <div id="visible-pokemon-healthbar4">
+            <div id="visible-pokemon-healthbaroverlay4" class="health-bar-overlay"></div>
+            <p id="pokemon-health4"></p>
+          </div>
         </div>
-  
+
         <div id="visible-pokemon-5">
           <img id="visible-pokemon-image5">
           <p id="visible-pokemon-name5"></p>
-          <div id="visible-pokemon-healthbar5"></div>
+          <p id="visible-pokemon-level5"></p>
+          <div id="visible-pokemon-healthbar5">
+            <div id="visible-pokemon-healthbaroverlay5" class="health-bar-overlay"></div>
+            <p id="pokemon-health5"></p>
+          </div>
         </div>
+        
+
+        
+
+        
       </div>
     </div>
     <div id="pet-shop-interface">

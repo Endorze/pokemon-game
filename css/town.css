@@ -104,6 +104,7 @@
   #visible-pokemon-3 img,
   #visible-pokemon-4 img,
   #visible-pokemon-5 img {
+    display: none;
     height: 100%;
   }
 
@@ -112,7 +113,148 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 12%;
+    width: 15%;
     height: 50%;
     top: 10%;
+  }
+
+  #visible-pokemon-healthbar0,
+  #visible-pokemon-healthbar1,
+  #visible-pokemon-healthbar2,
+  #visible-pokemon-healthbar3,
+  #visible-pokemon-healthbar4,
+  #visible-pokemon-healthbar5 {
+    position: absolute;
+    display: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    min-width: 60%;
+    min-height: 5%;
+    background-color: rgb(104, 104, 104);
+    overflow: hidden;
+  }
+
+  #visible-pokemon-healthbar0 {
+    right: 5%;
+    top: 10%;
+  }
+
+  #visible-pokemon-healthbar1 {
+    right: 5%;
+    top: 26%;
+  }
+
+  #visible-pokemon-healthbar2 {
+    right: 5%;
+    top: 42%;
+  }
+
+  #visible-pokemon-healthbar3 {
+    right: 5%;
+    top: 58%;
+  }
+
+  #visible-pokemon-healthbar4 {
+    right: 5%;
+    top: 74%;
+  }
+
+  #visible-pokemon-healthbar5 {
+    right: 5%;
+    top: 90%;
+  }
+
+  #pokemon-health0,
+  #pokemon-health1,
+  #pokemon-health2,
+  #pokemon-health3,
+  #pokemon-health4,
+  #pokemon-health5 {
+    position: absolute;
+    padding: 1%;
+    left: 5%;
+    height: 100%;
+    width: 100%;
+  }
+
+  #visible-pokemon-level0,
+  #visible-pokemon-level1,
+  #visible-pokemon-level2,
+  #visible-pokemon-level3,
+  #visible-pokemon-level4,
+  #visible-pokemon-level5 {
+    position: absolute;
+    width: 30%;
+    font-size: 1.1rem;
+  }
+
+  #visible-pokemon-level0 {
+    right: 0;
+    top: 5%;
+  }
+
+  #visible-pokemon-level1 {
+    right: 0;
+    top: 21%;
+  }
+
+  #visible-pokemon-level2 {
+    right: 0;
+    top: 37%;
+  }
+
+  #visible-pokemon-level3 {
+    right: 0;
+    top: 53%;
+  }
+
+  #visible-pokemon-level4 {
+    right: 0;
+    top: 69%;
+  }
+
+  #visible-pokemon-level5 {
+    right: 0;
+    top: 84%;
+  }
+
+  #visible-pokemon-name0,
+  #visible-pokemon-name1,
+  #visible-pokemon-name2,
+  #visible-pokemon-name3,
+  #visible-pokemon-name4,
+  #visible-pokemon-name5 {
+    position: absolute;
+    width: 35%;
+    font-size: 1.1rem;
+  }
+  
+  #visible-pokemon-name0 {
+    left: 25%;
+    top: 5%;
+  }
+
+  #visible-pokemon-name1 {
+    left: 25%;
+    top: 21%;
+  }
+
+  #visible-pokemon-name2 {
+    left: 25%;
+    top: 37%;
+  }
+
+  #visible-pokemon-name3 {
+    left: 25%;
+    top: 53%;
+  }
+
+  #visible-pokemon-name4 {
+    left: 25%;
+    top: 69%;
+  }
+
+  #visible-pokemon-name5 {
+    left: 25%;
+    top: 84%;
   }

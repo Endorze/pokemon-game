@@ -2,14 +2,6 @@ var pokemonUtilsModule = (function () {
   const calculateDamage = (baseDamage, attackStat, defenseStat) => {
     return (baseDamage * attackStat) / defenseStat;
   };
-
-  const healPokemon = (pokemonIndividual, healAmount) => {
-    const maxHp = pokemonIndividual.pokemonType.health(pokemonIndividual.level);
-    const newHp = pokemonIndividual.currentHp + healAmount;
-    const actualNewHp = Math.min(maxHp, newHp);
-  
-    pokemonIndividual.currentHp = actualNewHp;
-  };
   
   const createRandomIndividual = (pokemonId, level) => {
     const wildPokemonType = ALL_POKEMON[pokemonId];

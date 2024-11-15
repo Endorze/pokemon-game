@@ -1,6 +1,6 @@
 const { ALL_POKEMON } = pokemonModule;
 const { ALL_ROUTES } = routesModule;
-const { pokemonBattleScene, startBattle } = battleModule;
+const { pokemonBattleScene, startBattle, updateHealthBar } = battleModule;
 const { createPokemonIndivual, calculateDamage } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
@@ -31,6 +31,7 @@ let loadingScreenActive = true;
 
 // List of pokemonIndividual
 const playerPokemonList = [];
+
 
 const toggleLoadingScreen = async () => {
   const loadingScreen = document.getElementById("loading-screen");
@@ -238,7 +239,7 @@ const pickPokemon = (pokemonId) => {
     playerPokemonList.push(
       createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
     );
-    
+
     playerGotStarter = true;
     pokemonScene.style.display = "none";
     playerStarterPokemon = pokemonId;
@@ -431,6 +432,23 @@ const returnFromWilderness = async () => {
   allowUserMovementInput = true;
 };
 
+
+const healPokemonTeam = async () => {
+  if (!playerPokemonList) {
+      return;
+  }
+  for (let i = 0; i < playerPokemonList.length; i++) {
+    playerPokemonList[i].currentHp = playerPokemonList[i].pokemonType.health(playerPokemonList[i].level)
+    console.log(playerPokemonList[i].currentHp);
+  }
+  updateVisiblePokemonInfo(playerPokemonList);
+  if (!allowUserAction) {
+    allowUserAction = true;
+    playSound("pokemonshopheal.mp3")
+    await sleep(3000);
+  } 
+}
+
 const animate = (animationFunction, durationSeconds, frameRate) => {
   return new Promise((res) => {
     let time = 0;
@@ -501,15 +519,30 @@ const updateVisiblePokemonInfo = (playerPokemonList) => {
   if (!playerPokemonList) {
     console.log("Could not do updateVisiblePokemonInfo")
     return;
-  } else {
-    for (let i = 0; i < playerPokemonList.length; i++) {
-      const pokemon = playerPokemonList[i];
-      const pokemonImage = document.getElementById(`visible-pokemon-image${i}`)
-      const pokemonName = document.getElementById(`visible-pokemon-image${i}`)
-      const pokemonLevel = document.getElementById(`visible-pokemon-image${i}`)
-      const pokemonHpBar = document.getElementById(`visible-pokemon-healthbar${i}`)
+  }
+
+  for (let i = 0; i < playerPokemonList.length; i++) {
+    const pokemon = playerPokemonList[i];
+    updateHealthBar(playerPokemonList[i], `pokemon-health${i}`, `visible-pokemon-healthbaroverlay${i}`)
+    const healthBar = document.getElementById(`visible-pokemon-healthbar${i}`)
+    const pokemonImage = document.getElementById(`visible-pokemon-image${i}`)
+    const pokemonName = document.getElementById(`visible-pokemon-name${i}`)
+    const pokemonLevel = document.getElementById(`visible-pokemon-level${i}`)
+    if (pokemonImage) {
       pokemonImage.src = `../pokemon/${pokemon.pokemonType.id}/front.gif`
-      console.log("updateVisiblePokemonInfo")
+      pokemonImage.style.display = "block";
+    }
+    if (pokemonName) {
+      pokemonName.textContent = playerPokemonList[i].pokemonType.name;
+      pokemonName.style.display = "block";
+    }
+    if (pokemonLevel) {
+      pokemonLevel.textContent = playerPokemonList[i].level;
+      pokemonLevel.style.display = "block";
+      pokemonLevel.textContent = "Level " + playerPokemonList[i].level;
+    }
+    if (healthBar) {
+      healthBar.style.display = "block";
     }
   }
 }
@@ -544,6 +577,8 @@ const addPokemonToTeam = (id) => {
 // addPokemonToTeam("squirtle");
 // addPokemonToTeam("pidgeott");
 // addPokemonToTeam("butterfree");
+
+
 // addPokemonToTeam("beedrill");
 
 console.log(playerPokemonList);
