@@ -490,9 +490,27 @@ const loadGame = () => {
     setPokeCurrency(data.user.userMoney);
     console.log(getPokeCurrency())
     loadTown();
+    updateVisiblePokemonInfo(playerPokemonList);
     startGameMusic();
   }
 };
+
+const updateVisiblePokemonInfo = (playerPokemonList) => {
+  if (!playerPokemonList) {
+    console.log("Could not do updateVisiblePokemonInfo")
+    return;
+  } else {
+    for (let i = 0; i < playerPokemonList.length; i++) {
+      const pokemon = playerPokemonList[i];
+      const pokemonImage = document.getElementById(`visible-pokemon-image${i}`)
+      const pokemonName = document.getElementById(`visible-pokemon-image${i}`)
+      const pokemonLevel = document.getElementById(`visible-pokemon-image${i}`)
+      const pokemonHpBar = document.getElementById(`visible-pokemon-healthbar${i}`)
+      pokemonImage.src = `../pokemon/${pokemon.pokemonType.id}/front.gif`
+      console.log("updateVisiblePokemonInfo")
+    }
+  }
+}
 
 let menuOpen = false;
 const openMenu = (e) => {
@@ -517,6 +535,7 @@ const addPokemonToTeam = (id) => {
     createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
   );
 }
+
 
 // addPokemonToTeam("charmander");
 // addPokemonToTeam("bulbasaur");

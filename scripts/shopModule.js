@@ -33,20 +33,38 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         return selectedItems;
     };
 
+    //Gets the current time that has passed between every half hour, 
+    const shopInfoText = document.getElementById("petshop-info")
+    const getShopResetTime = (time) => {
+        let currentTimeMillis = Date.now();
+        let timePassed = Math.floor(currentTimeMillis / 1000) % (30 * 60);
+        let timeLeft = 30 * 60 - timePassed;
+        return timeLeft;
+    }
+
+    const updateCountdown = () => {
+        const timeLeft = getShopResetTime();
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+    
+        console.log(`Time left until next reset: ${minutes}m ${seconds}s`);
+        shopInfoText.textContent = `Time left until next reset: ${minutes}m ${seconds}s`
+    };
+    setInterval(updateCountdown, 1000);
+
     const generateShopItems = () => {
         const seed = generateShopSeed();
         currentShopItems = selectItems(3, seed);
 
         currentShopItems.forEach((pokemon, index) => {
             const pokemonImage = document.getElementById(`shop-image-${index + 1}`);
-            const pokemonName = document.getElementById(`shop-price-${index + 1}`);
+
             if (pokemon && pokemonImage) {
                 pokemonImage.src = `../pokemon/${pokemon.id}/front.gif`; // Ange rätt sökväg
-                pokemonName.alt = pokemon.name;
 
-                const nameElement = document.getElementById(`shop-price-${index + 1}`);
+                const nameElement = document.getElementById(`shop-button-${index + 1}`);
                 if (nameElement) {
-                    nameElement.textContent = `${pokemon.name} - Price: ${pokemon.basePrice}$`;
+                    nameElement.textContent = `$${pokemon.basePrice}`;
                 }
             }
         });
@@ -89,8 +107,6 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
             allowUserMovementInput = true;
         }
     };
-
-    
 
     return {
         openPetShop,

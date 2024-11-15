@@ -268,8 +268,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     return ALL_ROUTES[route_index];
   }
 
-
-
   const pokemonFaintedText = (pokemonIndividual) => {
     const allyPokemonActionText = document.getElementById(
       "playerPokemonAction"

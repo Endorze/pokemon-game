@@ -54,6 +54,8 @@
           <img class="background" style="left: 0%" src="../images/town.gif" />
           <img class="background" style="right: 99.9%; transform: scaleX(-1)" src="../images/town.gif" />
         </div>
+
+        
         <div id="info-box" style="left: 90%;">
           <p>Welcome to my early access fan-game.<br><br>
             To walk around, press A or D.<br><br> The town continues to the left, go there and interract with the
@@ -102,6 +104,45 @@
           <img src="../images/character.gif" id="player-sprite" style="height: 100%" />
         </div>
       </div>
+
+      <div id="visible-pokemon-container">
+        <div id="visible-pokemon-0">
+          <img id="visible-pokemon-image0">
+          <p id="visible-pokemon-name0"></p>
+          <p id="visible-pokemon-level0"></p>
+          <div id="visible-pokemon-healthbar1"></div>
+        </div>
+  
+        <div id="visible-pokemon-1">
+          <img id="visible-pokemon-image1">
+          <p id="visible-pokemon-name1"></p>
+          <div id="visible-pokemon-healthbar1"></div>
+        </div>
+  
+        <div id="visible-pokemon-2">
+          <img id="visible-pokemon-image2">
+          <p id="visible-pokemon-name2"></p>
+          <div id="visible-pokemon-healthbar2" class=""></div>
+        </div>
+  
+        <div id="visible-pokemon-3">
+          <img id="visible-pokemon-image3">
+          <p id="visible-pokemon-name3"></p>
+          <div id="visible-pokemon-healthbar3"></div>
+        </div>
+  
+        <div id="visible-pokemon-4">
+          <img id="visible-pokemon-image4">
+          <p id="visible-pokemon-name4"></p>
+          <div id="visible-pokemon-healthbar4"></div>
+        </div>
+  
+        <div id="visible-pokemon-5">
+          <img id="visible-pokemon-image5">
+          <p id="visible-pokemon-name5"></p>
+          <div id="visible-pokemon-healthbar5"></div>
+        </div>
+      </div>
     </div>
     <div id="pet-shop-interface">
       <div id="shop-item1-frame"></div>
@@ -119,24 +160,29 @@
         <img id="shop-image-3">
         <p id="shop-price-3"></p>
       </div>
+      <img id="shop-button-background" src="../images/wooden-images/woodenrectangle.png">
       <button id="shop-button-1" onclick="shopModule.buyItem(0)">Purchase</button>
       <button id="shop-button-2" onclick="shopModule.buyItem(1)">Purchase</button>
       <button id="shop-button-3" onclick="shopModule.buyItem(2)">Purchase</button>
-      <img id="exit-shop-button" src="../images/cross.png" onclick="shopModule.openPetShop()">
+      <img id="exit-shop-button" src="../images/wooden-images/squarebuttonredcross.png"
+        onclick="shopModule.openPetShop()">
       <div id="petshop-currency-container">
-        <p id="petshop-currency">My currency hehe</p>
+        <p id="petshop-currency"></p>
+      </div>
+      <div id="petshop-info-container">
+        <p id="petshop-info"></p>
       </div>
     </div>
 
     <div id="battle-scene">
       <div class="currency-container">
-        <p id="pokedollars">Pokedollars: 0$</p>
+        <p id="pokedollars"></p>
       </div>
       <div class="wild-pokemon-info-container">
         <div class="wild-pokemon-info">
           <div>
-            <p id="wildpokemon">Pikachu</p>
-            <p id="wildlevel">Level 5</p>
+            <p id="wildpokemon"></p>
+            <p id="wildlevel"></p>
           </div>
           <div class="health-bar">
             <div id="opponentHpBar" class="health-bar-overlay"></div>
@@ -210,7 +256,7 @@
       <div id="run-away-popup">
         <div id="run-away-window">
           <h2>Are you sure you want to run away?</h2>
-          <p>If you run now you've gotten 20 pokedollars.</p>
+          <p id="run-away-currency">If you run now you've gotten 20 pokedollars.</p>
           <button onclick="battleModule.runFromBattle()">Yes</button>
           <button onclick="battleModule.closeRunFromBattlePopup()">
             No
@@ -281,7 +327,7 @@
 
     <div id="start-screen" class="start-screen">
       <div class="start-screen-title">
-        <h2>A tale of Pokémon and Fire</h2>
+        <h2>A roguelike Adventure<br><br>Now with Pokémon!</h2>
       </div>
       <div class="start-screen-copyright-text">
         <p>

@@ -83,3 +83,36 @@
   #player-character {
     left: var(--playerX);
   }
+
+  #visible-pokemon-0,
+  #visible-pokemon-1,
+  #visible-pokemon-2,
+  #visible-pokemon-3,
+  #visible-pokemon-4,
+  #visible-pokemon-5 {
+    width: 100%;
+    height: 14%;
+    background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  
+  #visible-pokemon-0 img,
+  #visible-pokemon-1 img,
+  #visible-pokemon-2 img,
+  #visible-pokemon-3 img,
+  #visible-pokemon-4 img,
+  #visible-pokemon-5 img {
+    height: 100%;
+  }
+
+  #visible-pokemon-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 12%;
+    height: 50%;
+    top: 10%;
+  }
