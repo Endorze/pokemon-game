@@ -85,6 +85,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
             playerPokemonList.push(
                 createPokemonIndivual(selectedPokemon, 5, [selectedPokemon.moves[0]])
               );
+              updateVisiblePokemonInfo();
 
         } else {
             console.log("Not enough currency to buy this item.");
@@ -104,6 +105,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         } else {
             petShopInterface.style.display = "none";
             toggleShopInterface = false;
+            updateVisiblePokemonInfo();
             allowUserMovementInput = true;
         }
     };

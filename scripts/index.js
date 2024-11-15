@@ -174,6 +174,7 @@ const loadTown = async () => {
   town.style.display = "block";
   console.log(playerPokemonList[0])
   returnFromWilderness();
+  updateVisiblePokemonInfo();
 };
 
 const startGame = async () => {
