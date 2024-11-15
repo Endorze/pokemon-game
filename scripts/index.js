@@ -446,6 +446,7 @@ const healPokemonTeam = async () => {
     allowUserAction = true;
     playSound("pokemonshopheal.mp3")
     await sleep(3000);
+    allowUserAction = false;
   } 
 }
 
