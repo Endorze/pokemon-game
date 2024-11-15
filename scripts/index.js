@@ -173,8 +173,8 @@ const loadTown = async () => {
   const town = document.getElementById("town");
   town.style.display = "block";
   console.log(playerPokemonList[0])
+  updateVisiblePokemonInfo(playerPokemonList);
   returnFromWilderness();
-  updateVisiblePokemonInfo();
 };
 
 const startGame = async () => {
@@ -238,6 +238,7 @@ const pickPokemon = (pokemonId) => {
     playerPokemonList.push(
       createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
     );
+    
     playerGotStarter = true;
     pokemonScene.style.display = "none";
     playerStarterPokemon = pokemonId;

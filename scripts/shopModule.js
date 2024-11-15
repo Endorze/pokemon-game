@@ -105,7 +105,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         } else {
             petShopInterface.style.display = "none";
             toggleShopInterface = false;
-            updateVisiblePokemonInfo();
+            updateVisiblePokemonInfo(playerPokemonList);
             allowUserMovementInput = true;
         }
     };
