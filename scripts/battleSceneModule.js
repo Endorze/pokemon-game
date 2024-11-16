@@ -214,6 +214,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   const gameOver = async () => {
     const battleScene = document.getElementById("battle-scene")
     await sleep(2000);
+    currentWave = 1;
     battleScene.style.display = "none";
     startGameMusic();
     loadTown();
@@ -437,6 +438,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     toggleLoadingScreen();
     if (!DEV_MODE) await sleep(2000);
     battleScene.style.display = "none";
+    currentWave = 1;
     loadTown();
     startGameMusic();
   };
