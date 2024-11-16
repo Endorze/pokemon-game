@@ -1,9 +1,8 @@
 var pokemonModule = (function () {
-  const healthGenerator = (baseHp) => {
-    return (level) => {
-      return 10 + level + Math.floor(level * 0.01 * 2 * baseHp);
+     function healthGenerator (level) {
+      return 10 + level + Math.floor(level * 0.01 * 2 * this.hp);
     };
-  };
+
 
   //HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
 
@@ -12,7 +11,7 @@ var pokemonModule = (function () {
     squirtle: {
       id: "0007-squirtle",
       name: "Squirtle",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 44,
       attack: 48,
@@ -26,7 +25,7 @@ var pokemonModule = (function () {
     bulbasaur: {
       id: "0001-bulbasaur",
       name: "Bulbasaur",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 45,
       attack: 49,
@@ -40,7 +39,7 @@ var pokemonModule = (function () {
     charmander: {
       id: "0004-charmander",
       name: "Charmander",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 39,
       attack: 52,
@@ -54,7 +53,7 @@ var pokemonModule = (function () {
     butterfree: {
       id: "0012-butterfree",
       name: "Butterfree",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 60,
       attack: 45,
@@ -68,7 +67,7 @@ var pokemonModule = (function () {
     rattata: {
       id: "0019-rattata",
       name: "Rattata",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 30,
       attack: 56,
@@ -82,7 +81,7 @@ var pokemonModule = (function () {
     raticate: {
       id: "0020-raticate",
       name: "Raticate",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 55,
       attack: 81,
@@ -96,7 +95,7 @@ var pokemonModule = (function () {
     pidgey: {
       id: "0016-pidgey",
       name: "Pidgey",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 40,
       attack: 45,
@@ -110,7 +109,7 @@ var pokemonModule = (function () {
     pidgeotto: {
       id: "0017-pidgeotto",
       name: "Pidgeotto",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 63,
       attack: 60,
@@ -124,7 +123,7 @@ var pokemonModule = (function () {
     pidgeott: {
       id: "0018-pidgeott",
       name: "Pidgeotto",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       specialDefenceGrowth: 2,
       physicalDefenceGrowth: 3,
@@ -136,7 +135,7 @@ var pokemonModule = (function () {
     spearow: {
       id: "0021-spearow",
       name: "Spearow",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 40,
       attack: 60,
@@ -150,7 +149,7 @@ var pokemonModule = (function () {
     fearow: {
       id: "0022-fearow",
       name: "Fearow",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 65,
       attack: 90,
@@ -164,7 +163,7 @@ var pokemonModule = (function () {
     ekans: {
       id: "0023-ekans",
       name: "Ekans",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 35,
       attack: 60,
@@ -178,7 +177,7 @@ var pokemonModule = (function () {
     arbok: {
       id: "0024-arbok",
       name: "Arbok",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 60,
       attack: 95,
@@ -192,7 +191,7 @@ var pokemonModule = (function () {
     pikachu: {
       id: "0025-pikachu",
       name: "Pikachu",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 35,
       attack: 55,
@@ -206,7 +205,7 @@ var pokemonModule = (function () {
     raichu: {
       id: "0026-raichu",
       name: "Raichu",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 60,
       attack: 90,
@@ -220,7 +219,7 @@ var pokemonModule = (function () {
     sandshrew: {
       id: "0027-sandshrew",
       name: "Sandshrew",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 50,
       attack: 75,
@@ -234,7 +233,7 @@ var pokemonModule = (function () {
     nidoranfemale: {
       id: "0029-nidoranfemale",
       name: "Nidoran",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 55,
       attack: 47,
@@ -248,7 +247,7 @@ var pokemonModule = (function () {
     nidoranmale: {
       id: "0032-nidoranmale",
       name: "Nidoran",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 46,
       attack: 57,
@@ -262,7 +261,7 @@ var pokemonModule = (function () {
     jigglypuff: {
       id: "0039-jigglypuff",
       name: "Jigglypuff",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 115,
       attack: 45,
@@ -276,7 +275,7 @@ var pokemonModule = (function () {
     oddish: {
       id: "0043-oddish",
       name: "Oddish",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 45,
       attack: 50,
@@ -290,7 +289,7 @@ var pokemonModule = (function () {
     meowth: {
       id: "0052-meowth",
       name: "Meowth",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 40,
       attack: 45,
@@ -304,7 +303,7 @@ var pokemonModule = (function () {
     mankey: {
       id: "0056-mankey",
       name: "Mankey",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 40,
       attack: 80,
@@ -318,7 +317,7 @@ var pokemonModule = (function () {
     abra: {
       id: "0063-abra",
       name: "Abra",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 25,
       attack: 20,
@@ -332,7 +331,7 @@ var pokemonModule = (function () {
     bellsprout: {
       id: "0069-bellsprout",
       name: "Bellsprout",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 50,
       attack: 75,
@@ -346,7 +345,7 @@ var pokemonModule = (function () {
     magnemite: {
       id: "0081-magnemite",
       name: "Magnemite",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 25,
       attack: 35,
@@ -360,7 +359,7 @@ var pokemonModule = (function () {
     mew: {
       id: "0151-mew",
       name: "Mew",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 100,
       attack: 100,
@@ -374,7 +373,7 @@ var pokemonModule = (function () {
     eevee: {
       id: "0133-eevee",
       name: "Eevee",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 55,
       attack: 55,
@@ -388,7 +387,7 @@ var pokemonModule = (function () {
     mimikyu: {
       id: "0778-mimikyu",
       name: "Mimikyu",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 55,
       attack: 90,
@@ -402,7 +401,7 @@ var pokemonModule = (function () {
     rockruff: {
       id: "0744-rockruff",
       name: "Rockruff",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 45,
       attack: 65,
@@ -416,7 +415,7 @@ var pokemonModule = (function () {
     snorlax: {
       id: "0143-snorlax",
       name: "Snorlax",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 160,
       attack: 110,
@@ -431,7 +430,7 @@ var pokemonModule = (function () {
     beedrill: {
       id: "0015-beedrill",
       name: "Beedrill",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 65,
       attack: 80,
@@ -445,7 +444,7 @@ var pokemonModule = (function () {
     kakuna: {
       id: "0014-kakuna",
       name: "Kakuna",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 45,
       attack: 25,
@@ -459,7 +458,7 @@ var pokemonModule = (function () {
     weedle: {
       id: "0013-weedle",
       name: "Weedle",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 40,
       attack: 35,
@@ -473,7 +472,7 @@ var pokemonModule = (function () {
     caterpie: {
       id: "0010-caterpie",
       name: "Caterpie",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 45,
       attack: 30,
@@ -487,7 +486,7 @@ var pokemonModule = (function () {
     metapod: {
       id: "0011-metapod",
       name: "Metapod",
-      health: healthGenerator(30),
+      health: healthGenerator,
       moves: ["tackle"],
       hp: 50,
       attack: 20,
