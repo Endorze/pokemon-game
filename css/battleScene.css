@@ -159,20 +159,25 @@
     display: block;
 }
 
-/* .pokemon-skill-bar button {
-    padding: 20px;
+#current-route-container {
+    position: absolute;
+    width: 30%;
+    height: 10%;
+    background-image: url("../images/wooden-images/woodenrectangle.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    right: 0;
+    top: 5%;
+    text-align: center;
     display: flex;
+    align-items: center;
     justify-content: center;
-    flex-direction: column;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 10vw;
-    height: 9vh;
-    font-size: 1.5rem;
-    background-color: rgb(247, 247, 186);
-} */
+}
 
+#current-route-text {
+    position: relative;
+    font-size: 2.5rem;
+}
 
 .what-will-pokemon-do {
     position: absolute;

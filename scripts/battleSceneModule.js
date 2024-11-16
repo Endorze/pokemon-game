@@ -311,10 +311,13 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   };
 
   const fetchRoute = (currentWave) => {
+    const routeText = document.getElementById("current-route-text")
     const wave_number = currentWave;
     const num_routes = ALL_ROUTES.length;
-    const encounters_per_route = 10;
+    const encounters_per_route = 5;
     const route_index = Math.floor(wave_number / encounters_per_route) % num_routes;
+    const route_number = Math.floor(wave_number / encounters_per_route) + 1;
+    routeText.textContent = "Route " + route_number;
     return ALL_ROUTES[route_index];
   }
 
@@ -450,6 +453,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
 
   const startBattle = () => {
     let route = fetchRoute(currentWave)
+    console.log(route);
     const battleScene = document.getElementById("battle-scene");
     battleScene.style.display = "block";
     currentAllyPokemonIndividual = playerPokemonList[0];
