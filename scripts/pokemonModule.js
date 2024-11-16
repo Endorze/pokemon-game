@@ -76,7 +76,7 @@ var pokemonModule = (function () {
       spatk: 25,
       spdef: 35,
       speed: 72,
-      baseExp: 100,
+      baseExp: 51,
       basePrice: 1000,
     },
     raticate: {
@@ -104,7 +104,7 @@ var pokemonModule = (function () {
       spatk: 35,
       spdef: 35,
       speed: 56,
-      baseExp: 100,
+      baseExp: 55,
       basePrice: 1000,
     },
     pidgeotto: {

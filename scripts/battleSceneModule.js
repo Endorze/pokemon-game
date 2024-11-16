@@ -1,6 +1,6 @@
 var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
-  const { createRandomIndividual, levelUpPokemon } = pokemonUtilsModule;
+  const { createRandomIndividual, levelUpPokemon, calculateExpGain } = pokemonUtilsModule;
   const { sleep } = utilsModule;
   const { ALL_ROUTES } = routesModule;
   const { addPokeCurrency, getPokeCurrency } = sharedDataModule;
@@ -164,16 +164,88 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   };
 
   const performAttack = async (moveIndex) => {
-    if (currentOpponentPokemonIndividual.speed > currentAllyPokemonIndividual.speed) {
-      doAIMove();
-      await sleep(2000);
-      allyUseMove(moveIndex);
-    } else {
-      allyUseMove(moveIndex);
-      await sleep(2000)
-      doAIMove();
-      console.log(currentAllyPokemonIndividual.currentHp)
+    if (!allowUserAction) return;
+    if (moveIndex != 0) {
+      return;
     }
+    allowUserAction = false;
+    if (currentOpponentPokemonIndividual.speed > currentAllyPokemonIndividual.speed) {
+      await doAIMove();
+      await displayFaintMessages()
+      if (currentAllyPokemonIndividual.currentHp > 0) {
+        await sleep(1000);
+        await allyUseMove(moveIndex);
+        await displayFaintMessages();
+      }
+    } else {
+      await allyUseMove(moveIndex);
+      await displayFaintMessages();
+      if (currentOpponentPokemonIndividual.currentHp > 0) {
+        await sleep(1000)
+        await doAIMove();
+        await displayFaintMessages();
+      }
+    }
+    if (currentOpponentPokemonIndividual.currentHp == 0) {
+      await opponentPokemonFainted();
+    }
+    if (currentAllyPokemonIndividual.currentHp == 0) {
+      await userPokemonFainted();
+    }
+    allowUserAction = true;
+    const allyPokemonActionText = document.getElementById("playerPokemonAction");
+    allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
+  }
+
+  const userPokemonFainted = async () => {
+    const hasAlivePokemon = playerPokemonList.some(pokemon => pokemon.currentHp > 0);
+    if (hasAlivePokemon) {
+      await sleep(2000);
+      showPokemonTeam();
+      pokemonFaintedText(currentAllyPokemonIndividual);
+      return;
+    } else {
+      await sleep(2000);
+      gameOver();
+      console.log("Game over")
+    }
+  }
+
+  const gameOver = async () => {
+    const battleScene = document.getElementById("battle-scene")
+    await sleep(2000);
+    battleScene.style.display = "none";
+    startGameMusic();
+    loadTown();
+  }
+
+  const displayFaintMessages = async () => {
+    if (currentAllyPokemonIndividual.currentHp == 0) {
+      await sleep(2000);
+      pokemonFaintedText(currentAllyPokemonIndividual);
+      return;
+    }
+    if (currentOpponentPokemonIndividual.currentHp == 0) {
+      await sleep(2000);
+      pokemonFaintedText(currentOpponentPokemonIndividual);
+    }
+  }
+
+  const opponentPokemonFainted = async () => {
+    const killCounter = document.getElementById("kill-counter-text");
+    pokemonSlayed += 1;
+      currentWave += 1;
+      let route = fetchRoute(currentWave);
+      pokemonFaintedText(currentOpponentPokemonIndividual);
+      generatePokeCoins(currentOpponentPokemonIndividual.level);
+      levelUpPokemon(
+        currentAllyPokemonIndividual,
+        calculateExpGain(currentOpponentPokemonIndividual.pokemonType.baseExp, currentOpponentPokemonIndividual.level, 1)
+      );
+      updateAllyPokemon();
+      killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
+      pokemonBattleScene(route[randomWildPokemon(route)]);
+      return;
   }
 
 
@@ -221,13 +293,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     const allyPokemonActionText = document.getElementById(
       "playerPokemonAction"
     );
-    const killCounter = document.getElementById("kill-counter-text");
 
-    if (!allowUserAction) return;
-    if (buttonId != 0) {
-      return;
-    }
-    allowUserAction = false;
     const moveId = currentAllyPokemonIndividual.moves[buttonId];
     const move = moves[moveId];
     await sleep(500);
@@ -241,32 +307,6 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     playSound("hit.mp3");
     updateOpponentPokemon();
     updateAllyPokemon();
-
-    if (currentAllyPokemonIndividual.currentHp == 0) {
-      await sleep(2000);
-      pokemonFaintedText(currentAllyPokemonIndividual);
-      return;
-    }
-
-    if (currentOpponentPokemonIndividual.currentHp == 0) {
-      pokemonSlayed += 1;
-      currentWave += 1;
-      let route = fetchRoute(currentWave);
-      console.log(currentAllyPokemonIndividual);
-      await sleep(2000);
-      pokemonFaintedText(currentOpponentPokemonIndividual);
-      generatePokeCoins(currentOpponentPokemonIndividual.level);
-      levelUpPokemon(
-        currentAllyPokemonIndividual,
-        currentOpponentPokemonIndividual.pokemonType.baseExp
-      );
-      updateAllyPokemon();
-      killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
-      pokemonBattleScene(route[randomWildPokemon(route)]);
-      return;
-    }
-    await sleep(2000);
-    allyPokemonActionText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
   };
 
   const fetchRoute = (currentWave) => {
@@ -350,25 +390,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     updateAllyPokemon();
     // Update opponent
     updateOpponentPokemon();
-    if (currentAllyPokemonIndividual.currentHp == 0) {
-      const hasAlivePokemon = playerPokemonList.some(pokemon => pokemon.currentHp > 0);
-      if (hasAlivePokemon) {
-        await sleep(2000);
-        showPokemonTeam();
-        pokemonFaintedText(currentAllyPokemonIndividual);
-        return;
-      } else {
-        await sleep(2000);
-        loadTown();
-        console.log("Game over")
-      }
-    }
-    if (currentOpponentPokemonIndividual.currentHp == 0) {
-      if (!DEV_MODE) await sleep(2000);
-      pokemonFaintedText(currentOpponentPokemonIndividual);
-      return;
-    }
-    allowUserAction = true;
+
   };
 
   const opponentAttackAnimation = () => {

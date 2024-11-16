@@ -1,6 +1,6 @@
 var pokemonUtilsModule = (function () {
   const calculateDamage = (level, baseDamage, attackStat, defenseStat) => {
-    return Math.ceil((((2 * level / 5 + 2) * baseDamage * (attackStat/defenseStat)) / 50));
+    return Math.ceil((((2 * level / 5 + 2) * baseDamage * (attackStat / defenseStat)) / 50));
   };
   // Other Stats = (floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + 5) x Nature
 
@@ -11,7 +11,7 @@ var pokemonUtilsModule = (function () {
       wildPokemonType,
       wildPokemonLevel
     );
-  
+
     const wildPokemonIndividual = createPokemonIndivual(
       wildPokemonType,
       wildPokemonLevel,
@@ -21,9 +21,9 @@ var pokemonUtilsModule = (function () {
   };
 
   const calculateStat = (baseStat, level) => {
-      return Math.floor(0.01 * (2 * baseStat) * level + 5);
+    return Math.floor(0.01 * (2 * baseStat) * level + 5);
   }
-  
+
   const createPokemonIndivual = (pokemonType, level, moves) => {
     console.log(pokemonType)
     return {
@@ -34,12 +34,23 @@ var pokemonUtilsModule = (function () {
       moves: moves,
     };
   };
-  
+
+  const calculateExpGain = (baseExp, level, pokemonQuantity) => {
+    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity))
+  }
+
+  const baseExp = 60;
+  const faintedPokemonLevel = 20;
+  const numParticipants = 1;
+
+  const expGained = calculateExpGain(baseExp, faintedPokemonLevel, numParticipants);
+
   const calculateExperienceToNextLevel = (level) => {
-    return level * 15;
+    return Math.pow(level, 3);
   };
-  
+
   const levelUpPokemon = (pokemonIndividual, experience) => {
+    console.log("Exp gained: ", experience);
     while (experience > 0) {
       const maxExp = calculateExperienceToNextLevel(pokemonIndividual.level);
       const experienceToNextLevel = maxExp - pokemonIndividual.currentExp;
@@ -63,5 +74,6 @@ var pokemonUtilsModule = (function () {
     createPokemonIndivual,
     levelUpPokemon,
     calculateStat,
+    calculateExpGain
   };
 })();
