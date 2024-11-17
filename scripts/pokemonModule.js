@@ -5,32 +5,8 @@ var pokemonModule = (function () {
 
 
   //HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
-
-
   //list used for wild encounter fights.
   const ALL_POKEMON = {
-    squirtle: {
-      id: "0007-squirtle",
-      name: "Squirtle",
-      health: healthGenerator,
-      moves: [
-        ["tackle", 1],
-        ["watergun", 6],
-        ["bite", 12],
-        ["waterpulse", 15],
-        ["aqua tail", 24],
-        ["hydropump", 33],
-        ["wavecrash", 36],
-      ],
-      hp: 44,
-      attack: 48,
-      defense: 65,
-      spatk: 50,
-      spdef: 64,
-      speed: 43,
-      baseExp: 100,
-      basePrice: 50000,
-    },
     bulbasaur: {
       id: "0001-bulbasaur",
       name: "Bulbasaur",
@@ -52,6 +28,32 @@ var pokemonModule = (function () {
       speed: 45,
       baseExp: 100,
       basePrice: 50000,
+      targetEvolution: "Ivysaur",
+      evolveLevel: 16,
+    },
+    ivysaur: {
+      id: "0002-ivysaur",
+      name: "Ivysaur",
+      health: healthGenerator,
+      moves: [
+        ["tackle", 1],
+        ["vinewhip", 6],
+        ["razorleaf", 12],
+        ["seedbomb", 18],
+        ["takedown", 21],
+        ["powerwhip", 33],
+        ["solarbeam", 36],
+      ],
+      hp: 60,
+      attack: 62,
+      defense: 53,
+      spatk: 80,
+      spdef: 80,
+      speed: 60,
+      baseExp: 100,
+      basePrice: 50000,
+      targetEvolution: "Venosaur",
+      evolveLevel: 36,
     },
     charmander: {
       id: "0004-charmander",
@@ -75,6 +77,81 @@ var pokemonModule = (function () {
       speed: 65,
       baseExp: 100,
       basePrice: 50000,
+      targetEvolution: "Charmeleon",
+      evolveLevel: 16,
+    },
+    charmeleon: {
+      id: "0005-charmeleon",
+      name: "Charmeleon",
+      health: healthGenerator,
+      moves: [
+        ["scratch", 1],
+        ["ember", 6],
+        ["dragonbreath", 12],
+        ["firefang", 17],
+        ["slash", 20],
+        ["flamethrower", 24],
+        ["inferno", 36],
+        ["flareblitz", 40],
+      ],
+      hp: 58,
+      attack: 64,
+      defense: 58,
+      spatk: 80,
+      spdef: 65,
+      speed: 80,
+      baseExp: 100,
+      basePrice: 50000,
+      targetEvolution: "Charizard",
+      evolveLevel: 36,
+    },
+    squirtle: {
+      id: "0007-squirtle",
+      name: "Squirtle",
+      health: healthGenerator,
+      moves: [
+        ["tackle", 1],
+        ["watergun", 6],
+        ["bite", 12],
+        ["waterpulse", 15],
+        ["aqua tail", 24],
+        ["hydropump", 33],
+        ["wavecrash", 36],
+      ],
+      hp: 44,
+      attack: 48,
+      defense: 65,
+      spatk: 50,
+      spdef: 64,
+      speed: 43,
+      baseExp: 100,
+      basePrice: 50000,
+      targetEvolution: "Wartortle",
+      evolveLevel: 16,
+    },
+    wartortle: {
+      id: "0008-wartortle",
+      name: "Wartortle",
+      health: healthGenerator,
+      moves: [
+        ["tackle", 1],
+        ["watergun", 6],
+        ["bite", 12],
+        ["waterpulse", 15],
+        ["aqua tail", 24],
+        ["hydropump", 33],
+        ["wavecrash", 36],
+      ],
+      hp: 59,
+      attack: 63,
+      defense: 80,
+      spatk: 65,
+      spdef: 80,
+      speed: 58,
+      baseExp: 100,
+      basePrice: 50000,
+      targetEvolution: "Blastoise",
+      evolveLevel: 36,
     },
     butterfree: {
       id: "0012-butterfree",
@@ -702,9 +779,12 @@ var pokemonModule = (function () {
     "0778-mimikyu",
     ].map(id => Object.values(ALL_POKEMON).find(pokemonType => pokemonType.id == id));
 
+    const ALL_POKEMON_ARRAY = Object.values(ALL_POKEMON);
+
   return {
     ALL_POKEMON,
     POKEMON_FOR_SALE,
+    ALL_POKEMON_ARRAY,
   }
 })();
 

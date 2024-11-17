@@ -1,6 +1,7 @@
-var pokemonUtilsModule = (function (sharedDataModule) {
+var pokemonUtilsModule = (function (sharedDataModule, pokemonModule) {
 
   const { playerPokemonList } = sharedDataModule;
+  const { ALL_POKEMON, ALL_POKEMON_ARRAY } = pokemonModule;
 
   const calculateDamage = (level, baseDamage, attackStat, defenseStat) => {
     return Math.ceil((((2 * level / 5 + 2) * baseDamage * (attackStat / defenseStat)) / 50));
@@ -90,7 +91,7 @@ var pokemonUtilsModule = (function (sharedDataModule) {
   }
 
   const calculateExpGain = (baseExp, level, pokemonQuantity) => {
-    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity) * 1.75)
+    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity) * 2)
   }
 
   const learnMove = (pokemonIndividual) => {
@@ -116,6 +117,29 @@ var pokemonUtilsModule = (function (sharedDataModule) {
     }
   };
   
+  const evolvePokemon = (pokemonIndividual) => {
+    if (pokemonIndividual.pokemonType.targetEvolution == null) {
+      console.log(pokemonIndividual.pokemonType.targetEvolution, "Could not find targetevolution.")
+      return;
+    }
+  
+    const newPokemonType = ALL_POKEMON_ARRAY.find(
+      (pokemon) => pokemon.name === pokemonIndividual.pokemonType.targetEvolution
+    );
+  
+    if (!newPokemonType) {
+      console.error(
+        `Ingen Pokémon med namnet ${pokemonIndividual.pokemonType.targetEvolution} hittades.`
+      );
+      return;
+    }
+  
+    console.log(
+      `${pokemonIndividual.pokemonType.name} har evolverat till ${newPokemonType.name}!`
+    );
+    pokemonIndividual.pokemonType = newPokemonType;
+  };
+  
 
   const baseExp = 60;
   const faintedPokemonLevel = 20;
@@ -137,6 +161,7 @@ var pokemonUtilsModule = (function (sharedDataModule) {
         pokemonIndividual.level += 1;
         playSound("levelup.mp3");
         learnMove(pokemonIndividual);
+        evolvePokemon(pokemonIndividual)
         console.log(pokemonIndividual.level);
         experience = experience - experienceToNextLevel;
         pokemonIndividual.currentExp = 0;
@@ -157,5 +182,6 @@ var pokemonUtilsModule = (function (sharedDataModule) {
     updateVisiblePokemonInfo,
     calculateExperienceToNextLevel,
     learnMove,
+    evolvePokemon,
   };
-})(sharedDataModule);
+})(sharedDataModule, pokemonModule);
