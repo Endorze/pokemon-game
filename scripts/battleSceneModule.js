@@ -1,9 +1,10 @@
-var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule) {
+var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
   const { createRandomIndividual, levelUpPokemon, calculateExpGain } = pokemonUtilsModule;
   const { sleep } = utilsModule;
   const { ALL_ROUTES } = routesModule;
   const { addPokeCurrency, getPokeCurrency } = sharedDataModule;
+  const { TRAINERS } = trainerModule;
 
   let pokemonSlayed = 0;
   let currentWave = 1;
@@ -44,6 +45,35 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     const wildPokemonIndividual = createRandomIndividual(pokemonEncounter.pokemonId, pokemonEncounter.level = currentWave);
     currentOpponentPokemonIndividual = wildPokemonIndividual;
 
+    const wildPokemonCry =
+      "../pokemon/" +
+      currentOpponentPokemonIndividual.pokemonType.id +
+      "/cry.mp3";
+    console.log(wildPokemonCry);
+    playSound(wildPokemonCry);
+
+    updateOpponentPokemon();
+    updateAllyPokemon();
+
+    const pokemonDescText = document.getElementById("playerPokemonAction");
+    pokemonDescText.textContent = `What will ${currentAllyPokemonIndividual.pokemonType.name} do?`;
+    const battleScene = document.getElementById("battle-scene");
+    battleScene.style.display = "block";
+
+    loadPokemonIndividualMoves(currentAllyPokemonIndividual);
+    allowUserAction = true;
+  };
+
+  const trainerBattleScene = (trainer) => {
+
+    if (!pokemonFightActive) {
+      startBattleMusic(0);
+      pokemonFightActive = true;
+    }
+    for (let i = 0; i < trainer.pokemonTeam.length; i++) {
+      currentOpponentPokemonIndividual = trainer.pokemonTeam[i];
+      console.log(currentAllyPokemonIndividual);
+    }
     const wildPokemonCry =
       "../pokemon/" +
       currentOpponentPokemonIndividual.pokemonType.id +
@@ -457,6 +487,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     const battleScene = document.getElementById("battle-scene");
     battleScene.style.display = "block";
     currentAllyPokemonIndividual = playerPokemonList[0];
+    // trainerBattleScene(TRAINERS);
     pokemonBattleScene(route[randomWildPokemon(route)]);
     startBattleMusic();
   };
@@ -476,4 +507,4 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     performAttack,
   };
 
-})(audioModule, pokemonUtilsModule, routesModule, sharedDataModule);
+})(audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule);

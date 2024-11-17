@@ -146,6 +146,83 @@ var routesModule = (function () {
       pokemonId: "vulpix",
     },
   ]
+
+  const ROUTE7 = [
+    {
+      pokemonId: "pidgey",
+    },
+    {
+      pokemonId: "pidgeotto",
+      
+    },
+    {
+      pokemonId: "rattata",
+    },
+    {
+      pokemonId: "ekans",
+    },
+    {
+      pokemonId: "sandshrew",
+    },
+    {
+      pokemonId: "jigglypuff",
+    },
+    {
+      pokemonId: "oddish",
+    },
+    {
+      pokemonId: "meowth",
+    },
+    {
+      pokemonId: "abra",
+    },
+    {
+      pokemonId: "Kadabra"
+    },
+    {
+      pokemonId: "bellsprout",
+    },
+    {
+      pokemonId: "growlithe",
+    },
+    {
+      pokemonId: "vulpix",
+    },
+  ]
+
+  const ROUTE8 = [
+    {
+      pokemonId: "rattata",
+    },
+    {
+      pokemonId: "raticate",
+      
+    },
+    {
+      pokemonId: "spearow",
+    },
+    {
+      pokemonId: "ekans",
+    },
+    {
+      pokemonId: "sandshrew",
+    },
+    {
+      pokemonId: "nidoranmale",
+    },
+    {
+      pokemonId: "nidoranfemale",
+    },
+    {
+      pokemonId: "magnemite",
+    },
+    {
+      pokemonId: "machop",
+    },
+    {
+      pokemonId: "voltorb"
+    },
+  ]
   //   {
   //     pokemonId: "snorlax",
 

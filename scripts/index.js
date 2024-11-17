@@ -261,10 +261,10 @@ let allowUserMovementInput = true;
 const playerStartX = 50;
 
 const playerMaxX = 90;
-const playerMinX = -190;
+const playerMinX = -290;
 
 const cameraMaxX = 50;
-const cameraMinX = -150;
+const cameraMinX = -250;
 
 let keyADown = false;
 let keyDDown = false;

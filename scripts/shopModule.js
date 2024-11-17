@@ -2,7 +2,7 @@
 var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule) {
     const { removePokeCurrency } = sharedDataModule;
     const { createPokemonIndivual } = pokemonUtilsModule;
-    const { ALL_POKEMON } = pokemonModule;
+    const { ALL_POKEMON, POKEMON_FOR_SALE } = pokemonModule;
 
     let currentShopItems = [];
     let toggleShopInterface = false;
@@ -15,7 +15,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
     };
 
     const selectItems = (itemCount, seed) => {
-        const pokemonNames = Object.keys(ALL_POKEMON); // Få alla Pokémon-namn
+        const pokemonNames = Object.keys(POKEMON_FOR_SALE); // Få alla Pokémon-namn
         const selectedItems = [];
 
         let randomSeed = seed;
@@ -27,7 +27,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         for (let i = 0; i < itemCount && pokemonNames.length > 0; i++) {
             const randomIndex = Math.floor(pseudoRandom() * pokemonNames.length);
             const selectedName = pokemonNames.splice(randomIndex, 1)[0];
-            selectedItems.push(ALL_POKEMON[selectedName]); // Lägg till hela Pokémon-objektet
+            selectedItems.push(POKEMON_FOR_SALE[selectedName]); // Lägg till hela Pokémon-objektet
         }
 
         return selectedItems;
