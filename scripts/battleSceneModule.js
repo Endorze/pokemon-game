@@ -1,6 +1,6 @@
 var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
-  const { createRandomIndividual, levelUpPokemon, calculateExpGain, updateVisiblePokemonInfo } = pokemonUtilsModule;
+  const { createRandomIndividual, levelUpPokemon, calculateExpGain, updateVisiblePokemonInfo, calculateExperienceToNextLevel } = pokemonUtilsModule;
   const { sleep } = utilsModule;
   const { ALL_ROUTES } = routesModule;
   const { addPokeCurrency, getPokeCurrency, playerPokemonList } = sharedDataModule;
@@ -271,6 +271,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     let route = fetchRoute(currentWave);
     pokemonFaintedText(currentOpponentPokemonIndividual);
     generatePokeCoins(currentOpponentPokemonIndividual.level);
+    updateExpBar(currentAllyPokemonIndividual, "experience");
     levelUpPokemon(
       currentAllyPokemonIndividual,
       calculateExpGain(currentOpponentPokemonIndividual.pokemonType.baseExp, currentOpponentPokemonIndividual.level, 1)
@@ -294,6 +295,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
       "../pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
     plPokemonSprite.style.height = (currentAllyPokemonIndividual.pokemonType.height || 25) + "%";
 
+    updateExpBar(currentAllyPokemonIndividual, "experience")
     updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar");
   };
 
@@ -318,6 +320,15 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
       return;
     }
     hpOverlayElement.style.backgroundColor = `var(--full-hp)`;
+  };
+
+  const updateExpBar = (pokemonIndividual, expBarOverlayId) => {
+    const expOverlayElement = document.getElementById(expBarOverlayId);
+
+    // expTextElement.textContent = `${pokemonIndividual.currentExp} / ${calculateExperienceToNextLevel(pokemonIndividual.level)} EXP`;
+    const expNeeded = calculateExperienceToNextLevel(pokemonIndividual.level)
+    const expPercentage = pokemonIndividual.currentExp / expNeeded;
+    expOverlayElement.style.width = `${expPercentage * 100}%`;
   };
 
 

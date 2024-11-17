@@ -92,7 +92,7 @@
   #visible-pokemon-5 {
     width: 100%;
     height: 14%;
-    background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
+    background: linear-gradient(to bottom, lightblue 60%, rgb(129, 184, 202) 40%);
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
     cursor: pointer;

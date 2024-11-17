@@ -110,5 +110,6 @@ var pokemonUtilsModule = (function (sharedDataModule) {
     calculateStat,
     calculateExpGain,
     updateVisiblePokemonInfo,
+    calculateExperienceToNextLevel,
   };
 })(sharedDataModule);

@@ -90,7 +90,7 @@
             "></div>
         <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
         <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" onclick="healPokemonTeam()"/>
-        <img id="shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png" />
+        <img id="shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png"  onclick="shopModule.openMarket()"/>
         <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
           onclick="shopModule.openPetShop()" />
         <img id="purple-portal" class="on-ground clickable" style="left: -125%; height: 100%"
@@ -191,9 +191,9 @@
         <p id="shop-price-3"></p>
       </div>
       <img id="shop-button-background" src="../images/wooden-images/woodenrectangle.png">
-      <button id="shop-button-1" onclick="shopModule.buyItem(0)">Purchase</button>
-      <button id="shop-button-2" onclick="shopModule.buyItem(1)">Purchase</button>
-      <button id="shop-button-3" onclick="shopModule.buyItem(2)">Purchase</button>
+      <button id="shop-button-1" onclick="shopModule.buyPokemon(0)">Purchase</button>
+      <button id="shop-button-2" onclick="shopModule.buyPokemon(1)">Purchase</button>
+      <button id="shop-button-3" onclick="shopModule.buyPokemon(2)">Purchase</button>
       <img id="exit-shop-button" src="../images/wooden-images/squarebuttonredcross.png"
         onclick="shopModule.openPetShop()">
       <div id="petshop-currency-container">
@@ -277,6 +277,11 @@
           <div class="health-bar">
             <div id="allyHpBar" class="health-bar-overlay"></div>
             <p id="playerHp"></p>
+          </div>
+          <div id="experience-bar">
+            <div id="experience" class="experience-bar-overlay">
+              <p id="current-exp"></p>
+            </div>
           </div>
         </div>
       </div>

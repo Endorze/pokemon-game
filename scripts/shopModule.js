@@ -14,7 +14,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         return Math.floor(timeInMinutes / 30);
     };
 
-    const selectItems = (itemCount, seed) => {
+    const selectPokemon = (itemCount, seed) => {
         const pokemonNames = Object.keys(POKEMON_FOR_SALE); // Få alla Pokémon-namn
         const selectedItems = [];
 
@@ -28,6 +28,25 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
             const randomIndex = Math.floor(pseudoRandom() * pokemonNames.length);
             const selectedName = pokemonNames.splice(randomIndex, 1)[0];
             selectedItems.push(POKEMON_FOR_SALE[selectedName]); // Lägg till hela Pokémon-objektet
+        }
+
+        return selectedItems;
+    };
+
+    const selectItems = (itemCount, seed) => {
+        const pokemonNames = Object.keys(ALL_POKEMON); // Få alla Pokémon-namn
+        const selectedItems = [];
+
+        let randomSeed = seed;
+        const pseudoRandom = () => {
+            randomSeed = (randomSeed * 9301 + 49297) % 233280;
+            return randomSeed / 233280;
+        };
+
+        for (let i = 0; i < itemCount && pokemonNames.length > 0; i++) {
+            const randomIndex = Math.floor(pseudoRandom() * pokemonNames.length);
+            const selectedName = pokemonNames.splice(randomIndex, 1)[0];
+            selectedItems.push(ALL_POKEMON[selectedName]); // Lägg till hela Pokémon-objektet
         }
 
         return selectedItems;
@@ -54,7 +73,7 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
 
     const generateShopItems = () => {
         const seed = generateShopSeed();
-        currentShopItems = selectItems(3, seed);
+        currentShopItems = selectPokemon(3, seed);
 
         currentShopItems.forEach((pokemon, index) => {
             const pokemonImage = document.getElementById(`shop-image-${index + 1}`);
@@ -71,8 +90,27 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         console.log("Selected products with prices:", currentShopItems);
     };
 
+    const generateMarketItems = () => {
+        const seed = generateShopSeed();
+        currentShopItems = selectItems(3, seed);
 
-    const buyItem = (index) => {
+        currentShopItems.forEach((item, index) => {
+            const itemImage = document.getElementById(`shop-image-${index + 1}`);
+
+            if (item && itemImage) {
+                itemImage.src = `../pokemon/${item.id}/front.gif`; // Ange rätt sökväg
+
+                const nameElement = document.getElementById(`shop-button-${index + 1}`);
+                if (nameElement) {
+                    nameElement.textContent = `$${item.basePrice}`;
+                }
+            }
+        });
+        console.log("Selected products with prices:", currentShopItems);
+    };
+
+
+    const buyPokemon = (index) => {
         const selectedPokemon = currentShopItems[index];
         if (!selectedPokemon) {
             console.log("No item found at this index.");
@@ -85,6 +123,8 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
             playerPokemonList.push(
                 createPokemonIndivual(selectedPokemon, 5, [selectedPokemon.moves[0]])
             );
+            const playerCurrency = document.getElementById("petshop-currency")
+            playerCurrency.textContent = getPokeCurrency() + "$ Pokédollars"
             updateVisiblePokemonInfo(playerPokemonList);
 
         } else {
@@ -110,8 +150,27 @@ var shopModule = (function (pokemonModule, pokemonUtilsModule, sharedDataModule)
         }
     };
 
+    const openMarket = () => {
+        const petShopInterface = document.getElementById("pet-shop-interface");
+        const playerCurrency = document.getElementById("petshop-currency")
+        if (!toggleShopInterface) {
+            console.log("Open shop");
+            allowUserMovementInput = false;
+            petShopInterface.style.display = "block";
+            playerCurrency.textContent = getPokeCurrency() + "$ Pokédollars"
+            generateMarketItems();
+            toggleShopInterface = true;
+        } else {
+            petShopInterface.style.display = "none";
+            toggleShopInterface = false;
+            updateVisiblePokemonInfo(playerPokemonList);
+            allowUserMovementInput = true;
+        }
+    };
+
     return {
         openPetShop,
-        buyItem,
+        buyPokemon,
+        openMarket,
     };
 })(pokemonModule, pokemonUtilsModule, sharedDataModule);

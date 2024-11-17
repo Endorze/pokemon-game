@@ -358,7 +358,7 @@ var pokemonModule = (function () {
       basePrice: 15000,
     },
     kadabra: {
-      id: "0058-kadabra",
+      id: "0064-kadabra",
       name: "Kadabra",
       health: healthGenerator,
       moves: ["tackle"],
