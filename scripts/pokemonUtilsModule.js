@@ -1,8 +1,42 @@
-var pokemonUtilsModule = (function () {
+var pokemonUtilsModule = (function (sharedDataModule) {
+
+  const { playerPokemonList } = sharedDataModule;
+
   const calculateDamage = (level, baseDamage, attackStat, defenseStat) => {
     return Math.ceil((((2 * level / 5 + 2) * baseDamage * (attackStat / defenseStat)) / 50));
   };
   // Other Stats = (floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + 5) x Nature
+
+  const updateVisiblePokemonInfo = () => {
+    if (!playerPokemonList) {
+      console.log("Could not do updateVisiblePokemonInfo")
+      return;
+    }
+    for (let i = 0; i < playerPokemonList.length; i++) {
+      const pokemon = playerPokemonList[i];
+      updateHealthBar(playerPokemonList[i], `pokemon-health${i}`, `visible-pokemon-healthbaroverlay${i}`)
+      const healthBar = document.getElementById(`visible-pokemon-healthbar${i}`)
+      const pokemonImage = document.getElementById(`visible-pokemon-image${i}`)
+      const pokemonName = document.getElementById(`visible-pokemon-name${i}`)
+      const pokemonLevel = document.getElementById(`visible-pokemon-level${i}`)
+      if (pokemonImage) {
+        pokemonImage.src = `../pokemon/${pokemon.pokemonType.id}/front.gif`
+        pokemonImage.style.display = "block";
+      }
+      if (pokemonName) {
+        pokemonName.textContent = playerPokemonList[i].pokemonType.name;
+        pokemonName.style.display = "block";
+      }
+      if (pokemonLevel) {
+        pokemonLevel.textContent = playerPokemonList[i].level;
+        pokemonLevel.style.display = "block";
+        pokemonLevel.textContent = "Level " + playerPokemonList[i].level;
+      }
+      if (healthBar) {
+        healthBar.style.display = "block";
+      }
+    }
+  }
 
   const createRandomIndividual = (pokemonId, level) => {
     const wildPokemonType = ALL_POKEMON[pokemonId];
@@ -74,6 +108,7 @@ var pokemonUtilsModule = (function () {
     createPokemonIndivual,
     levelUpPokemon,
     calculateStat,
-    calculateExpGain
+    calculateExpGain,
+    updateVisiblePokemonInfo,
   };
-})();
+})(sharedDataModule);

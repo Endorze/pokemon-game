@@ -1,11 +1,13 @@
 var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
-  const { createRandomIndividual, levelUpPokemon, calculateExpGain } = pokemonUtilsModule;
+  const { createRandomIndividual, levelUpPokemon, calculateExpGain, updateVisiblePokemonInfo } = pokemonUtilsModule;
   const { sleep } = utilsModule;
   const { ALL_ROUTES } = routesModule;
-  const { addPokeCurrency, getPokeCurrency } = sharedDataModule;
+  const { addPokeCurrency, getPokeCurrency, playerPokemonList } = sharedDataModule;
   const { TRAINERS } = trainerModule;
 
+  let currentAllyPokemonIndividual = null;
+  let currentOpponentPokemonIndividual = null;
   let pokemonSlayed = 0;
   let currentWave = 1;
 
@@ -265,18 +267,18 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   const opponentPokemonFainted = async () => {
     const killCounter = document.getElementById("kill-counter-text");
     pokemonSlayed += 1;
-      currentWave += 1;
-      let route = fetchRoute(currentWave);
-      pokemonFaintedText(currentOpponentPokemonIndividual);
-      generatePokeCoins(currentOpponentPokemonIndividual.level);
-      levelUpPokemon(
-        currentAllyPokemonIndividual,
-        calculateExpGain(currentOpponentPokemonIndividual.pokemonType.baseExp, currentOpponentPokemonIndividual.level, 1)
-      );
-      updateAllyPokemon();
-      killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
-      pokemonBattleScene(route[randomWildPokemon(route)]);
-      return;
+    currentWave += 1;
+    let route = fetchRoute(currentWave);
+    pokemonFaintedText(currentOpponentPokemonIndividual);
+    generatePokeCoins(currentOpponentPokemonIndividual.level);
+    levelUpPokemon(
+      currentAllyPokemonIndividual,
+      calculateExpGain(currentOpponentPokemonIndividual.pokemonType.baseExp, currentOpponentPokemonIndividual.level, 1)
+    );
+    updateAllyPokemon();
+    killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
+    pokemonBattleScene(route[randomWildPokemon(route)]);
+    return;
   }
 
 
@@ -426,6 +428,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     updateOpponentPokemon();
 
   };
+
 
   const opponentAttackAnimation = () => {
     const allySprite = document.getElementById("player-pokemon-image");

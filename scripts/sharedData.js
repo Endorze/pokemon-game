@@ -2,6 +2,8 @@ const sharedDataModule = (function() {
 
     let pokeCurrency = 0;
 
+    const playerPokemonList = [];
+    
     const getPokeCurrency = () => pokeCurrency;
 
     const setPokeCurrency = (amount) => {
@@ -21,5 +23,6 @@ const sharedDataModule = (function() {
         addPokeCurrency,
         removePokeCurrency,
         getPokeCurrency,
+        playerPokemonList,
     }
 })()

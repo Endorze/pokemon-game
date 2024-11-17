@@ -1,10 +1,10 @@
 const { ALL_POKEMON } = pokemonModule;
 const { ALL_ROUTES } = routesModule;
 const { pokemonBattleScene, startBattle, updateHealthBar, performAttack } = battleModule;
-const { createPokemonIndivual, calculateDamage, calculateStat } = pokemonUtilsModule;
+const { createPokemonIndivual, calculateDamage, calculateStat, updateVisiblePokemonInfo } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
-const { setPokeCurrency, getPokeCurrency } = sharedDataModule;
+const { setPokeCurrency, getPokeCurrency, playerPokemonList } = sharedDataModule;
 
 let currentBackground = -1;
 let playerName = "";
@@ -23,15 +23,11 @@ const redPokeball = "../images/red.avif";
 const jumpingrope = "../images/pokemonjumpingrope.gif";
 
 let prevDialogDiv = null;
-let currentAllyPokemonIndividual = null;
-let currentOpponentPokemonIndividual = null;
 let allowUserAction = false;
 let pokemonFightActive = false;
 let loadingScreenActive = true;
 
 // List of pokemonIndividual
-const playerPokemonList = [];
-
 
 const toggleLoadingScreen = async () => {
   const loadingScreen = document.getElementById("loading-screen");
@@ -518,42 +514,10 @@ const loadGame = () => {
     setPokeCurrency(data.user.userMoney);
     console.log(getPokeCurrency())
     loadTown();
-    updateVisiblePokemonInfo(playerPokemonList);
+    pokemonUtilsModule.updateVisiblePokemonInfo(playerPokemonList);
     startGameMusic();
   }
 };
-
-const updateVisiblePokemonInfo = (playerPokemonList) => {
-  if (!playerPokemonList) {
-    console.log("Could not do updateVisiblePokemonInfo")
-    return;
-  }
-
-  for (let i = 0; i < playerPokemonList.length; i++) {
-    const pokemon = playerPokemonList[i];
-    updateHealthBar(playerPokemonList[i], `pokemon-health${i}`, `visible-pokemon-healthbaroverlay${i}`)
-    const healthBar = document.getElementById(`visible-pokemon-healthbar${i}`)
-    const pokemonImage = document.getElementById(`visible-pokemon-image${i}`)
-    const pokemonName = document.getElementById(`visible-pokemon-name${i}`)
-    const pokemonLevel = document.getElementById(`visible-pokemon-level${i}`)
-    if (pokemonImage) {
-      pokemonImage.src = `../pokemon/${pokemon.pokemonType.id}/front.gif`
-      pokemonImage.style.display = "block";
-    }
-    if (pokemonName) {
-      pokemonName.textContent = playerPokemonList[i].pokemonType.name;
-      pokemonName.style.display = "block";
-    }
-    if (pokemonLevel) {
-      pokemonLevel.textContent = playerPokemonList[i].level;
-      pokemonLevel.style.display = "block";
-      pokemonLevel.textContent = "Level " + playerPokemonList[i].level;
-    }
-    if (healthBar) {
-      healthBar.style.display = "block";
-    }
-  }
-}
 
 let menuOpen = false;
 const openMenu = (e) => {

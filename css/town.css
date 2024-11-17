@@ -95,6 +95,7 @@
     background: linear-gradient(to bottom, lightblue 60%, rgb(145, 207, 228) 40%);
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
+    cursor: pointer;
   }
 
   
