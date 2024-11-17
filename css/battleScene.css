@@ -202,12 +202,15 @@
 #skill3,
 #skill4,
 #back-button {
+    cursor: pointer;
     position: absolute;
     width: 15%;
     height: 8%;
     background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%);
     border: none;
+    color: rgb(83, 46, 36);
     font-size: 2rem;
+    font-weight: 600;
 }
 
 #skill1,

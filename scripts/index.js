@@ -47,65 +47,7 @@ const toggleLoadingScreen = async () => {
 
 toggleLoadingScreen();
 
-function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
-  const damageDealt = Math.ceil(
-    calculateDamage(
-      userPokemonIndividual.level,
-      this.baseDamage,
-      calculateStat(userPokemonIndividual.pokemonType.attack, userPokemonIndividual.level),
-      calculateStat(targetPokemonIndividual.pokemonType.defense, targetPokemonIndividual.level)
-    )
-  );
-  console.log(damageDealt)
-  console.log("Target defense, level.", targetPokemonIndividual.pokemonType.defense)
-  targetPokemonIndividual.currentHp = Math.max(
-    targetPokemonIndividual.currentHp - damageDealt,
-    0
-  );
-}
 
-function simpleSpecialMove(targetPokemonIndividual, userPokemonIndividual) {
-  const damageDealt = Math.ceil(
-    calculateDamage(
-      userPokemonIndividual.level,
-      this.baseDamage,
-      calculateStat(userPokemonIndividual.pokemonType.spatk, userPokemonIndividual.level),
-      calculateStat(targetPokemonIndividual.pokemonType.spdef, targetPokemonIndividual.level)
-    )
-  );
-  targetPokemonIndividual.currentHp = Math.max(
-    targetPokemonIndividual.currentHp - damageDealt,
-    0
-  );
-}
-
-const moves = {
-  tackle: {
-    name: "Tackle",
-    baseDamage: 40,
-    priority: 1,
-    numberOfUses: 40,
-    performMove: simplePhysicalMove,
-  },
-  heal: {
-    name: "Heal",
-    baseDamage: 20,
-    priority: 1,
-    performMove: function (targetPokemonIndividual, userPokemonIndividual) {
-      userPokemonIndividual.currentHp = Math.min(
-        userPokemonIndividual.currentHp + this.baseDamage,
-        userPokemonIndividual.pokemonType.health(userPokemonIndividual.level)
-      );
-    },
-  },
-  "quick-attack": {
-    name: "Quick Attack",
-    baseDamage: 40,
-    priority: 2,
-    numberOfUses: 20,
-    performMove: simplePhysicalMove,
-  },
-};
 
 const dialogueObject = [
   {

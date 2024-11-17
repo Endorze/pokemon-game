@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../css/town.css" />
   <link rel="stylesheet" href="../css/battleScene.css" />
   <link rel="stylesheet" href="../css/petShop.css" />
+  <script src="../scripts/movesModule.js" defer></script>
   <script src="../scripts/constants.js" defer></script>
   <script src="../scripts/sharedData.js" defer></script>
   <script src="../scripts/utilsModule.js" defer></script>
@@ -88,13 +89,15 @@
               background-image: url(../images/grass.png);
               background-repeat: repeat-x;
             "></div>
-        <img class="on-ground clickable" style="left: 50%; height: 65%" src="../images/brokenhouse.png" />
+        <img class="on-ground clickable" style="left: 50%; height: 80%" src="../images/center.png" />
         <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" onclick="healPokemonTeam()"/>
+        <img class="on-ground" style="left: -40%; height: 25%; transform: scaleX(-1)" src="../images/nursejoy.gif" />
+        <img class="on-ground" style="left: -45%; height: 15%; transform: scaleX(-1)" src="../images/chansey.gif" />
         <img id="shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png"  onclick="shopModule.openMarket()"/>
+        <img id="town-tree" class="on-ground clickable" style="left: -125%; height: 100%" src="../images/town-tree.png" />
         <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
           onclick="shopModule.openPetShop()" />
-        <img id="purple-portal" class="on-ground clickable" style="left: -125%; height: 100%"
-          src="../images/town-tree.png" />
+          <img class="on-ground" style="left: -150%; height: 30%; transform: scaleX(-1)" src="../images/megachari.gif" />
         <img id="mine" class="on-ground clickable" style="left: -180%; height: 70%"
           src="../images/miningbackground.png" />
         <img class="on-ground" style="left: -100%; height: 10%; transform: scaleX(-1)" src="../images/riolu.gif" />
@@ -252,9 +255,9 @@
         <button id="skill1" onclick="battleModule.performAttack(0)">
           <p id="move1"></p>
         </button>
-        <button id="skill2" onclick="battleModule.allyUseMove(1)"></button>
-        <button id="skill3" onclick="battleModule.allyUseMove(2)"></button>
-        <button id="skill4" onclick="battleModule.allyUseMove(3)"></button>
+        <button id="skill2" onclick="battleModule.performAttack(1)"></button>
+        <button id="skill3" onclick="battleModule.performAttack(2)"></button>
+        <button id="skill4" onclick="battleModule.performAttack(3)"></button>
         <button id="back-button" onclick="battleModule.switchBattleMenu()">Back</button>
       </div>
       <div class="bag-bar">
@@ -365,7 +368,7 @@
 
     <div id="start-screen" class="start-screen">
       <div class="start-screen-title">
-        <h2>A roguelike Adventure<br><br>Now with Pokémon!</h2>
+
       </div>
       <div class="start-screen-copyright-text">
         <p>
@@ -378,7 +381,7 @@
         <button onclick="startGame()" onmouseover="audioModule.playSound('hover.mp3')">
           New Game
         </button>
-        <button id="load-button" onclick="loadGame()">Continue Game</button>
+        <button id="load-button" onclick="loadGame()" onmouseover="audioModule.playSound('hover.mp3')">Continue Game</button>
         <button onclick="self.close()">Quit Game</button>
       </div>
     </div>

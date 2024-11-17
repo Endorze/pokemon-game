@@ -58,20 +58,64 @@ var pokemonUtilsModule = (function (sharedDataModule) {
     return Math.floor(0.01 * (2 * baseStat) * level + 5);
   }
 
-  const createPokemonIndivual = (pokemonType, level, moves) => {
-    console.log(pokemonType)
+  const createPokemonIndivual = (pokemonType, level) => {
+    // pokemonType.moves: [["tackle", 1], ["quick-attack", 5]]
+    console.log(pokemonType.moves)
     return {
       pokemonType: pokemonType,
       level: level,
       currentHp: pokemonType.health(level),
       currentExp: 0,
-      moves: moves,
+      moves: pickSuitableMoves(pokemonType, level),
     };
   };
 
-  const calculateExpGain = (baseExp, level, pokemonQuantity) => {
-    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity))
+  const pickSuitableMoves = (pokemonType, level) => {
+    // Pick up to 4 moves from learnable moves, and return a list of only their ids
+
+    const learnableMoves = [...pokemonType.moves] ?? [];
+    
+    const availableMoves = learnableMoves.filter(move => move[1] <= level);
+
+    console.log("Learnable moves: ", [...availableMoves])
+    // const evolveMoves = pokemonType.evolveMoves ?? [];
+
+    availableMoves.sort((move1, move2) => move2[1] - move1[1])
+
+    console.log("Sorted: ", availableMoves)
+
+    const result = availableMoves.slice(0, 4).map(move => move[0]);
+    console.log("Move IDS: ", result);
+    return result;
   }
+
+  const calculateExpGain = (baseExp, level, pokemonQuantity) => {
+    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity) * 1.75)
+  }
+
+  const learnMove = (pokemonIndividual) => {
+    if (!pokemonIndividual || !pokemonIndividual.pokemonType || !pokemonIndividual.pokemonType.moves) {
+      console.error("Invalid Pokémon individual or Pokémon type.");
+      return;
+    }
+  
+    for (let i = 0; i < pokemonIndividual.pokemonType.moves.length; i++) {
+      const move = pokemonIndividual.pokemonType.moves[i];
+  
+      if (pokemonIndividual.level === move[1]) {
+        console.log(`Pokémon can learn ${move[0]} at level ${move[1]}`);
+
+        if (pokemonIndividual.moves.length < 4) {
+          pokemonIndividual.moves.push(move[0]);
+          console.log(`${pokemonIndividual.pokemonType.name} learned ${move[0]}!`);
+        } else {
+          console.log(`${pokemonIndividual.pokemonType.name} already knows 4 moves. Replace a move?`);
+
+        }
+      }
+    }
+  };
+  
 
   const baseExp = 60;
   const faintedPokemonLevel = 20;
@@ -92,6 +136,7 @@ var pokemonUtilsModule = (function (sharedDataModule) {
       if (experience >= experienceToNextLevel) {
         pokemonIndividual.level += 1;
         playSound("levelup.mp3");
+        learnMove(pokemonIndividual);
         console.log(pokemonIndividual.level);
         experience = experience - experienceToNextLevel;
         pokemonIndividual.currentExp = 0;
@@ -111,5 +156,6 @@ var pokemonUtilsModule = (function (sharedDataModule) {
     calculateExpGain,
     updateVisiblePokemonInfo,
     calculateExperienceToNextLevel,
+    learnMove,
   };
 })(sharedDataModule);

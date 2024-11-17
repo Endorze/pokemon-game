@@ -1,10 +1,11 @@
-var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule) {
+var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule, movesModule) {
   const { startGameMusic, startBattleMusic, playSound } = audioModule;
   const { createRandomIndividual, levelUpPokemon, calculateExpGain, updateVisiblePokemonInfo, calculateExperienceToNextLevel } = pokemonUtilsModule;
   const { sleep } = utilsModule;
   const { ALL_ROUTES } = routesModule;
   const { addPokeCurrency, getPokeCurrency, playerPokemonList } = sharedDataModule;
   const { TRAINERS } = trainerModule;
+  const { ALL_MOVES } = movesModule;
 
   let currentAllyPokemonIndividual = null;
   let currentOpponentPokemonIndividual = null;
@@ -12,14 +13,20 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   let currentWave = 1;
 
   const loadPokemonIndividualMoves = (pokemonIndividual) => {
-    const skill1 = document.getElementById("skill1");
-    const skill2 = document.getElementById("skill2");
-    const skill3 = document.getElementById("skill3");
-    const skill4 = document.getElementById("skill4");
 
-    const move1Id = pokemonIndividual.pokemonType.moves[0];
-    const move1 = moves[move1Id];
-    skill1.textContent = move1.name;
+    for (let i = 0; i < 4; i++) {
+      const element = document.getElementById("skill" + (i+1));
+
+      const moveId = pokemonIndividual.moves[i];
+
+      if (moveId) {
+        const move = ALL_MOVES[moveId];
+        element.textContent = move.name;
+      } else {
+        element.textContent = null;
+      }
+    }
+ 
   };
 
   //Generates pokecoins per when opponent pokemon faints.
@@ -197,11 +204,17 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
 
   const performAttack = async (moveIndex) => {
     if (!allowUserAction) return;
-    if (moveIndex != 0) {
+    if (currentAllyPokemonIndividual.moves[moveIndex] == null) {
       return;
     }
     allowUserAction = false;
-    if (currentOpponentPokemonIndividual.speed > currentAllyPokemonIndividual.speed) {
+
+    const allySpeed = calculateStat(currentAllyPokemonIndividual.pokemonType.speed, currentAllyPokemonIndividual.level)
+    const opponentSpeed = calculateStat(currentOpponentPokemonIndividual.pokemonType.speed, currentOpponentPokemonIndividual.level)
+
+    console.log("Ally Speed ", allySpeed, "Opponent Speed ", opponentSpeed)
+    if (opponentSpeed > allySpeed) {
+      await sleep(500);
       await doAIMove();
       await displayFaintMessages()
       if (currentAllyPokemonIndividual.currentHp > 0) {
@@ -220,6 +233,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     }
     if (currentOpponentPokemonIndividual.currentHp == 0) {
       await opponentPokemonFainted();
+      return;
     }
     if (currentAllyPokemonIndividual.currentHp == 0) {
       await userPokemonFainted();
@@ -339,7 +353,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     );
 
     const moveId = currentAllyPokemonIndividual.moves[buttonId];
-    const move = moves[moveId];
+    const move = ALL_MOVES[moveId];
     await sleep(500);
     allyPokemonActionText.textContent = `${currentAllyPokemonIndividual.pokemonType.name} used ${move.name}`;
 
@@ -357,7 +371,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     const routeText = document.getElementById("current-route-text")
     const wave_number = currentWave;
     const num_routes = ALL_ROUTES.length;
-    const encounters_per_route = 5;
+    const encounters_per_route = 4;
     const route_index = Math.floor(wave_number / encounters_per_route) % num_routes;
     const route_number = Math.floor(wave_number / encounters_per_route) + 1;
     routeText.textContent = "Route " + route_number;
@@ -422,7 +436,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
       Math.random() * currentOpponentPokemonIndividual.moves.length
     );
     const moveId = currentOpponentPokemonIndividual.moves[randomMoveIndex];
-    const move = moves[moveId];
+    const move = ALL_MOVES[moveId];
     allyPokemonActionText.textContent = `${currentOpponentPokemonIndividual.pokemonType.name} used ${move.name}`;
     console.log("AI used " + moveId, move);
 
@@ -521,4 +535,4 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     performAttack,
   };
 
-})(audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule);
+})(audioModule, pokemonUtilsModule, routesModule, sharedDataModule, trainerModule, movesModule);
