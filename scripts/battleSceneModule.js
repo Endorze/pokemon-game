@@ -10,6 +10,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
   let currentAllyPokemonIndividual = null;
   let currentOpponentPokemonIndividual = null;
   let pokemonSlayed = 0;
+  let instanceCashEarned = 0;
   let currentWave = 1;
 
   const loadPokemonIndividualMoves = (pokemonIndividual) => {
@@ -40,6 +41,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     const pokedollars = document.getElementById("pokedollars");
     sharedDataModule.addPokeCurrency(totalPokeCoins);
     pokedollars.textContent = "Pokédollars: " + sharedDataModule.getPokeCurrency() + "$";
+    instanceCashEarned = totalPokeCoins;
   };
 
   //Sets up the battle scene, updates ally and opponent pokemon.
@@ -170,6 +172,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
         currentAllyPokemonIndividual = playerPokemonList[index];
         listOfPokemon = false;
         updateAllyPokemon();
+        loadPokemonIndividualMoves(currentAllyPokemonIndividual);
         console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
         await sleep(1000)
         doAIMove();
@@ -308,7 +311,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     plPokemonSprite.src =
       "../pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
     plPokemonSprite.style.height = (currentAllyPokemonIndividual.pokemonType.height || 25) + "%";
-
+    loadPokemonIndividualMoves(currentAllyPokemonIndividual);
     updateExpBar(currentAllyPokemonIndividual, "experience")
     updateHealthBar(currentAllyPokemonIndividual, "playerHp", "allyHpBar");
   };
@@ -489,7 +492,9 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
 
   const runFromBattlePopup = () => {
     const runAwayPopup = document.getElementById("run-away-popup");
+    const runAwayText = document.getElementById("run-away-currency");
     runAwayPopup.style.display = "block";
+    runAwayText.textContent = `If you run now you've made $${instanceCashEarned} Pokédollars`
   };
 
   const runFromBattle = async () => {
@@ -500,6 +505,7 @@ var battleModule = (function (audioModule, pokemonUtilsModule, routesModule, sha
     if (!DEV_MODE) await sleep(2000);
     battleScene.style.display = "none";
     currentWave = 1;
+    instanceCashEarned = 0;
     loadTown();
     startGameMusic();
   };

@@ -135,7 +135,7 @@ loading-screen img {
 
 .main-menu {
   display: none;
-  background-image: url("../images/menu-screen.gif");
+  background-image: url("../images/savescreen.png");
   background-size: cover;
   position: absolute;
   width: 100%;

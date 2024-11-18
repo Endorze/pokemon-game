@@ -24,4 +24,4 @@ const townModule = (function (sharedDataModule, pokemonUtilsModule, heldItemsMod
     return {
       setActivePokemon,
     }
-})(sharedDataModule, pokemonUtilsModule)
+})(sharedDataModule, pokemonUtilsModule, heldItemsModule)

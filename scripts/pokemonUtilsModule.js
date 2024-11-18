@@ -93,7 +93,7 @@ var pokemonUtilsModule = (function (sharedDataModule, pokemonModule, heldItemsMo
   }
 
   const calculateExpGain = (baseExp, level, pokemonQuantity) => {
-    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity) * 2)
+    return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity) * 100)
   }
 
   const learnMove = (pokemonIndividual) => {

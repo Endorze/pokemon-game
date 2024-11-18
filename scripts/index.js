@@ -339,8 +339,12 @@ const updatePlayerSprite = () => {
 };
 
 const enterWilderness = async () => {
+  if (playerPokemonList[0].currentHp == 0) {
+    return;
+  }
+  
   allowUserMovementInput = false;
-
+  
   await animate(
     (time, deltaTime) => {
       playerTargetX += playerSpeed * deltaTime;
@@ -374,26 +378,42 @@ const returnFromWilderness = async () => {
   allowUserMovementInput = true;
 };
 
+let isHealing = false;
+
 
 const healPokemonTeam = async () => {
-  playSound("pokemonshopheal.mp3")
-  if (!playerPokemonList) {
-      return;
+  if (isHealing) {
+    console.log("Healing is already in progress.");
+    return; 
   }
+
+  isHealing = true; 
+
+  playSound("pokemonshopheal.mp3");
+
+  if (!playerPokemonList) {
+    isHealing = false; 
+    return;
+  }
+
   for (let i = 0; i < playerPokemonList.length; i++) {
-    playerPokemonList[i].currentHp = playerPokemonList[i].pokemonType.health(playerPokemonList[i].level)
+    playerPokemonList[i].currentHp = playerPokemonList[i].pokemonType.health(playerPokemonList[i].level);
     console.log(playerPokemonList[i].currentHp);
   }
-  updateVisiblePokemonInfo(playerPokemonList);
-  if (!allowUserAction) {
-    allowUserAction = false;
-    allowUserMovementInput = false;
 
-    await sleep(3000);
-    allowUserMovementInput = true;
-    allowUserAction = true;
-  } 
-}
+  updateVisiblePokemonInfo(playerPokemonList);
+
+  allowUserAction = false;
+  allowUserMovementInput = false;
+
+  await sleep(3000); 
+
+  allowUserMovementInput = true;
+  allowUserAction = true;
+
+  isHealing = false;
+};
+
 
 const animate = (animationFunction, durationSeconds, frameRate) => {
   return new Promise((res) => {
