@@ -1,7 +1,11 @@
-const townModule = (function (sharedDataModule, pokemonUtilsModule) {
+const townModule = (function (sharedDataModule, pokemonUtilsModule, heldItemsModule) {
 
     const { playerPokemonList } = sharedDataModule;
-    const { updateVisiblePokemonInfo } = pokemonUtilsModule;
+    const { updateVisiblePokemonInfo, setHeldItem } = pokemonUtilsModule;
+    const { ALL_ITEMS } = heldItemsModule;
+
+    
+
 
     const setActivePokemon = async (index) => {
         if (playerPokemonList == null) {

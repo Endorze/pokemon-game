@@ -3,7 +3,6 @@ var pokemonModule = (function () {
     return 10 + level + Math.floor(level * 0.01 * 2 * this.hp);
   };
 
-
   //HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
   //list used for wild encounter fights.
   const ALL_POKEMON = {
@@ -52,8 +51,30 @@ var pokemonModule = (function () {
       speed: 60,
       baseExp: 100,
       basePrice: 50000,
-      targetEvolution: "Venosaur",
+      targetEvolution: "Venusaur",
       evolveLevel: 36,
+    },
+    venusaur: {
+      id: "0003-venusaur",
+      name: "Venusaur",
+      health: healthGenerator,
+      moves: [
+        ["tackle", 1],
+        ["vinewhip", 6],
+        ["razorleaf", 12],
+        ["seedbomb", 18],
+        ["takedown", 21],
+        ["powerwhip", 33],
+        ["solarbeam", 36],
+      ],
+      hp: 80,
+      attack: 100,
+      defense: 123,
+      spatk: 122,
+      spdef: 120,
+      speed: 80,
+      baseExp: 100,
+      basePrice: 500000,
     },
     charmander: {
       id: "0004-charmander",
@@ -105,6 +126,29 @@ var pokemonModule = (function () {
       targetEvolution: "Charizard",
       evolveLevel: 36,
     },
+    charizard: {
+      id: "0006-charizard",
+      name: "Charizard",
+      health: healthGenerator,
+      moves: [
+        ["scratch", 1],
+        ["ember", 6],
+        ["dragonbreath", 12],
+        ["firefang", 17],
+        ["slash", 20],
+        ["flamethrower", 24],
+        ["inferno", 36],
+        ["flareblitz", 40],
+      ],
+      hp: 78,
+      attack: 84,
+      defense: 78,
+      spatk: 109,
+      spdef: 85,
+      speed: 100,
+      baseExp: 100,
+      basePrice: 500000,
+    },
     squirtle: {
       id: "0007-squirtle",
       name: "Squirtle",
@@ -152,6 +196,28 @@ var pokemonModule = (function () {
       basePrice: 50000,
       targetEvolution: "Blastoise",
       evolveLevel: 36,
+    },
+    blastoise: {
+      id: "0009-blastoise",
+      name: "Blastoise",
+      health: healthGenerator,
+      moves: [
+        ["tackle", 1],
+        ["watergun", 6],
+        ["bite", 12],
+        ["waterpulse", 15],
+        ["aqua tail", 24],
+        ["hydropump", 33],
+        ["wavecrash", 36],
+      ],
+      hp: 79,
+      attack: 83,
+      defense: 100,
+      spatk: 85,
+      spdef: 100,
+      speed: 78,
+      baseExp: 100,
+      basePrice: 500000,
     },
     butterfree: {
       id: "0012-butterfree",

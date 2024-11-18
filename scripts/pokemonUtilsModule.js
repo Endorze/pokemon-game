@@ -1,7 +1,8 @@
-var pokemonUtilsModule = (function (sharedDataModule, pokemonModule) {
+var pokemonUtilsModule = (function (sharedDataModule, pokemonModule, heldItemsModule) {
 
   const { playerPokemonList } = sharedDataModule;
   const { ALL_POKEMON, ALL_POKEMON_ARRAY } = pokemonModule;
+  const { ALL_ITEMS } = heldItemsModule;
 
   const calculateDamage = (level, baseDamage, attackStat, defenseStat) => {
     return Math.ceil((((2 * level / 5 + 2) * baseDamage * (attackStat / defenseStat)) / 50));
@@ -68,6 +69,7 @@ var pokemonUtilsModule = (function (sharedDataModule, pokemonModule) {
       currentHp: pokemonType.health(level),
       currentExp: 0,
       moves: pickSuitableMoves(pokemonType, level),
+      heldItem: "",
     };
   };
 
@@ -116,6 +118,16 @@ var pokemonUtilsModule = (function (sharedDataModule, pokemonModule) {
       }
     }
   };
+
+  const setHeldItem = (pokemonIndividual, item) => {
+    if (pokemonIndividual == null) {
+      return;
+    }
+    if (item == null) {
+      return;
+    }
+    pokemonIndividual.heldItem = item
+  }
   
   const evolvePokemon = (pokemonIndividual) => {
     if (pokemonIndividual.pokemonType.targetEvolution == null) {
@@ -137,7 +149,10 @@ var pokemonUtilsModule = (function (sharedDataModule, pokemonModule) {
     console.log(
       `${pokemonIndividual.pokemonType.name} har evolverat till ${newPokemonType.name}!`
     );
-    pokemonIndividual.pokemonType = newPokemonType;
+    if (pokemonIndividual.level === pokemonIndividual.pokemonType.evolveLevel) {
+
+      pokemonIndividual.pokemonType = newPokemonType;
+    }
   };
   
 
@@ -183,5 +198,6 @@ var pokemonUtilsModule = (function (sharedDataModule, pokemonModule) {
     calculateExperienceToNextLevel,
     learnMove,
     evolvePokemon,
+    setHeldItem,
   };
-})(sharedDataModule, pokemonModule);
+})(sharedDataModule, pokemonModule, heldItemsModule);

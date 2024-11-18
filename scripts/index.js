@@ -1,7 +1,7 @@
 const { ALL_POKEMON } = pokemonModule;
 const { ALL_ROUTES } = routesModule;
 const { pokemonBattleScene, startBattle, updateHealthBar, performAttack } = battleModule;
-const { createPokemonIndivual, calculateDamage, calculateStat, updateVisiblePokemonInfo } = pokemonUtilsModule;
+const { createPokemonIndivual, calculateDamage, calculateStat, updateVisiblePokemonInfo, setHeldItem } = pokemonUtilsModule;
 const { startGameMusic, playSound } = audioModule;
 const { sleep } = utilsModule;
 const { setPokeCurrency, getPokeCurrency, playerPokemonList } = sharedDataModule;
@@ -484,7 +484,6 @@ const addPokemonToTeam = (id) => {
     createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
   );
 }
-
 
 // addPokemonToTeam("charmander");
 // addPokemonToTeam("bulbasaur");
