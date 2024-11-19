@@ -9,21 +9,8 @@
   <link rel="stylesheet" href="../css/town.css" />
   <link rel="stylesheet" href="../css/battleScene.css" />
   <link rel="stylesheet" href="../css/petShop.css" />
-  <script src="../scripts/movesModule.js" defer></script>
-  <script src="../scripts/constants.js" defer></script>
-  <script src="../scripts/sharedData.js" defer></script>
-  <script src="../scripts/utilsModule.js" defer></script>
-  <script src="../scripts/heldItemsModule.js" defer></script>
-  <script src="../scripts/audioModule.js" defer></script>
-  <script src="../scripts/pokemonModule.js" defer></script>
-  <script src="../scripts/pokemonUtilsModule.js" defer></script>
-  <script src="../scripts/routes.js" defer></script>
-  <script src="../scripts/trainerModule.js" defer></script>
-  <script src="../scripts/battleSceneModule.js" defer></script>
-  <script src="../scripts/shopModule.js" defer></script>
-  <script src="../scripts/healShop.js" defer></script>
-  <script src="../scripts/townModule.js" defer></script>
-  <script src="../scripts/index.js" defer></script>
+
+  <script type="module" src="/scripts/index.ts"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -47,7 +34,7 @@
       <div id="dialogue" class="dialogue-box">
         <h2 id="dialogue-name"></h2>
         <p id="dialogue-text" class="animated-text"></p>
-        <button class="animated-button" onclick="onDialogueAction()">
+        <button id="dialogue-button">
           Next
         </button>
       </div>
@@ -90,14 +77,13 @@
               background-image: url(../images/grass.png);
               background-repeat: repeat-x;
             "></div>
-        <img class="on-ground clickable" style="left: 50%; height: 80%" src="../images/center.png" />
-        <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" onclick="healPokemonTeam()"/>
+        <img id="stat-shop" class="on-ground clickable" style="left: 50%; height: 80%" src="../images/center.png" />
+        <img id="heal-shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" />
         <img class="on-ground" style="left: -40%; height: 25%; transform: scaleX(-1)" src="../images/nursejoy.gif" />
         <img class="on-ground" style="left: -45%; height: 15%; transform: scaleX(-1)" src="../images/chansey.gif" />
-        <img id="shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png"  onclick="shopModule.openMarket()"/>
+        <img id="market-shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png" />
         <img id="town-tree" class="on-ground clickable" style="left: -125%; height: 100%" src="../images/town-tree.png" />
-        <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
-          onclick="shopModule.openPetShop()" />
+        <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png" />
           <img class="on-ground" style="left: -150%; height: 30%; transform: scaleX(-1)" src="../images/megachari.gif" />
         <img id="mine" class="on-ground clickable" style="left: -180%; height: 70%"
           src="../images/miningbackground.png" />
@@ -172,10 +158,6 @@
           </div>
         </div>
         
-
-        
-
-        
       </div>
     </div>
     <div id="pet-shop-interface">
@@ -195,17 +177,27 @@
         <p id="shop-price-3"></p>
       </div>
       <img id="shop-button-background" src="../images/wooden-images/woodenrectangle.png">
-      <button id="shop-button-1" onclick="shopModule.buyPokemon(0)">Purchase</button>
-      <button id="shop-button-2" onclick="shopModule.buyPokemon(1)">Purchase</button>
-      <button id="shop-button-3" onclick="shopModule.buyPokemon(2)">Purchase</button>
-      <img id="exit-shop-button" src="../images/wooden-images/squarebuttonredcross.png"
-        onclick="shopModule.openPetShop()">
+      <button id="shop-button-1">Purchase</button>
+      <button id="shop-button-2">Purchase</button>
+      <button id="shop-button-3">Purchase</button>
+      <img id="exit-shop-button" src="../images/wooden-images/squarebuttonredcross.png">
       <div id="petshop-currency-container">
         <p id="petshop-currency"></p>
       </div>
       <div id="petshop-info-container">
         <p id="petshop-info"></p>
       </div>
+    </div>
+
+    <div id="stat-shop-interface">
+        <div id="stat-shop-pokemonteam">
+            <div>Hej</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
 
     <div id="battle-scene">
@@ -298,7 +290,7 @@
       <div id="run-away-popup">
         <div id="run-away-window">
           <h2>Are you sure you want to run away?</h2>
-          <p id="run-away-currency">If you run now you've gotten 20 pokedollars.</p>
+          <p id="run-away-currency"></p>
           <button onclick="battleModule.runFromBattle()">Yes</button>
           <button onclick="battleModule.closeRunFromBattlePopup()">
             No
@@ -379,11 +371,11 @@
         </p>
       </div>
       <div class="start-screen-buttons">
-        <button onclick="startGame()" onmouseover="audioModule.playSound('hover.mp3')">
+        <button id="start-screen-button-new-game" onmouseover="audioModule.playSound('hover.mp3')">
           New Game
         </button>
-        <button id="load-button" onclick="loadGame()" onmouseover="audioModule.playSound('hover.mp3')">Continue Game</button>
-        <button onclick="self.close()">Quit Game</button>
+        <button id="start-screen-button-load" onmouseover="audioModule.playSound('hover.mp3')">Continue Game</button>
+        <button id="start-screen-button-quit" >Quit Game</button>
       </div>
     </div>
 

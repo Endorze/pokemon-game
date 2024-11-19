@@ -1,35 +1,34 @@
-const { ALL_POKEMON } = pokemonModule;
-const { ALL_ROUTES } = routesModule;
-const { pokemonBattleScene, startBattle, updateHealthBar, performAttack } = battleModule;
-const { createPokemonIndivual, calculateDamage, calculateStat, updateVisiblePokemonInfo, setHeldItem } = pokemonUtilsModule;
-const { startGameMusic, playSound } = audioModule;
-const { sleep } = utilsModule;
-const { setPokeCurrency, getPokeCurrency, playerPokemonList } = sharedDataModule;
+import { ALL_POKEMON } from "./pokemonModule";
+import { ALL_ROUTES } from "./routes";
+import { pokemonBattleScene, startBattle, updateHealthBar, performAttack } from "./battleSceneModule";
+import { createPokemonIndivual, calculateDamage, calculateStat, updateVisiblePokemonInfo, setHeldItem } from "./pokemonUtilsModule";
+import { startGameMusic, playSound } from "./audioModule";
+import { sleep } from "./utilsModule";
+import { setPokeCurrency, getPokeCurrency, playerPokemonList } from "./sharedData";
+import { upgradeStat } from "./statUpgradeShop";
+import { loadTown } from "./townModule";
+import { DEV_MODE } from "./constants";
+
+import "./views/mainMenu"
+import "./views/dialogue"
+import "./views/town"
 
 let currentBackground = -1;
-let playerName = "";
 let playerGotStarter = false;
 let playerStarterPokemon = "";
-let playerStarterPokemonImage = "";
 let musicActive = false;
-const forest = "../images/forest.jpg";
-const pokemonCity = "../images/pokemoncity.avif";
 const profoak1 = "../images/profoak1.jpg";
 const profoak2 = "../images/profoak2.avif";
 const pikachuElectric = " ../images/pikachuelectricity.gif";
-const redImage = "../images/rivalred.png";
-const charmanderImage = "../images/charmander.png";
-const redPokeball = "../images/red.avif";
 const jumpingrope = "../images/pokemonjumpingrope.gif";
 
 let prevDialogDiv = null;
 let allowUserAction = false;
-let pokemonFightActive = false;
 let loadingScreenActive = true;
 
 // List of pokemonIndividual
 
-const toggleLoadingScreen = async () => {
+export const toggleLoadingScreen = async () => {
   const loadingScreen = document.getElementById("loading-screen");
 
   if (!loadingScreenActive) {
@@ -107,31 +106,17 @@ const dialogueObject = [
   },
 ];
 
-const pickFourRandomMoves = (pokemonType, level) => {
-  // TODO
-  return [pokemonType.moves[0]];
-};
 
-const loadTown = async () => {
-  const town = document.getElementById("town");
-  town.style.display = "block";
-  console.log(playerPokemonList[0])
-  updateVisiblePokemonInfo(playerPokemonList);
-  returnFromWilderness();
-};
-
-const startGame = async () => {
+export const startGame = async () => {
   playSound("start-game.mp3");
   if (!DEV_MODE) await sleep(1500);
   goToNextDialogue();
   console.log("attempting to start game, startGame()");
 };
 
-const onDialogueAction = async () => {
-  if (!allowUserAction) return;
-
+export const onDialogueAction = async () => {
   playSound("hover.mp3");
-  allowUserAction = false;
+
 
   const currentDialogue = dialogueObject[currentBackground];
   if (currentDialogue.action) currentDialogue.action();
@@ -141,10 +126,10 @@ const onDialogueAction = async () => {
 };
 
 //Turns off startscreen, starts the game.
-const goToNextDialogue = () => {
+export const goToNextDialogue = () => {
   const startScreen = document.getElementById("start-screen");
   if (!musicActive) {
-    startGameMusic("littleroot.mp3", 10000);
+    startGameMusic();
     musicActive = true;
   }
   startScreen.style.display = "none";
@@ -173,13 +158,13 @@ const pokemonStarterScene = () => {
   console.log("Jag körde pickpokemon funktionen");
 };
 
-const pickPokemon = (pokemonId) => {
+export const pickPokemon = (pokemonId: string) => {
   console.log(ALL_POKEMON);
   const pokemonScene = document.getElementById("select-pokemon-scene");
   if (!playerGotStarter) {
     const pokemonType = ALL_POKEMON[pokemonId];
     playerPokemonList.push(
-      createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
+      createPokemonIndivual(pokemonType, 5)
     );
 
     playerGotStarter = true;
@@ -189,11 +174,6 @@ const pickPokemon = (pokemonId) => {
   goToNextDialogue();
 };
 
-const randomWildPokemon = (wildPokemonList) => {
-  let random = Math.floor(Math.random() * wildPokemonList.length);
-  console.log(random + " Played randomWildPokemon function");
-  return random;
-};
 
 let allowUserMovementInput = true;
 const playerStartX = 50;
@@ -308,7 +288,7 @@ const [enableTownClock, disableTownClock] = (function () {
 let spriteState = "";
 
 const updatePlayerSprite = () => {
-  const allySprite = document.getElementById("player-character");
+  const allySprite = document.getElementById("player-character") as HTMLImageElement;
   const spriteSource = "../images/character.gif";
   const newSpriteState = playerRunning + playerDirection;
   const shouldUpdateSprite = spriteState != newSpriteState;
@@ -357,7 +337,7 @@ const enterWilderness = async () => {
   disableTownClock();
 };
 
-const returnFromWilderness = async () => {
+export const returnFromWilderness = async () => {
   enableTownClock();
 
   allowUserMovementInput = false;
@@ -401,7 +381,7 @@ const healPokemonTeam = async () => {
     console.log(playerPokemonList[i].currentHp);
   }
 
-  updateVisiblePokemonInfo(playerPokemonList);
+  updateVisiblePokemonInfo();
 
   allowUserAction = false;
   allowUserMovementInput = false;
@@ -416,13 +396,13 @@ const healPokemonTeam = async () => {
 
 
 const animate = (animationFunction, durationSeconds, frameRate) => {
-  return new Promise((res) => {
+  return new Promise<void>((resolve) => {
     let time = 0;
     let deltaTime = durationSeconds / frameRate;
     const id = setInterval(() => {
       if (time > durationSeconds) {
         clearInterval(id);
-        res();
+        resolve();
         return;
       }
 
@@ -463,7 +443,7 @@ const saveGame = () => {
   console.log(data);
 };
 
-const loadGame = () => {
+export const loadGame = () => {
   const savedData = localStorage.getItem("saveGame");
   if (savedData) {
     const data = JSON.parse(savedData);
@@ -476,7 +456,7 @@ const loadGame = () => {
     setPokeCurrency(data.user.userMoney);
     console.log(getPokeCurrency())
     loadTown();
-    pokemonUtilsModule.updateVisiblePokemonInfo(playerPokemonList);
+    updateVisiblePokemonInfo();
     startGameMusic();
   }
 };
@@ -501,9 +481,11 @@ document.addEventListener("keydown", openMenu);
 const addPokemonToTeam = (id) => {
   const pokemonType = ALL_POKEMON[id];
   playerPokemonList.push(
-    createPokemonIndivual(pokemonType, 5, [pokemonType.moves[0]])
+    createPokemonIndivual(pokemonType, 5)
   );
 }
+
+
 
 // addPokemonToTeam("charmander");
 // addPokemonToTeam("bulbasaur");
@@ -515,3 +497,46 @@ const addPokemonToTeam = (id) => {
 // addPokemonToTeam("beedrill");
 
 console.log(playerPokemonList);
+
+
+// const helloWorld = async () => {
+//   console.log("Hej")
+//   return "Hello"
+// }
+
+// const helloWorld = () => new Promise((resolve, reject) => {
+//   console.log("Hej")
+//   resolve("Hello")
+// })
+
+
+
+
+
+
+// const promise = new Promise(async (resolve, reject) => {
+
+//   await sleep(5000)
+
+//   const downloadedData = {};
+
+//   if (downloadedData.status == 200) {
+//     resolve("Everything went fine")
+//   } else {
+//     reject(new Error("Failed to download data"))
+//   }
+
+
+// });
+
+// promise.then((value) => {
+
+// }).catch(error => {
+
+// })
+
+// try {
+//   const value = await promise;
+// } catch (error) {
+
+// }
