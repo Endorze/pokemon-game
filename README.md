@@ -12,3 +12,5 @@ To run from battle simply press run and confirm, go back the same way if you wis
 
 Your starter pokemon evolves at lvl 16, you're battleing through the routes, currently 8, at the end of the routes in the future will be the ELITE 4, you will have to battle 4 elite trainers to get to the next generation, you start at gen 1.
 
+https://endorze.github.io/pokemon-game/index/index.html
+Play it here!
