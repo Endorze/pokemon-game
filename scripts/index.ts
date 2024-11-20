@@ -12,6 +12,7 @@ import { DEV_MODE } from "./constants";
 import "./views/mainMenu"
 import "./views/dialogue"
 import "./views/town"
+import "./views/battleScene"
 
 let currentBackground = -1;
 let playerGotStarter = false;
@@ -427,6 +428,7 @@ const fetchData = () => {
 const checkForLocalData = () => {
   const loadbutton = document.getElementById("load-button");
   if (localStorage.getItem("saveGame") === null) {
+    loadbutton.style.display = "none";
     return;
   } else {
     loadbutton.style.display = "block";
@@ -436,7 +438,7 @@ const checkForLocalData = () => {
 checkForLocalData();
 
 
-const saveGame = () => {
+export const saveGame = () => {
   const data = fetchData();
   localStorage.setItem("saveGame", JSON.stringify(data));
   console.log("Saved game");
@@ -462,7 +464,7 @@ export const loadGame = () => {
 };
 
 let menuOpen = false;
-const openMenu = (e) => {
+export const openMenu = (e: KeyboardEvent) => {
   const menu = document.getElementById("main-menu")
   if (e.key == "Escape") {
     if (!menuOpen) {
@@ -487,27 +489,7 @@ const addPokemonToTeam = (id) => {
 
 
 
-// addPokemonToTeam("charmander");
-// addPokemonToTeam("bulbasaur");
-// addPokemonToTeam("squirtle");
-// addPokemonToTeam("pidgeott");
-// addPokemonToTeam("butterfree");
-
-
-// addPokemonToTeam("beedrill");
-
 console.log(playerPokemonList);
-
-
-// const helloWorld = async () => {
-//   console.log("Hej")
-//   return "Hello"
-// }
-
-// const helloWorld = () => new Promise((resolve, reject) => {
-//   console.log("Hej")
-//   resolve("Hello")
-// })
 
 
 

@@ -15,9 +15,34 @@
 }
 
 #stat-shop-pokemonteam {
-    display: none;
-    width: 80%;
-    height: 80%;
+    left: 5%;
+    top: 6%;
+    gap: 5px;
+    border-radius: 5px;
+    display: block;
+    width: 30%;
+    height: 85%;
     background-color: red;
     position: absolute;
+}
+
+#stat-shop-exit-button {
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 5%;
+    width: 3%;
+}
+
+#stat-shop-pokemon0,
+#stat-shop-pokemon1,
+#stat-shop-pokemon2,
+#stat-shop-pokemon3,
+#stat-shop-pokemon4,
+#stat-shop-pokemon5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 17.5%;
+    background-color: blue;
 }

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/town.css" />
   <link rel="stylesheet" href="../css/battleScene.css" />
   <link rel="stylesheet" href="../css/petShop.css" />
-
+  <link rel="stylesheet" href="../css/statShop.css" />
   <script type="module" src="/scripts/index.ts"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +27,7 @@
   <div class="gaming-window">
     <div id="main-menu" class="main-menu">
       <div class="menu">
-        <button onclick="saveGame()">Save</button>
+        <button id="save-game-button" onclick="saveGame()">Save</button>
       </div>
     </div>
     <div id="dialogue-scene" class="dialogue-container">
@@ -190,13 +190,27 @@
     </div>
 
     <div id="stat-shop-interface">
+      <img id="stat-shop-exit-button" src="./images/wooden-images/squarebuttonredcross.png">
         <div id="stat-shop-pokemonteam">
-            <div>Hej</div>
+            <div id="stat-shop-pokemon0">Pokemon1</div>
+            <div id="stat-shop-pokemon1">Pokemon2</div>
+            <div id="stat-shop-pokemon2">Pokemon3</div>
+            <div id="stat-shop-pokemon3">Pokemon4</div>
+            <div id="stat-shop-pokemon4">Pokemon5</div>
+            <div id="stat-shop-pokemon5">Pokemon6</div>
+        </div>
+        <div id="stat-shop-display-upgrades">
+          <div id="stat-shop-info-container">
+
+          </div>
+          <div id="stat-shop-upgrades">
             <div></div>
             <div></div>
             <div></div>
             <div></div>
             <div></div>
+            <div></div>
+          </div>
         </div>
     </div>
 
@@ -230,8 +244,7 @@
           <p id="playerPokemonAction"></p>
         </div>
         <div id="battle-bar-main-menu">
-          <button id="fight-button" style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)"
-            onclick="battleModule.switchBattleMenu()">
+          <button id="fight-button" style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)">
             <span>Fight</span>
           </button>
           <button id="bag-button" style="background: linear-gradient(to bottom, #fff176 60%, #c0b659 40%)">Bag</button>
@@ -245,13 +258,13 @@
         </div>
       </div>
       <div id="pokemon-skill-bar">
-        <button id="skill1" onclick="battleModule.performAttack(0)">
+        <button id="skill1">
           <p id="move1"></p>
         </button>
-        <button id="skill2" onclick="battleModule.performAttack(1)"></button>
-        <button id="skill3" onclick="battleModule.performAttack(2)"></button>
-        <button id="skill4" onclick="battleModule.performAttack(3)"></button>
-        <button id="back-button" onclick="battleModule.switchBattleMenu()">Back</button>
+        <button id="skill2"></button>
+        <button id="skill3"></button>
+        <button id="skill4"></button>
+        <button id="back-button">Back</button>
       </div>
       <div class="bag-bar">
         <div>
@@ -291,8 +304,8 @@
         <div id="run-away-window">
           <h2>Are you sure you want to run away?</h2>
           <p id="run-away-currency"></p>
-          <button onclick="battleModule.runFromBattle()">Yes</button>
-          <button onclick="battleModule.closeRunFromBattlePopup()">
+          <button id="run-away-button-yes">Yes</button>
+          <button id="run-away-button-no">
             No
           </button>
         </div>
@@ -350,7 +363,7 @@
         </div>
         <div id="select-pokemon-container">
           <div id="select-pokemon-text">Choose a Pokémon.</div>
-          <button onclick="battleModule.showPokemonTeam()">Cancel</button>
+          <button id="select-pokemon-cancel-button">Cancel</button>
         </div>
         <div id="select-pokemon-trees">
           <img src="../images/tree.png" id="tree1-menu">

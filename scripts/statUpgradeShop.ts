@@ -1,3 +1,4 @@
+let shopOpen = false;
 
 export const upgradeStat = (pokemonIndividual, amount) => {
     pokemonIndividual.statUpgrades.hp = amount;
@@ -5,7 +6,15 @@ export const upgradeStat = (pokemonIndividual, amount) => {
 }
 
 export const openStatShop = () => {
-    console.log("HEJ")
     let shopInterface = document.getElementById("stat-shop-interface")
-    shopInterface.style.display = "block";
+    if (!shopOpen) {
+        console.log("Trying to open stat shop")
+        shopInterface.style.display = "block";
+        console.log("Stat shop should be open.")
+        shopOpen = true;
+    }  else {
+        shopInterface.style.display = "none";
+        console.log("Should close shop.")
+        shopOpen = false;
+    }
 }

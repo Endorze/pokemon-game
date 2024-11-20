@@ -10,6 +10,7 @@ const petShopButton2 = document.getElementById("shop-button-2")
 const petShopButton3 = document.getElementById("shop-button-3")
 
 const statShop = document.getElementById("stat-shop")
+const statShopExitButton = document.getElementById("stat-shop-exit-button")
 const healShop = document.getElementById("heal-shop")
 const marketShop = document.getElementById("market-shop")
 const exitShop = document.getElementById("exit-shop-button")
@@ -66,6 +67,9 @@ healShop.onclick = () => {
 
 
 statShop.onclick = () => {
+    openStatShop()
+}
+statShopExitButton.onclick = () => {
     openStatShop()
 }
 
