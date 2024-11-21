@@ -1,43 +1,33 @@
-import "../css/index.css" 
-import "../css/town.css" 
-import "../css/battleScene.css" 
-import "../css/petShop.css" 
-import "../css/statShop.css" 
+import "../css/index.css"
+import "../css/town.css"
+import "../css/battleScene.css"
+import "../css/petShop.css"
+import "../css/statShop.css"
 import "./views/mainMenu"
 import "./views/dialogue"
 import "./views/town"
 import "./views/battleScene"
 import "./views/saveScreen"
 import "./saveUtils"
+import "./battleSceneModule"
+import "./sharedData"
+import "./routes"
+import "./types"
+import "./audioModule"
+import "./constants"
+import "./dialogue"
+import "./heldItemsModule"
+import "./movesModule"
+import "./pokemonModule"
+import "./pokemonUtilsModule"
+import "./shopModule"
+import "./statUpgradeShop"
+import "./townModule"
+import "./trainerModule"
+import "./utilsModule"
 
 
 
 
 
 
-// const promise = new Promise(async (resolve, reject) => {
-
-//   await sleep(5000)
-
-//   const downloadedData = {};
-
-//   if (downloadedData.status == 200) {
-//     resolve("Everything went fine")
-//   } else {
-//     reject(new Error("Failed to download data"))
-//   }
-
-
-// });
-
-// promise.then((value) => {
-
-// }).catch(error => {
-
-// })
-
-// try {
-//   const value = await promise;
-// } catch (error) {
-
-// }

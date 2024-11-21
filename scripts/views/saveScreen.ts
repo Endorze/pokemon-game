@@ -1,4 +1,4 @@
-import { saveGame } from "scripts/saveUtils"
+import { saveGame } from "../saveUtils"
 
 const saveGameButton = document.getElementById("save-game-button")
 

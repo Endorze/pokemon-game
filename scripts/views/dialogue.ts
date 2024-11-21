@@ -1,5 +1,4 @@
-import { pickPokemon, goToNextDialogue, onDialogueAction } from "..";
-
+import { pickPokemon, onDialogueAction } from "../dialogue";
 
 const selectSquirtle = document.getElementById("squirtle");
 if (!selectSquirtle) {

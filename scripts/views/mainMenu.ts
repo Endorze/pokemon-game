@@ -1,5 +1,5 @@
 import { startGame } from "../dialogue"
-import { loadGame } from "scripts/saveUtils";
+import { loadGame } from "../saveUtils";
 
 const buttonNewGame = document.getElementById("start-screen-button-new-game");
 const buttonLoad = document.getElementById("start-screen-button-load");
