@@ -1,4 +1,4 @@
-import { healPokemonTeam } from "../healShop"
+import { healPokemonTeam } from "../townModule"
 import { buyPokemon, openMarket, openPetShop } from "../shopModule"
 import { openStatShop } from "../statUpgradeShop"
 import { playerPokemonList } from "../sharedData"
@@ -62,7 +62,7 @@ petShopButton3.onclick = () => {
 
 healShop.onclick = () => {
     console.log(playerPokemonList)
-    healPokemonTeam(playerPokemonList)
+    healPokemonTeam()
 }
 
 

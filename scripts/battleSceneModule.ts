@@ -3,6 +3,7 @@ import { startGameMusic, startBattleMusic, playSound } from "./audioModule";
 import { createRandomIndividual, levelUpPokemon, calculateExpGain, updateVisiblePokemonInfo, calculateExperienceToNextLevel, calculateStat } from "./pokemonUtilsModule";
 import { sleep } from "./utilsModule";
 import { ALL_ROUTES } from "./routes";
+import { ALL_POKEMON } from "./pokemonModule"
 import { addPokeCurrency, getPokeCurrency, playerPokemonList } from "./sharedData";
 import { TRAINERS } from "./trainerModule";
 import { ALL_MOVES } from "./movesModule";
@@ -315,6 +316,8 @@ export const updateAllyPokemon = () => {
   const plPokemon = document.getElementById("playerpokemon");
   const plLevel = document.getElementById("playerlevel");
   const plPokemonSprite = document.getElementById("player-pokemon-image") as HTMLImageElement;
+
+  console.log(currentAllyPokemonIndividual)
 
   plPokemon.textContent = currentAllyPokemonIndividual.pokemonType.name;
   plLevel.textContent = "level " + currentAllyPokemonIndividual.level;

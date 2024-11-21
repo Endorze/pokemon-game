@@ -133,7 +133,7 @@ loading-screen img {
   color: rgb(255, 255, 255);
 }
 
-.main-menu {
+#main-menu {
   display: none;
   background-image: url("../images/savescreen.png");
   background-size: cover;
