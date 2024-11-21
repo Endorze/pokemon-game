@@ -62,7 +62,7 @@ loading-screen img {
   width: 85%;
   top: 0;
   background-color: rgb(199, 158, 207);
-  background-image: url("images/background.png");
+  background-image: url("/resources/images/background.png");
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
@@ -101,7 +101,7 @@ loading-screen img {
 }
 
 .start-screen-title {
-  background-image: url("images/roguelikeadventure.png");
+  background-image: url("/resources/images/roguelikeadventure.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -135,7 +135,7 @@ loading-screen img {
 
 #main-menu {
   display: none;
-  background-image: url("images/savescreen.png");
+  background-image: url("/resources/images/savescreen.png");
   background-size: cover;
   position: absolute;
   width: 100%;
@@ -203,7 +203,7 @@ loading-screen img {
   position: absolute;
   display: none;
   top: 0;
-  background-image: url("images/pokecenter.png");
+  background-image: url("/resources/images/pokecenter.png");
   background-size: cover;
   background-position: center;
   min-height: 100%;

@@ -59,7 +59,7 @@ export const calculateStat = (baseStat, level) => {
   return Math.floor(0.01 * (2 * baseStat) * level + 5);
 }
 
-export const createPokemonIndivual = (pokemonType, level) => {
+export const createPokemonIndivual = (pokemonType: PokemonType, level: number) => {
   // pokemonType.moves: [["tackle", 1], ["quick-attack", 5]]
   console.log(pokemonType.moves)
   return {

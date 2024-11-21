@@ -20,14 +20,16 @@ import "./views/town"
 import "./views/battleScene"
 import "./views/saveScreen"
 
+import profoak1 from "../resources/images/profoak1.jpg";
+import profoak2 from "../resources/images/profoak2.avif";
+import pikachuElectric  from "../resources/images/pikachuelectricity.gif";
+import jumpingrope  from "../resources/images/pokemonjumpingrope.gif";
+
 let currentBackground = -1;
 let playerGotStarter = false;
 let playerStarterPokemon = "";
 let musicActive = false;
-const profoak1 = "images/profoak1.jpg";
-const profoak2 = "images/profoak2.avif";
-const pikachuElectric = " images/pikachuelectricity.gif";
-const jumpingrope = "images/pokemonjumpingrope.gif";
+
 
 let prevDialogDiv = null;
 let allowUserAction = false;
@@ -37,6 +39,7 @@ let loadingScreenActive = true;
 
 export const toggleLoadingScreen = async () => {
   const loadingScreen = document.getElementById("loading-screen");
+  if (!loadingScreen) return;
 
   if (!loadingScreenActive) {
     loadingScreen.style.display = "flex";
@@ -135,6 +138,8 @@ export const onDialogueAction = async () => {
 //Turns off startscreen, starts the game.
 export const goToNextDialogue = () => {
   const startScreen = document.getElementById("start-screen");
+  if (!startScreen) return;
+
   if (!musicActive) {
     startGameMusic();
     musicActive = true;
@@ -148,19 +153,24 @@ export const goToNextDialogue = () => {
 const displayDialogue = (dialogueData) => {
   allowUserAction = true;
   const gamingWindow = document.getElementById("dialogue-scene");
+  const dialogueName = document.getElementById("dialogue-name");
+  const dialogueText = document.getElementById("dialogue-text");
+  
+  if (!gamingWindow || !dialogueName || !dialogueText) return;
+
   gamingWindow.style.backgroundImage = `url("${dialogueData.backgroundImage}")`;
   gamingWindow.style.display = "block";
 
-  const dialogueName = document.getElementById("dialogue-name");
   dialogueName.textContent = dialogueData.name;
 
-  const dialogueText = document.getElementById("dialogue-text");
   dialogueText.textContent = dialogueData.text();
 };
 
 //Starts the scene where the player gets to pick starter pokemon.
 const pokemonStarterScene = () => {
   const pokemonScene = document.getElementById("select-pokemon-scene");
+  if (!pokemonScene) return;
+
   pokemonScene.style.display = "block";
   console.log("Jag körde pickpokemon funktionen");
 };
@@ -168,6 +178,8 @@ const pokemonStarterScene = () => {
 export const pickPokemon = (pokemonId: string) => {
   console.log(ALL_POKEMON);
   const pokemonScene = document.getElementById("select-pokemon-scene");
+  if (!pokemonScene) return;
+
   if (!playerGotStarter) {
     const pokemonType = ALL_POKEMON[pokemonId];
     playerPokemonList.push(
@@ -198,6 +210,8 @@ const fetchData = () => {
 
 const checkForLocalData = () => {
   const loadbutton = document.getElementById("start-screen-button-load");
+  if (!loadbutton) return;
+
   if (localStorage.getItem("saveGame") === null) {
     loadbutton.style.display = "none";
     return;
@@ -236,7 +250,9 @@ export const loadGame = () => {
 
 let menuOpen = false;
 export const openMenu = (e: KeyboardEvent): void => {
-  const menu = document.getElementById("main-menu")
+  const menu = document.getElementById("main-menu");
+  if (!menu) return;
+
   console.log("Should open menu")
   if (e.key === "Escape") {
     if (!menuOpen) {

@@ -1,7 +1,7 @@
 
 let pokeCurrency = 500000;
 
-export const playerPokemonList = [];
+export const playerPokemonList: any[] = [];
 
 export const getPokeCurrency = () => pokeCurrency;
 
