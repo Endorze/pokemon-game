@@ -9,7 +9,7 @@ import { TRAINERS } from "./trainerModule";
 import { ALL_MOVES } from "./movesModule";
 import { loadTown } from "./townModule"
 import { DEV_MODE } from "./constants";
-import { toggleLoadingScreen } from "./index"; 
+import { toggleLoadingScreen } from "./dialogue"; 
 
 let currentAllyPokemonIndividual = null;
 let currentOpponentPokemonIndividual = null;
