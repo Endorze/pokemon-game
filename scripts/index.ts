@@ -9,6 +9,11 @@ import { upgradeStat } from "./statUpgradeShop";
 import { loadTown } from "./townModule";
 import { DEV_MODE } from "./constants";
 
+import "../css/index.css" 
+import "../css/town.css" 
+import "../css/battleScene.css" 
+import "../css/petShop.css" 
+import "../css/statShop.css" 
 import "./views/mainMenu"
 import "./views/dialogue"
 import "./views/town"
