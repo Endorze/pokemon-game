@@ -67,7 +67,7 @@
     position: absolute;
     background: none;
     display: flex;
-    background-image: url("../images//wooden-images/woodensquare.png");
+    background-image: url("/resources/images/wooden-images/woodensquare.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -101,7 +101,7 @@
     padding: 1%;
     background: none;
     background-position: center;
-    background-image: url("../images/wooden-images/rectanglebutton.png");
+    background-image: url("/resources/images/wooden-images/rectanglebutton.png");
     background-repeat: no-repeat;
     background-size: contain;
     border: none;

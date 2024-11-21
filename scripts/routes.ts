@@ -1,6 +1,9 @@
-var routesModule = (function () {
 
-  const ROUTE1 = [
+  type RoutePokemon = {
+    pokemonId: string;
+  }
+
+  const ROUTE1: RoutePokemon[] = [
     {
       pokemonId: "rattata",
 
@@ -10,7 +13,7 @@ var routesModule = (function () {
 
     },];
 
-  const ROUTE2 = [
+  const ROUTE2: RoutePokemon[] = [
     {
       pokemonId: "rattata",
       
@@ -34,7 +37,7 @@ var routesModule = (function () {
     },
   ];
 
-  const ROUTE3 = [
+  const ROUTE3: RoutePokemon[] = [
     {
       pokemonId: "rattata",
       
@@ -58,7 +61,7 @@ var routesModule = (function () {
     },
   ];
   
-  const ROUTE4 = [
+  const ROUTE4: RoutePokemon[] =  [
     {
       pokemonId: "rattata",
     },
@@ -79,7 +82,7 @@ var routesModule = (function () {
     },
   ];
 
-  const ROUTE5 = [
+  const ROUTE5: RoutePokemon[] =  [
     {
       pokemonId: "pidgey",
     },
@@ -110,7 +113,7 @@ var routesModule = (function () {
     },
   ];
 
-  const ROUTE6 = [
+  const ROUTE6: RoutePokemon[] =  [
     {
       pokemonId: "pidgey",
     },
@@ -147,7 +150,7 @@ var routesModule = (function () {
     },
   ]
 
-  const ROUTE7 = [
+  const ROUTE7: RoutePokemon[] =  [
     {
       pokemonId: "pidgey",
     },
@@ -190,7 +193,7 @@ var routesModule = (function () {
     },
   ]
 
-  const ROUTE8 = [
+  const ROUTE8: RoutePokemon[] =  [
     {
       pokemonId: "rattata",
     },
@@ -322,9 +325,5 @@ var routesModule = (function () {
   // ]
 
   
-  const ALL_ROUTES = [ROUTE1, ROUTE2, ROUTE3, ROUTE4, ROUTE5, ROUTE6]
+export const ALL_ROUTES = [ROUTE1, ROUTE2, ROUTE3, ROUTE4, ROUTE5, ROUTE6]
 
-  return {
-    ALL_ROUTES,
-  }
-})();

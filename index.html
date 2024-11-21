@@ -5,25 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" href="../css/index.css" />
-  <link rel="stylesheet" href="../css/town.css" />
-  <link rel="stylesheet" href="../css/battleScene.css" />
-  <link rel="stylesheet" href="../css/petShop.css" />
-  <script src="../scripts/movesModule.js" defer></script>
-  <script src="../scripts/constants.js" defer></script>
-  <script src="../scripts/sharedData.js" defer></script>
-  <script src="../scripts/utilsModule.js" defer></script>
-  <script src="../scripts/heldItemsModule.js" defer></script>
-  <script src="../scripts/audioModule.js" defer></script>
-  <script src="../scripts/pokemonModule.js" defer></script>
-  <script src="../scripts/pokemonUtilsModule.js" defer></script>
-  <script src="../scripts/routes.js" defer></script>
-  <script src="../scripts/trainerModule.js" defer></script>
-  <script src="../scripts/battleSceneModule.js" defer></script>
-  <script src="../scripts/shopModule.js" defer></script>
-  <script src="../scripts/healShop.js" defer></script>
-  <script src="../scripts/townModule.js" defer></script>
-  <script src="../scripts/index.js" defer></script>
+
+  <script type="module" src="/scripts/index.ts"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -33,21 +16,21 @@
 
 <body>
   <div id="loading-screen">
-    <img src="../images/loading.gif" />
-    <img id="eevee-loading-screen" src="../images/jumpingeevee.gif" />
+    <img src="/resources/images/loading.gif" />
+    <img id="eevee-loading-screen" src="/resources/images/jumpingeevee.gif" />
   </div>
 
   <div class="gaming-window">
     <div id="main-menu" class="main-menu">
       <div class="menu">
-        <button onclick="saveGame()">Save</button>
+        <button id="save-game-button">Save</button>
       </div>
     </div>
     <div id="dialogue-scene" class="dialogue-container">
       <div id="dialogue" class="dialogue-box">
         <h2 id="dialogue-name"></h2>
         <p id="dialogue-text" class="animated-text"></p>
-        <button class="animated-button" onclick="onDialogueAction()">
+        <button id="dialogue-button">
           Next
         </button>
       </div>
@@ -55,10 +38,10 @@
     <div id="town">
       <div id="scrollable-world">
         <div id="background-parallax" class="background">
-          <img class="background" style="right: 0%" src="../images/town.gif" />
-          <img class="background" style="left: 0%" src="../images/town.gif" />
-          <img class="background" style="right: 99.9%; transform: scaleX(-1)" src="../images/town.gif" />
-          <img class="background" style="right: 199.9%; transform: scaleX(-1)" src="../images/town.gif" />
+          <img class="background" style="right: 0%" src="/resources/images/town.gif" />
+          <img class="background" style="left: 0%" src="/resources/images/town.gif" />
+          <img class="background" style="right: 99.9%; transform: scaleX(-1)" src="/resources/images/town.gif" />
+          <img class="background" style="right: 199.9%; transform: scaleX(-1)" src="/resources/images/town.gif" />
         </div>
 
 
@@ -73,40 +56,39 @@
               left: 0%;
               bottom: 5%;
               width: 600vw;
-              background-image: url(../images/grass.png);
+              background-image: url(/resources/images/grass.png);
               background-repeat: repeat-x;
               "></div>
         <div class="road" style="
                     left: 0%;
                     bottom: 0%;
                     width: 600vw;
-                    background-image: url(../images/road.png);
+                    background-image: url(/resources/images/road.png);
                     background-repeat: repeat-x;
                   "></div>
         <div class="bot-grass" style="
               left: 0%;
               bottom: 1%;
               width: 600vw;
-              background-image: url(../images/grass.png);
+              background-image: url(/resources/images/grass.png);
               background-repeat: repeat-x;
             "></div>
-        <img class="on-ground clickable" style="left: 50%; height: 80%" src="../images/center.png" />
-        <img id="shop" class="on-ground clickable" style="left: -50%; height: 65%" src="../images/heal.png" onclick="healPokemonTeam()"/>
-        <img class="on-ground" style="left: -40%; height: 25%; transform: scaleX(-1)" src="../images/nursejoy.gif" />
-        <img class="on-ground" style="left: -45%; height: 15%; transform: scaleX(-1)" src="../images/chansey.gif" />
-        <img id="shop" class="on-ground clickable" style="left: 0%; height: 85%" src="../images/market.png"  onclick="shopModule.openMarket()"/>
-        <img id="town-tree" class="on-ground clickable" style="left: -125%; height: 100%" src="../images/town-tree.png" />
-        <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="../images/petshop.png"
-          onclick="shopModule.openPetShop()" />
-          <img class="on-ground" style="left: -150%; height: 30%; transform: scaleX(-1)" src="../images/megachari.gif" />
+        <img id="stat-shop" class="on-ground clickable" style="left: 50%; height: 80%" src="/resources/images/center.png" />
+        <img id="heal-shop" class="on-ground clickable" style="left: -50%; height: 65%" src="/resources/images/heal.png" />
+        <img class="on-ground" style="left: -40%; height: 25%; transform: scaleX(-1)" src="/resources/images/nursejoy.gif" />
+        <img class="on-ground" style="left: -45%; height: 15%; transform: scaleX(-1)" src="/resources/images/chansey.gif" />
+        <img id="market-shop" class="on-ground clickable" style="left: 0%; height: 85%" src="/resources/images/market.png" />
+        <img id="town-tree" class="on-ground clickable" style="left: -125%; height: 100%" src="/resources/images/town-tree.png" />
+        <img id="pet-shop" class="on-ground clickable" style="left: -90%; height: 65%" src="/resources/images/petshop.png" />
+          <img class="on-ground" style="left: -150%; height: 30%; transform: scaleX(-1)" src="/resources/images/megachari.gif" />
         <img id="mine" class="on-ground clickable" style="left: -180%; height: 70%"
-          src="../images/miningbackground.png" />
-        <img class="on-ground" style="left: -100%; height: 10%; transform: scaleX(-1)" src="../images/riolu.gif" />
-        <img class="on-ground" style="left: -80%; height: 8%" src="../images/sylveon.gif" />
-        <img class="on-ground" style="left: 25%; height: 15%" src="../images/dancingeevee.gif" />
-        <img class="on-ground clickable" style="left: 90%; height: 15%" src="../images/wildsign.png" />
+          src="/resources/images/miningbackground.png" />
+        <img class="on-ground" style="left: -100%; height: 10%; transform: scaleX(-1)" src="/resources/images/riolu.gif" />
+        <img class="on-ground" style="left: -80%; height: 8%" src="/resources/images/sylveon.gif" />
+        <img class="on-ground" style="left: 25%; height: 15%" src="/resources/images/dancingeevee.gif" />
+        <img class="on-ground clickable" style="left: 90%; height: 15%" src="/resources/images/wildsign.png" />
         <div id="player-character" class="player-character on-ground" style="height: 10%">
-          <img src="../images/character.gif" id="player-sprite" style="height: 100%" />
+          <img src="/resources/images/character.gif" id="player-sprite" style="height: 100%" />
         </div>
       </div>
 
@@ -172,10 +154,6 @@
           </div>
         </div>
         
-
-        
-
-        
       </div>
     </div>
     <div id="pet-shop-interface">
@@ -194,18 +172,42 @@
         <img id="shop-image-3">
         <p id="shop-price-3"></p>
       </div>
-      <img id="shop-button-background" src="../images/wooden-images/woodenrectangle.png">
-      <button id="shop-button-1" onclick="shopModule.buyPokemon(0)">Purchase</button>
-      <button id="shop-button-2" onclick="shopModule.buyPokemon(1)">Purchase</button>
-      <button id="shop-button-3" onclick="shopModule.buyPokemon(2)">Purchase</button>
-      <img id="exit-shop-button" src="../images/wooden-images/squarebuttonredcross.png"
-        onclick="shopModule.openPetShop()">
+      <img id="shop-button-background" src="/resources/images/wooden-images/woodenrectangle.png">
+      <button id="shop-button-1">Purchase</button>
+      <button id="shop-button-2">Purchase</button>
+      <button id="shop-button-3">Purchase</button>
+      <img id="exit-shop-button" src="/resources/images/wooden-images/squarebuttonredcross.png">
       <div id="petshop-currency-container">
         <p id="petshop-currency"></p>
       </div>
       <div id="petshop-info-container">
         <p id="petshop-info"></p>
       </div>
+    </div>
+
+    <div id="stat-shop-interface">
+      <img id="stat-shop-exit-button" src="./resources/images/wooden-images/squarebuttonredcross.png">
+        <div id="stat-shop-pokemonteam">
+            <div id="stat-shop-pokemon0">Pokemon1</div>
+            <div id="stat-shop-pokemon1">Pokemon2</div>
+            <div id="stat-shop-pokemon2">Pokemon3</div>
+            <div id="stat-shop-pokemon3">Pokemon4</div>
+            <div id="stat-shop-pokemon4">Pokemon5</div>
+            <div id="stat-shop-pokemon5">Pokemon6</div>
+        </div>
+        <div id="stat-shop-display-upgrades">
+          <div id="stat-shop-info-container">
+
+          </div>
+          <div id="stat-shop-upgrades">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
     </div>
 
     <div id="battle-scene">
@@ -238,8 +240,7 @@
           <p id="playerPokemonAction"></p>
         </div>
         <div id="battle-bar-main-menu">
-          <button id="fight-button" style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)"
-            onclick="battleModule.switchBattleMenu()">
+          <button id="fight-button" style="background: linear-gradient(to bottom, #e57373 60%, #bb5e5e 40%)">
             <span>Fight</span>
           </button>
           <button id="bag-button" style="background: linear-gradient(to bottom, #fff176 60%, #c0b659 40%)">Bag</button>
@@ -253,13 +254,13 @@
         </div>
       </div>
       <div id="pokemon-skill-bar">
-        <button id="skill1" onclick="battleModule.performAttack(0)">
+        <button id="skill1">
           <p id="move1"></p>
         </button>
-        <button id="skill2" onclick="battleModule.performAttack(1)"></button>
-        <button id="skill3" onclick="battleModule.performAttack(2)"></button>
-        <button id="skill4" onclick="battleModule.performAttack(3)"></button>
-        <button id="back-button" onclick="battleModule.switchBattleMenu()">Back</button>
+        <button id="skill2"></button>
+        <button id="skill3"></button>
+        <button id="skill4"></button>
+        <button id="back-button">Back</button>
       </div>
       <div class="bag-bar">
         <div>
@@ -291,16 +292,16 @@
       </div>
       <div class="kill-container">
         <div id="kill-counter" class="kill-counter">
-          <img src="../images/skull.png" />
+          <img src="/resources/images/skull.png" />
           <p id="kill-counter-text">Pokemon slain: 0</p>
         </div>
       </div>
       <div id="run-away-popup">
         <div id="run-away-window">
           <h2>Are you sure you want to run away?</h2>
-          <p id="run-away-currency">If you run now you've gotten 20 pokedollars.</p>
-          <button onclick="battleModule.runFromBattle()">Yes</button>
-          <button onclick="battleModule.closeRunFromBattlePopup()">
+          <p id="run-away-currency"></p>
+          <button id="run-away-button-yes">Yes</button>
+          <button id="run-away-button-no">
             No
           </button>
         </div>
@@ -358,11 +359,11 @@
         </div>
         <div id="select-pokemon-container">
           <div id="select-pokemon-text">Choose a Pokémon.</div>
-          <button onclick="battleModule.showPokemonTeam()">Cancel</button>
+          <button id="select-pokemon-cancel-button">Cancel</button>
         </div>
         <div id="select-pokemon-trees">
-          <img src="../images/tree.png" id="tree1-menu">
-          <img src="../images/tree.png" id="tree2-menu">
+          <img src="/resources/images/tree.png" id="tree1-menu">
+          <img src="/resources/images/tree.png" id="tree2-menu">
         </div>
       </div>
     </div>
@@ -379,21 +380,21 @@
         </p>
       </div>
       <div class="start-screen-buttons">
-        <button onclick="startGame()" onmouseover="audioModule.playSound('hover.mp3')">
+        <button id="start-screen-button-new-game" onmouseover="audioModule.playSound('hover.mp3')">
           New Game
         </button>
-        <button id="load-button" onclick="loadGame()" onmouseover="audioModule.playSound('hover.mp3')">Continue Game</button>
-        <button onclick="self.close()">Quit Game</button>
+        <button id="start-screen-button-load" onmouseover="audioModule.playSound('hover.mp3')">Continue Game</button>
+        <button id="start-screen-button-quit" >Quit Game</button>
       </div>
     </div>
 
     <div id="select-pokemon-scene" class="select-pokemon-scene">
       <div id="select-pokemon">
-        <img src="../pokemon/0007-squirtle/front.gif" id="squirtle" onmouseover="audioModule.playSound('hover.mp3')"
+        <img src="pokemon/0007-squirtle/front.gif" id="squirtle" onmouseover="audioModule.playSound('hover.mp3')"
           onclick="pickPokemon('squirtle')" />
-        <img src="../pokemon/0001-bulbasaur/front.gif" id="bulbasaur" onmouseover="audioModule.playSound('hover.mp3')"
+        <img src="pokemon/0001-bulbasaur/front.gif" id="bulbasaur" onmouseover="audioModule.playSound('hover.mp3')"
           onclick="pickPokemon('bulbasaur')" />
-        <img src="../pokemon/0004-charmander/front.gif" id="charmander" onmouseover="audioModule.playSound('hover.mp3')"
+        <img src="pokemon/0004-charmander/front.gif" id="charmander" onmouseover="audioModule.playSound('hover.mp3')"
           onclick="pickPokemon('charmander')" />
       </div>
     </div>

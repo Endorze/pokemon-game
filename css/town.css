@@ -34,7 +34,7 @@
     position: absolute;
     left: 0;
     height: 3%;
-    background-image: url(../images/grass.png);
+    background-image: url(/resources/images/grass.png);
     background-repeat: repeat-x;
     width: 100%;
 }
@@ -43,7 +43,7 @@
     position: absolute;
     left: 0;
     height: 3%;
-    background-image: url(../images/grass.png);
+    background-image: url(/resources/images/grass.png);
     background-repeat: repeat-x;
     width: 100%;
 }
@@ -52,7 +52,7 @@
     position: absolute;
     left: 0;
     height: 6%;
-    background-image: url(../images/road.png);
+    background-image: url(/resources/images/road.png);
     background-repeat: repeat-x;
     width: 100%;
   }
