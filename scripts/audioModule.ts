@@ -50,3 +50,8 @@ export const playSound = (sound) => {
   let audio = new Audio(`mp3/${sound}`);
   audio.play();
 };
+
+export const playPokemonSound = (sound) => {
+  let audio = new Audio(`mp3/${sound}`);
+  audio.play();
+};
