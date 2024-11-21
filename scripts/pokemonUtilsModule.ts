@@ -80,6 +80,13 @@ export const createPokemonIndivual = (pokemonType: PokemonType, level: number) =
   };
 };
 
+const addPokemonToTeam = (id) => {
+  const pokemonType = ALL_POKEMON[id];
+  playerPokemonList.push(
+    createPokemonIndivual(pokemonType, 5)
+  );
+}
+
 export const pickSuitableMoves = (pokemonType: PokemonType, level: number) => {
   // Pick up to 4 moves from learnable moves, and return a list of only their ids
 
