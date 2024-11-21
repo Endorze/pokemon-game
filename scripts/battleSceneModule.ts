@@ -68,7 +68,7 @@ export const pokemonBattleScene = (pokemonEncounter) => {
   currentOpponentPokemonIndividual = wildPokemonIndividual;
 
   const wildPokemonCry =
-    "../pokemon/" +
+    "pokemon/" +
     currentOpponentPokemonIndividual.pokemonType.id +
     "/cry.mp3";
   console.log(wildPokemonCry);
@@ -97,7 +97,7 @@ const trainerBattleScene = (trainer) => {
     console.log(currentAllyPokemonIndividual);
   }
   const wildPokemonCry =
-    "../pokemon/" +
+    "pokemon/" +
     currentOpponentPokemonIndividual.pokemonType.id +
     "/cry.mp3";
   console.log(wildPokemonCry);
@@ -149,7 +149,7 @@ export const showPokemonTeam = () => {
       if (pokemonIndividual) {
         console.log(pokemonIndividual);
         buttonElement.style.display = "block";
-        buttonIcon.src = "../pokemon/" + pokemonIndividual.pokemonType.id + "/front.gif";
+        buttonIcon.src = "pokemon/" + pokemonIndividual.pokemonType.id + "/front.gif";
         buttonName.textContent = pokemonIndividual.name;
         buttonLevel.textContent = pokemonIndividual.level;
         buttonHpText.textContent = pokemonIndividual.currentHp;
@@ -205,7 +205,7 @@ const updateOpponentPokemon = () => {
   wiPokemon.textContent = currentOpponentPokemonIndividual.pokemonType.name;
   wiLevel.textContent = "level " + currentOpponentPokemonIndividual.level;
   wiPokemonSprite.src =
-    "../pokemon/" +
+    "pokemon/" +
     currentOpponentPokemonIndividual.pokemonType.id +
     "/front.gif";
 
@@ -322,7 +322,7 @@ export const updateAllyPokemon = () => {
   plPokemon.textContent = currentAllyPokemonIndividual.pokemonType.name;
   plLevel.textContent = "level " + currentAllyPokemonIndividual.level;
   plPokemonSprite.src =
-    "../pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
+    "pokemon/" + currentAllyPokemonIndividual.pokemonType.id + "/back.gif";
   plPokemonSprite.style.height = (currentAllyPokemonIndividual.pokemonType.height || 25) + "%";
   loadPokemonIndividualMoves(currentAllyPokemonIndividual);
   updateExpBar(currentAllyPokemonIndividual, "experience")

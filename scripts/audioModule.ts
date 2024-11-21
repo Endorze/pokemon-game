@@ -1,10 +1,10 @@
 
-const backgroundMusic = new Audio(`../mp3/littleroot.mp3`);
+const backgroundMusic = new Audio(`mp3/littleroot.mp3`);
 backgroundMusic.addEventListener("ended", () => {
   backgroundMusic.currentTime = 0;
   backgroundMusic.play();
 });
-const battleMusic = new Audio(`../mp3/wildpokemonencounter.mp3`);
+const battleMusic = new Audio(`mp3/wildpokemonencounter.mp3`);
 battleMusic.addEventListener("ended", () => {
   battleMusic.currentTime = 0;
   battleMusic.play();
@@ -47,6 +47,6 @@ export const startBattleMusic = (duration: number = 2000) => {
 
 //Used to play a sound, for example while hovering/clicking a button.
 export const playSound = (sound) => {
-  let audio = new Audio(`../mp3/${sound}`);
+  let audio = new Audio(`mp3/${sound}`);
   audio.play();
 };

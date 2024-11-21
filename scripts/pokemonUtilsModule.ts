@@ -26,7 +26,7 @@ export const updateVisiblePokemonInfo = () => {
     const pokemonName = document.getElementById(`visible-pokemon-name${i}`)
     const pokemonLevel = document.getElementById(`visible-pokemon-level${i}`)
     if (pokemonImage) {
-      pokemonImage.src = `../pokemon/${pokemon.pokemonType.id}/front.gif`
+      pokemonImage.src = `pokemon/${pokemon.pokemonType.id}/front.gif`
       pokemonImage.style.display = "block";
     }
     if (pokemonName) {

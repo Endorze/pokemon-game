@@ -135,7 +135,7 @@
     position: absolute;
     display: none;
     top: 0;
-    background-image: url("../images/pokemonbattlescene.webp");
+    background-image: url("images/pokemonbattlescene.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -163,7 +163,7 @@
     position: absolute;
     width: 30%;
     height: 10%;
-    background-image: url("../images/wooden-images/woodenrectangle.png");
+    background-image: url("images/wooden-images/woodenrectangle.png");
     background-repeat: no-repeat;
     background-size: cover;
     right: 0;

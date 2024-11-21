@@ -179,7 +179,7 @@ let spriteState = "";
 
 const updatePlayerSprite = () => {
   const allySprite = document.getElementById("player-character") as HTMLImageElement;
-  const spriteSource = "../images/character.gif";
+  const spriteSource = "images/character.gif";
   const newSpriteState = playerRunning + playerDirection;
   const shouldUpdateSprite = spriteState != newSpriteState;
   spriteState = newSpriteState;
@@ -194,7 +194,7 @@ const updatePlayerSprite = () => {
       }
     } else {
       if (shouldUpdateSprite) {
-        allySprite.src = `../images/character.gif`;
+        allySprite.src = `images/character.gif`;
         allySprite.style.transform = "scaleX(-1)";
         // Set image to running right
       }

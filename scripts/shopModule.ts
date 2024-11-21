@@ -80,7 +80,7 @@ const generateShopItems = () => {
         const pokemonImage = document.getElementById(`shop-image-${index + 1}`) as HTMLImageElement;
 
         if (pokemon && pokemonImage) {
-            pokemonImage.src = `../pokemon/${pokemon.id}/front.gif`; // Ange rätt sökväg
+            pokemonImage.src = `pokemon/${pokemon.id}/front.gif`; // Ange rätt sökväg
 
             const nameElement = document.getElementById(`shop-button-${index + 1}`);
             if (nameElement) {
@@ -99,7 +99,7 @@ const generateMarketItems = () => {
         const itemImage = document.getElementById(`shop-image-${index + 1}`) as HTMLImageElement;
 
         if (item && itemImage) {
-            itemImage.src = `../pokemon/${item.id}/front.gif`; // Ange rätt sökväg
+            itemImage.src = `pokemon/${item.id}/front.gif`; // Ange rätt sökväg
 
             const nameElement = document.getElementById(`shop-button-${index + 1}`);
             if (nameElement) {

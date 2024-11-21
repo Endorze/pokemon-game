@@ -24,10 +24,10 @@ let currentBackground = -1;
 let playerGotStarter = false;
 let playerStarterPokemon = "";
 let musicActive = false;
-const profoak1 = "../images/profoak1.jpg";
-const profoak2 = "../images/profoak2.avif";
-const pikachuElectric = " ../images/pikachuelectricity.gif";
-const jumpingrope = "../images/pokemonjumpingrope.gif";
+const profoak1 = "images/profoak1.jpg";
+const profoak2 = "images/profoak2.avif";
+const pikachuElectric = " images/pikachuelectricity.gif";
+const jumpingrope = "images/pokemonjumpingrope.gif";
 
 let prevDialogDiv = null;
 let allowUserAction = false;
