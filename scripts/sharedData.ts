@@ -3,7 +3,11 @@ let pokeCurrency = 0;
 
 export const playerPokemonList: any[] = [];
 
+export const purchaseableMoves : any[] = [];
+
+
 export const getPokeCurrency = () => pokeCurrency;
+
 
 export const setPokeCurrency = (amount: number) => {
     pokeCurrency = amount
