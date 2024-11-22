@@ -1,6 +1,6 @@
 
 import { ALL_POKEMON, ALL_POKEMON_ARRAY, PokemonType } from "./pokemonModule";
-import { playerPokemonList } from "./sharedData";
+import { playerPokemonList, purchaseableMoves } from "./sharedData";
 import { ALL_ITEMS } from "./heldItemsModule";
 import { updateHealthBar } from "./battleSceneModule";
 import { playSound } from "./audioModule"
@@ -124,14 +124,40 @@ export const learnMove = (pokemonIndividual) => {
 
       if (pokemonIndividual.moves.length < 4) {
         pokemonIndividual.moves.push(move[0]);
-        console.log(`${pokemonIndividual.pokemonType.name} learned ${move[0]}!`);
+
       } else {
         console.log(`${pokemonIndividual.pokemonType.name} already knows 4 moves. Replace a move?`);
-
       }
     }
   }
 };
+
+export const addMoveToPurchaseList = (pokemonIndividual) => {
+  // Validera input
+  if (!pokemonIndividual || !pokemonIndividual.pokemonType || !pokemonIndividual.pokemonType.moves) {
+    console.error("Invalid Pokémon individual or Pokémon type.");
+    return;
+  }
+
+  // Iterera genom Pokémonens möjliga moves
+  for (let i = 0; i < pokemonIndividual.pokemonType.moves.length; i++) {
+    const move = pokemonIndividual.pokemonType.moves[i]; // Exempel: ["Thunderbolt", 15]
+
+    // Kontrollera om Pokémonen kan lära sig movet på sin nivå
+    if (pokemonIndividual.level === move[1]) {
+      console.log(`Pokémon can learn ${move[0]} at level ${move[1]}`);
+
+      // Lägg till i purchaseableMoves om det inte redan finns
+      if (!purchaseableMoves.includes(move[0])) {
+        purchaseableMoves.push(move[0]);
+        console.log(`${move[0]} added to purchaseableMoves.`);
+      } else {
+        console.log(`${move[0]} is already in purchaseableMoves.`);
+      }
+    }
+  }
+};
+
 
 export const setHeldItem = (pokemonIndividual, item) => {
   if (pokemonIndividual == null) {
@@ -189,7 +215,8 @@ export const levelUpPokemon = (pokemonIndividual, experience) => {
     if (experience >= experienceToNextLevel) {
       pokemonIndividual.level += 1;
       playSound("levelup.mp3");
-      learnMove(pokemonIndividual);
+      addMoveToPurchaseList(pokemonIndividual);
+      // learnMove(pokemonIndividual);
       evolvePokemon(pokemonIndividual)
       console.log(pokemonIndividual.level);
       experience = experience - experienceToNextLevel;

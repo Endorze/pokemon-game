@@ -1,7 +1,7 @@
 import { startGameMusic } from "./audioModule";
 import { ALL_POKEMON } from "./pokemonModule";
 import { updateVisiblePokemonInfo } from "./pokemonUtilsModule";
-import { playerPokemonList, getPokeCurrency, setPokeCurrency } from "./sharedData";
+import { playerPokemonList, getPokeCurrency, setPokeCurrency, purchaseableMoves } from "./sharedData";
 import { loadTown } from "./townModule";
 
 const fetchData = () => {
@@ -12,6 +12,7 @@ const fetchData = () => {
           pokemonType: pokemonIndividual.pokemonType.id
         })),
         userMoney: getPokeCurrency() || 0,
+        unlockedMoves: purchaseableMoves,
       },
     };
   };
@@ -49,6 +50,13 @@ const fetchData = () => {
       })).filter(individual => individual.pokemonType != null));
   
       setPokeCurrency(data.user.userMoney);
+
+      if (data.user.unlockedMoves && Array.isArray(data.user.unlockedMoves)) {
+        purchaseableMoves.length = 0;
+        purchaseableMoves.push(...data.user.unlockedMoves);
+        console.log(...data.user.unlockedMoves);
+      }
+      
       console.log(getPokeCurrency())
       loadTown();
       updateVisiblePokemonInfo();
