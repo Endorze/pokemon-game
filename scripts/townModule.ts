@@ -18,7 +18,7 @@ export const setActivePokemon = async (index) => {
   let tempPokemon = playerPokemonList[index];
   playerPokemonList[index] = playerPokemonList[0];
   playerPokemonList[0] = tempPokemon;
-
+  console.log("setActivePokemon", tempPokemon);
   updateVisiblePokemonInfo();
 }
 
