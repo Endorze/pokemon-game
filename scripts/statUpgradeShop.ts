@@ -38,6 +38,7 @@ export const selectPokemonForUpgrade = (index) => {
         return;
     }
     const selectedPokemon = playerPokemonList[index];
+
     if (!selectedPokemon.pokemonType) {
         console.error("pokemonType saknas i den valda Pokémon.");
         return;
@@ -51,6 +52,13 @@ export const selectPokemonForUpgrade = (index) => {
     const spatkStat = document.getElementById("pokemon-spatk");
     const speedStat = document.getElementById("pokemon-speed");
 
+    const baseHp = document.getElementById("pokemon-baseHp")
+    const baseDef = document.getElementById("pokemon-baseDef")
+    const baseSpdef = document.getElementById("pokemon-baseSpdef")
+    const baseAtk = document.getElementById("pokemon-baseAttack")
+    const baseSpAtk = document.getElementById("pokemon-baseSpAtk")
+    const baseSpeed = document.getElementById("pokemon-baseSpeed")
+
     pokemon.src = "pokemon/" + selectedPokemon.pokemonType.id + "/front.gif";
     hpStat.textContent = "HP: " + selectedPokemon.pokemonType.health(selectedPokemon.level);
     defStat.textContent = "Defense: " + calculateStat(selectedPokemon.pokemonType.defense, selectedPokemon.level);
@@ -58,6 +66,12 @@ export const selectPokemonForUpgrade = (index) => {
     attackStat.textContent = "Attack: " + calculateStat(selectedPokemon.pokemonType.attack, selectedPokemon.level);
     spatkStat.textContent = "Special Attack: " + calculateStat(selectedPokemon.pokemonType.spatk, selectedPokemon.level);
     speedStat.textContent = "Speed: " + calculateStat(selectedPokemon.pokemonType.speed, selectedPokemon.level);
+    baseHp.textContent = "Base HP: " + selectedPokemon.pokemonType.hp;
+    baseDef.textContent = "Base Defense: " + selectedPokemon.pokemonType.defense;
+    baseSpdef.textContent = "Base Special Defense: " + selectedPokemon.pokemonType.spdef;
+    baseAtk.textContent = "Base Attack: " + selectedPokemon.pokemonType.attack;
+    baseSpAtk.textContent = "Base Special Attack: " + selectedPokemon.pokemonType.spatk;
+    baseSpeed.textContent = "Base Speed: " + selectedPokemon.pokemonType.speed;
 
     currentUpgradingPokemon[0] = { ...selectedPokemon, index };
 };

@@ -61,27 +61,6 @@ upgradeSpeed.onclick = () => {
 }
 
 
-
-// statPokeImage0.onclick = () => {
-//     selectPokemonForUpgrade(0)
-// }
-// statPokeImage1.onclick = () => {
-//     selectPokemonForUpgrade(1)
-// }
-// statPokeImage2.onclick = () => {
-//     selectPokemonForUpgrade(2)
-// }
-// statPokeImage3.onclick = () => {
-//     selectPokemonForUpgrade(3)
-// }
-// statPokeImage4.onclick = () => {
-//     selectPokemonForUpgrade(4)
-// }
-// statPokeImage5.onclick = () => {
-//     selectPokemonForUpgrade(5)
-// }
-
-
 visiblePokemon1.onclick = () => {
     setActivePokemon(0)
 }

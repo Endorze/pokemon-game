@@ -30,6 +30,10 @@
     height: 15%;
 }
 
+#pokemon-base-stats {
+    margin-top: 10%;
+}
+
 #stat-shop-pokemonteam {
     /* left: 5a%; */
     top: 10%;
