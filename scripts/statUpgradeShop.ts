@@ -1,12 +1,7 @@
 import { calculateStat } from "./pokemonUtilsModule";
-import { playerPokemonList } from "./sharedData";
+import { playerPokemonList, pokeCurrency } from "./sharedData";
 let shopOpen = false;
 let currentUpgradingPokemon = [];
-
-export const upgradeStat = (pokemonIndividual, amount) => {
-    pokemonIndividual.statUpgrades.hp = amount;
-    pokemonIndividual.pokemonType.hp += pokemonIndividual.statUpgrades.hp;
-}
 
 const setPokemonInfo = (playerPokemonList) => {
     if (playerPokemonList === null) {
@@ -53,6 +48,12 @@ export const selectPokemonForUpgrade = (index) => {
     attackStat.textContent = "Attack: " + calculateStat(playerPokemonList[index].pokemonType.attack, playerPokemonList[index].level)
     spatkStat.textContent = "Special Attack: " + calculateStat(playerPokemonList[index].pokemonType.spatk, playerPokemonList[index].level)
     speedStat.textContent = "Speed: " + calculateStat(playerPokemonList[index].pokemonType.speed, playerPokemonList[index].level)
-    
+    currentUpgradingPokemon = playerPokemonList[index];
 }
+
+export const upgradeStat = (stat, amount: number) => {
+    currentUpgradingPokemon[0].statUpgrades.stat += amount;
+    currentUpgradingPokemon[0].pokemonType.stat += currentUpgradingPokemon[0].statUpgrades.stat;
+}
+
 
