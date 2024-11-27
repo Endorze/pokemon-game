@@ -1,6 +1,6 @@
 import { healPokemonTeam, setActivePokemon } from "../townModule"
 import { buyPokemon, openMarket, openPetShop } from "../shopModule"
-import { openStatShop, selectPokemonForUpgrade } from "../statUpgradeShop"
+import { currentUpgradingPokemon, openStatShop, selectPokemonForUpgrade, upgradeStat } from "../statUpgradeShop"
 import { playerPokemonList } from "../sharedData"
 import { setCurrentPokemon } from "../battleSceneModule"
 
@@ -22,35 +22,64 @@ const visiblePokemon4 = document.getElementById("visible-pokemon-3")
 const visiblePokemon5 = document.getElementById("visible-pokemon-4")
 const visiblePokemon6 = document.getElementById("visible-pokemon-5")
 
-const statPokeImage0 = document.getElementById("stat-shop-pokemon0")
-const statPokeImage1 = document.getElementById("stat-shop-pokemon1")
-const statPokeImage2 = document.getElementById("stat-shop-pokemon2")
-const statPokeImage3 = document.getElementById("stat-shop-pokemon3")
-const statPokeImage4 = document.getElementById("stat-shop-pokemon4")
-const statPokeImage5 = document.getElementById("stat-shop-pokemon5")
-const upgradePokemon = document.getElementById("upgrade-pokemon")
+const upgradeHp = document.getElementById("upgrade-hp")
+const upgradeDef = document.getElementById("upgrade-def")
+const upgradeSpDef = document.getElementById("upgrade-spdef")
+const upgradeAtk = document.getElementById("upgrade-atk")
+const upgradeSpAtk = document.getElementById("upgrade-spatk")
+const upgradeSpeed = document.getElementById("upgrade-speed")
+
+
+for (let i = 0; i < 6; i++) {
+    document.getElementById(`visible-pokemon-${i}`).onclick = () => setActivePokemon(i);
+}
+
+for (let i = 0; i < 6; i++) {
+    document.getElementById(`stat-shop-pokemon${i}`).onclick = () => selectPokemonForUpgrade(i);
+}
 
 
 
+upgradeHp.onclick = () => {
+    console.log(currentUpgradingPokemon[0])
+    upgradeStat("hp", 5)
+}
+upgradeDef.onclick = () => {
+    upgradeStat("defense", 5)
+}
+upgradeSpDef.onclick = () => {
+    upgradeStat("spdef", 5)
+}
+upgradeAtk.onclick = () => {
+    upgradeStat("attack", 5)
+}
+upgradeSpAtk.onclick = () => {
+    upgradeStat("spatk", 5)
+}
+upgradeSpeed.onclick = () => {
+    upgradeStat("speed", 5)
+}
 
-statPokeImage0.onclick = () => {
-    selectPokemonForUpgrade(0)
-}
-statPokeImage1.onclick = () => {
-    selectPokemonForUpgrade(1)
-}
-statPokeImage2.onclick = () => {
-    selectPokemonForUpgrade(2)
-}
-statPokeImage3.onclick = () => {
-    selectPokemonForUpgrade(3)
-}
-statPokeImage4.onclick = () => {
-    selectPokemonForUpgrade(4)
-}
-statPokeImage5.onclick = () => {
-    selectPokemonForUpgrade(5)
-}
+
+
+// statPokeImage0.onclick = () => {
+//     selectPokemonForUpgrade(0)
+// }
+// statPokeImage1.onclick = () => {
+//     selectPokemonForUpgrade(1)
+// }
+// statPokeImage2.onclick = () => {
+//     selectPokemonForUpgrade(2)
+// }
+// statPokeImage3.onclick = () => {
+//     selectPokemonForUpgrade(3)
+// }
+// statPokeImage4.onclick = () => {
+//     selectPokemonForUpgrade(4)
+// }
+// statPokeImage5.onclick = () => {
+//     selectPokemonForUpgrade(5)
+// }
 
 
 visiblePokemon1.onclick = () => {
