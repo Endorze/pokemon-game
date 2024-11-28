@@ -29,10 +29,7 @@ function SceneManager() {
 
     const CurrentScene = sceneMap[currentSceneId]
 
-    return <div>
-        <h1>Scene Manager</h1>
-        <CurrentScene switchScene={switchScene} />
-    </div>
+    return <CurrentScene switchScene={switchScene} />
 
 }
 
