@@ -1,16 +1,32 @@
 {
-    "compilerOptions": {
-    "baseUrl": "./",
-    "lib": ["es2017", "dom"],
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "strictNullChecks": false,
-    "target": "es5",
-    "typeRoots": [
-      "custom_typings"
-    ]
-  },
-    "include": [ "scripts/**/*", "index.d.ts" ]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }
+// {
+//   "compilerOptions": {
+//     "baseUrl": "./",
+//     "lib": [
+//       "es2017",
+//       "dom"
+//     ],
+//     "module": "commonjs",
+//     "noImplicitAny": false,
+//     "outDir": "./dist/",
+//     "sourceMap": true,
+//     "strictNullChecks": false,
+//     "target": "es5",
+//     "typeRoots": [
+//       "custom_typings"
+//     ],
+//     "paths": {
+//       "src/*": ["./src/*"]
+//     }
+//   },
+//   "include": [
+//     "src/**/*",
+//     "index.d.ts"
+//   ]
+// }
