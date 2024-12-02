@@ -1,0 +1,5 @@
+
+
+.PlayerEntity {
+    --entityX: var(--playerX)
+}

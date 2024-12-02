@@ -1,0 +1,14 @@
+.TownEntity {
+    position: absolute;
+    --entityX: 0;
+    --parallaxOffset: calc(var(--cameraX) * (1 - var(--parallaxEffect)));
+
+    --position: calc(var(--entityX) + var(--parallaxOffset));
+    left: calc(1% * var(--position));
+
+    transform: translateX(-50%);
+}
+
+.TownEntity.onGround {
+    bottom: var(--groundLevel);
+}

@@ -1,0 +1,9 @@
+.EntityPepsi {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.EntityPepsi.Flip {
+    transform: scaleX(-1)
+}
