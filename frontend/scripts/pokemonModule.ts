@@ -1,3 +1,4 @@
+import { PokemonType, Move } from "./../../shared/types"
 
 function healthGenerator(level: number): number {
   return 10 + level + Math.floor(level * 0.01 * 2 * this.hp);
@@ -6,26 +7,6 @@ function healthGenerator(level: number): number {
 //HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
 //list used for wild encounter fights.
 
-
-
-type Move = [string, number];
-
-export type PokemonType = {
-  id: string;
-  name: string;
-  health: (level: number) => number;
-  moves: Move[];
-  hp: number;
-  attack: number;
-  defense: number;
-  spatk: number;
-  spdef: number;
-  speed: number;
-  baseExp: number;
-  basePrice: number;
-  targetEvolution?: string;
-  evolveLevel?: number;
-}
 
 export const ALL_POKEMON: Record<string, PokemonType> = {
   bulbasaur: {
