@@ -4,3 +4,11 @@
     height: 100%;
     left: calc(50% + -1 * var(--cameraX) * 1%);
 }
+
+.TownGrass {
+    background: url("/src/assets/images/grass.png")
+}
+
+.TownPath {
+    background: url("/src/assets/images/road.png")
+}

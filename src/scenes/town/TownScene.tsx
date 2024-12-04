@@ -11,12 +11,10 @@ import TownEntity from "./components/town-entity/TownEntity";
 import EntityPepsi from "./components/town-entity/EntityPepsi";
 
 import BackgroundSprite from "src/assets/images/town.gif"
-import TreeSprite from "src/assets/images/tree.png"
-
-import CubeFront from "src/assets/images/cube_front.png"
-import CubeSides from "src/assets/images/cube_sides.png"
 
 import Grass from "src/assets/images/grass.png"
+import Ground from "src/assets/images/road.png"
+import GrassEntity from "./components/grass/GrassEntity";
 
 let allowUserMovement = true
 
@@ -163,24 +161,9 @@ const TownScene: SceneComponent = (props: SceneProps) => {
                 <EntityPepsi src={BackgroundSprite} flip/>
             </TownEntity>
 
+            <TownEntity className={styles.TownPath} width={100} height={3} posX={0} posY={0.02} />
             
-            <TownEntity onGround width={30} height={30} depth={.5} posX={-50} >
-                <EntityPepsi src={TreeSprite} flip/>
-            </TownEntity>
-
-            <TownEntity onGround width={30} height={30} depth={.5} posX={30} >
-                <EntityPepsi src={TreeSprite} flip/>
-            </TownEntity>
-
-            <TownEntity posY={0} width={100} height={5} depth={0} posX={0} >
-                <EntityPepsi src={Grass}/>
-            </TownEntity>
-
-            <TownEntity onGround width={30} height={30} depth={0} posX={-50} >
-                <EntityPepsi src={TreeSprite} flip/>
-            </TownEntity>
-
-            
+            <TownEntity className={styles.TownGrass} width={100} height={3} posX={0} posY={0} />
 
             <PlayerEntity />
 

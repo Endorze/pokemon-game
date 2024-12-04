@@ -9,6 +9,10 @@
     transform: translateX(-50%);
 }
 
+.TownEntity.TownEntity.onGround img {
+    object-fit: contain;
+}
+
 .TownEntity.onGround {
     bottom: var(--groundLevel);
 }
