@@ -1,7 +1,9 @@
 import { calculateStat } from "./pokemonUtilsModule";
-import { playerPokemonList, pokeCurrency } from "./sharedData";
+import { playerPokemonList, pokeCurrency, removePokeCurrency } from "./sharedData";
 let shopOpen = false;
 export let currentUpgradingPokemon = [];
+const infoWindow = document.getElementById("pokemon-stats");
+infoWindow.style.display = "none";
 
 const setPokemonInfo = (playerPokemonList) => {
     if (playerPokemonList === null) {
@@ -59,6 +61,7 @@ export const selectPokemonForUpgrade = (index) => {
     const baseSpAtk = document.getElementById("pokemon-baseSpAtk")
     const baseSpeed = document.getElementById("pokemon-baseSpeed")
 
+    infoWindow.style.display = "block";
     pokemon.src = "pokemon/" + selectedPokemon.pokemonType.id + "/front.gif";
     hpStat.textContent = "HP: " + selectedPokemon.pokemonType.health(selectedPokemon.level);
     defStat.textContent = "Defense: " + calculateStat(selectedPokemon.pokemonType.defense, selectedPokemon.level);
@@ -66,12 +69,12 @@ export const selectPokemonForUpgrade = (index) => {
     attackStat.textContent = "Attack: " + calculateStat(selectedPokemon.pokemonType.attack, selectedPokemon.level);
     spatkStat.textContent = "Special Attack: " + calculateStat(selectedPokemon.pokemonType.spatk, selectedPokemon.level);
     speedStat.textContent = "Speed: " + calculateStat(selectedPokemon.pokemonType.speed, selectedPokemon.level);
-    baseHp.textContent = "Base HP: " + selectedPokemon.pokemonType.hp;
-    baseDef.textContent = "Base Defense: " + selectedPokemon.pokemonType.defense;
-    baseSpdef.textContent = "Base Special Defense: " + selectedPokemon.pokemonType.spdef;
-    baseAtk.textContent = "Base Attack: " + selectedPokemon.pokemonType.attack;
-    baseSpAtk.textContent = "Base Special Attack: " + selectedPokemon.pokemonType.spatk;
-    baseSpeed.textContent = "Base Speed: " + selectedPokemon.pokemonType.speed;
+    baseHp.textContent = "Base HP: " + (selectedPokemon.pokemonType.hp + selectedPokemon.statUpgrades.hp);
+    baseDef.textContent = "Base Defense: " + (selectedPokemon.pokemonType.defense + selectedPokemon.statUpgrades.defense);
+    baseSpdef.textContent = "Base Special Defense: " + (selectedPokemon.pokemonType.spdef + selectedPokemon.statUpgrades.spdefense);
+    baseAtk.textContent = "Base Attack: " + (selectedPokemon.pokemonType.attack + selectedPokemon.statUpgrades.attack);
+    baseSpAtk.textContent = "Base Special Attack: " + (selectedPokemon.pokemonType.spatk + selectedPokemon.statUpgrades.spatk);
+    baseSpeed.textContent = "Base Speed: " + (selectedPokemon.pokemonType.speed + selectedPokemon.statUpgrades.speed);
 
     currentUpgradingPokemon[0] = { ...selectedPokemon, index };
 };
@@ -81,9 +84,11 @@ export const upgradeStat = (stat, amount: number) => {
         console.log("Your upgrade pokemon is null.")
         return;
     }
-    currentUpgradingPokemon[0].statUpgrades[stat] += amount;
-    currentUpgradingPokemon[0].pokemonType[stat] += amount;
-    selectPokemonForUpgrade(currentUpgradingPokemon[0].index);
+    if (pokeCurrency >= 5000) {
+        currentUpgradingPokemon[0].statUpgrades[stat] += amount;
+        selectPokemonForUpgrade(currentUpgradingPokemon[0].index);
+        removePokeCurrency(5000);
+    }
 }
 
 

@@ -1,5 +1,6 @@
 
-import { ALL_POKEMON, ALL_POKEMON_ARRAY, PokemonType } from "./pokemonModule";
+import { ALL_POKEMON, ALL_POKEMON_ARRAY } from "./pokemonModule";
+import { PokemonIndividual, PokemonType } from "./../../shared/types"
 import { playerPokemonList, purchaseableMoves } from "./sharedData";
 import { ALL_ITEMS } from "./heldItemsModule";
 import { updateHealthBar } from "./battleSceneModule";
@@ -59,7 +60,7 @@ export const calculateStat = (baseStat, level) => {
   return Math.floor(0.01 * (2 * baseStat) * level + 5);
 }
 
-export const createPokemonIndivual = (pokemonType: PokemonType, level: number) => {
+export const createPokemonIndivual = (pokemonType: PokemonType, level: number): PokemonIndividual => {
   // pokemonType.moves: [["tackle", 1], ["quick-attack", 5]]
   console.log(pokemonType.moves)
   return {
@@ -190,10 +191,13 @@ export const evolvePokemon = (pokemonIndividual) => {
     `${pokemonIndividual.pokemonType.name} har evolverat till ${newPokemonType.name}!`
   );
   if (pokemonIndividual.level === pokemonIndividual.pokemonType.evolveLevel) {
-
     pokemonIndividual.pokemonType = newPokemonType;
   }
 };
+
+const transferUpgradedStats = () => {
+  
+}
 
 
 const baseExp = 60;

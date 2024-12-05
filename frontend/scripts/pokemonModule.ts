@@ -1,4 +1,4 @@
-import { PokemonType, Move } from "./../../shared/types"
+import { PokemonType } from "./../../shared/types"
 
 function healthGenerator(level: number): number {
   return 10 + level + Math.floor(level * 0.01 * 2 * this.hp);
