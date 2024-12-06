@@ -344,7 +344,7 @@ const opponentPokemonFainted = async () => {
   updateExpBar(currentAllyPokemonIndividual, "experience");
   levelUpPokemon(
     currentAllyPokemonIndividual,
-    calculateExpGain(currentOpponentPokemonIndividual.pokemonType.baseExp, currentOpponentPokemonIndividual.level, 1)
+    calculateExpGain(currentOpponentPokemonIndividual.pokemonType.baseExp, currentOpponentPokemonIndividual.level, currentAllyPokemonIndividual.level, 1)
   );
   updateAllyPokemon();
   killCounter.textContent = `Pokemon slain: ${pokemonSlayed}`;
