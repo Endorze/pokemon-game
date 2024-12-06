@@ -63,12 +63,12 @@ export const selectPokemonForUpgrade = (index) => {
 
     infoWindow.style.display = "block";
     pokemon.src = "pokemon/" + selectedPokemon.pokemonType.id + "/front.gif";
-    hpStat.textContent = "HP: " + selectedPokemon.pokemonType.health(selectedPokemon.level);
-    defStat.textContent = "Defense: " + calculateStat(selectedPokemon.pokemonType.defense, selectedPokemon.level);
-    spdefStat.textContent = "Special Defense: " + calculateStat(selectedPokemon.pokemonType.spdef, selectedPokemon.level);
-    attackStat.textContent = "Attack: " + calculateStat(selectedPokemon.pokemonType.attack, selectedPokemon.level);
-    spatkStat.textContent = "Special Attack: " + calculateStat(selectedPokemon.pokemonType.spatk, selectedPokemon.level);
-    speedStat.textContent = "Speed: " + calculateStat(selectedPokemon.pokemonType.speed, selectedPokemon.level);
+    hpStat.textContent = "HP: " + selectedPokemon.pokemonType.health(selectedPokemon.level, selectedPokemon.statUpgrades.hp);
+    defStat.textContent = "Defense: " + calculateStat(selectedPokemon.pokemonType.defense, selectedPokemon.statUpgrades.defense, selectedPokemon.level);
+    spdefStat.textContent = "Special Defense: " + calculateStat(selectedPokemon.pokemonType.spdef, selectedPokemon.statUpgrades.spdefense, selectedPokemon.level);
+    attackStat.textContent = "Attack: " + calculateStat(selectedPokemon.pokemonType.attack, selectedPokemon.statUpgrades.attack, selectedPokemon.level);
+    spatkStat.textContent = "Special Attack: " + calculateStat(selectedPokemon.pokemonType.spatk, selectedPokemon.statUpgrades.spatk, selectedPokemon.level);
+    speedStat.textContent = "Speed: " + calculateStat(selectedPokemon.pokemonType.speed, selectedPokemon.statUpgrades.speed, selectedPokemon.level);
     baseHp.textContent = "Base HP: " + (selectedPokemon.pokemonType.hp + selectedPokemon.statUpgrades.hp);
     baseDef.textContent = "Base Defense: " + (selectedPokemon.pokemonType.defense + selectedPokemon.statUpgrades.defense);
     baseSpdef.textContent = "Base Special Defense: " + (selectedPokemon.pokemonType.spdef + selectedPokemon.statUpgrades.spdefense);

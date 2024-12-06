@@ -1,5 +1,5 @@
 
-export let pokeCurrency = 0;
+export let pokeCurrency = 1000000;
 
 export const playerPokemonList: any[] = [];
 

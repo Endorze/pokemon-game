@@ -56,8 +56,8 @@ export const createRandomIndividual = (pokemonId, level: number) => {
   return wildPokemonIndividual;
 };
 
-export const calculateStat = (baseStat, level) => {
-  return Math.floor(0.01 * (2 * baseStat) * level + 5);
+export const calculateStat = (baseStat, statUpgrade, level) => {
+  return Math.floor(0.01 * (2 * baseStat + statUpgrade) * level + 5);
 }
 
 export const createPokemonIndivual = (pokemonType: PokemonType, level: number): PokemonIndividual => {
@@ -66,7 +66,8 @@ export const createPokemonIndivual = (pokemonType: PokemonType, level: number): 
   return {
     pokemonType: pokemonType,
     level: level,
-    currentHp: pokemonType.health(level),
+    //I hope it didnt break with the 0 in currentHp.
+    currentHp: pokemonType.health(level, 0),
     currentExp: 0,
     moves: pickSuitableMoves(pokemonType, level),
     heldItem: "",

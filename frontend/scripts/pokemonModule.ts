@@ -1,7 +1,7 @@
 import { PokemonType } from "./../../shared/types"
 
-function healthGenerator(level: number): number {
-  return 10 + level + Math.floor(level * 0.01 * 2 * this.hp);
+function healthGenerator(level: number, hpUpgrade: number): number {
+  return 10 + level + Math.floor(level * 0.01 * 2 * (this.hp + hpUpgrade));
 };
 
 //HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
