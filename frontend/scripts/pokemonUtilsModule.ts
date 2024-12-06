@@ -108,9 +108,23 @@ export const pickSuitableMoves = (pokemonType: PokemonType, level: number) => {
   return result;
 }
 
-export const calculateExpGain = (baseExp, level, pokemonQuantity) => {
-  return Math.floor(((baseExp * level) / 7) * (1 / pokemonQuantity) * 2.25)
-}
+export const calculateExpGain = (
+  baseExp: number, 
+  opponentLevel: number, 
+  allyLevel: number, 
+  pokemonQuantity: number
+) => {
+  return Math.floor(
+    (
+      (2.5 * ((baseExp * opponentLevel) / 5)) * 
+      Math.pow(
+        ((allyLevel * 2) + 10) / (opponentLevel + allyLevel + 10), 
+        2.5
+      )
+    ) / pokemonQuantity
+  );
+};
+
 
 export const learnMove = (pokemonIndividual) => {
   if (!pokemonIndividual || !pokemonIndividual.pokemonType || !pokemonIndividual.pokemonType.moves) {
@@ -204,8 +218,6 @@ const transferUpgradedStats = () => {
 const baseExp = 60;
 const faintedPokemonLevel = 20;
 const numParticipants = 1;
-
-const expGained = calculateExpGain(baseExp, faintedPokemonLevel, numParticipants);
 
 export const calculateExperienceToNextLevel = (level) => {
   return Math.pow(level, 3);
