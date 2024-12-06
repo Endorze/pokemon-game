@@ -68,8 +68,7 @@ const fetchData = () => {
   export const openMenu = (e: KeyboardEvent): void => {
     const menu = document.getElementById("main-menu");
     if (!menu) return;
-  
-    console.log("Should open menu")
+
     if (e.key === "Escape") {
       if (!menuOpen) {
         console.log("Open menu")

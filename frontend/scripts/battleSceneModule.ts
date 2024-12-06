@@ -7,7 +7,7 @@ import { ALL_POKEMON } from "./pokemonModule"
 import { addPokeCurrency, getPokeCurrency, playerPokemonList } from "./sharedData";
 import { TRAINERS } from "./trainerModule";
 import { ALL_MOVES } from "./movesModule";
-import { loadTown } from "./townModule"
+import { loadTown, returnFromWilderness } from "./townModule"
 import { DEV_MODE } from "./constants";
 import { toggleLoadingScreen } from "./dialogue"; 
 
@@ -131,6 +131,47 @@ export const switchBattleMenu = () => {
   }
 };
 
+let autoBattleOn = false;
+let autoBattleInterval;
+
+export const startAutoBattle = () => {
+  if (!autoBattleOn) {
+    autoBattleOn = true;
+    autoBattleInterval = setInterval(async () => {
+      if (currentAllyPokemonIndividual.currentHp > 0) {
+        await performAttack(0);
+      } else {
+        console.log(`${currentAllyPokemonIndividual.pokemonType.name} fainted.`);
+
+        let nextPokemonFound = false;
+        for (let i = 0; i < playerPokemonList.length; i++) {
+          if (playerPokemonList[i].currentHp > 0) {
+            console.log(`Switching to ${playerPokemonList[i].name}`);
+            await setCurrentPokemon(i); 
+            nextPokemonFound = true;
+            break;
+          }
+        }
+
+        if (!nextPokemonFound) {
+          console.log("No more Pokémon available. Stopping auto-battle.");
+          stopAutoBattle();
+        }
+      }
+    }, 2000); 
+  }
+};
+
+
+export const stopAutoBattle = () => {
+  if (autoBattleOn) {
+    clearInterval(autoBattleInterval);
+    autoBattleOn = false;
+    console.log("Auto-battle stopped.");
+  }
+};
+
+
 
 //Toggles display on div, shows your pokemonteam.
 let listOfPokemon = false;
@@ -171,6 +212,7 @@ export const showPokemonTeam = () => {
 
 //When you pick pokemon in pokemonmenu you set it to be your fighting pokemon.
 export const setCurrentPokemon = async (index) => {
+  console.log("Hej mister")
   if (playerPokemonList[index] != null) {
     if (playerPokemonList[index] == currentAllyPokemonIndividual) {
       console.log(currentAllyPokemonIndividual.pokemonType.name + " is already fighting.")
@@ -186,7 +228,6 @@ export const setCurrentPokemon = async (index) => {
       loadPokemonIndividualMoves(currentAllyPokemonIndividual);
       console.log("setCurrentPokemon, ", currentAllyPokemonIndividual);
       await sleep(1000)
-      doAIMove();
     } else {
       console.log(playerPokemonList[index], "has fainted")
     }
@@ -277,7 +318,7 @@ const gameOver = async () => {
   currentWave = 1;
   battleScene.style.display = "none";
   startGameMusic();
-  loadTown();
+  returnFromWilderness();
 }
 
 const displayFaintMessages = async () => {

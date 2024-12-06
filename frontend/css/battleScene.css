@@ -22,6 +22,14 @@
     width: 30%;
 }
 
+#auto-battle-button {
+    width: 7%;
+    height: 7%;
+    position: absolute;
+    bottom: 30%;
+    left: 1%;
+}
+
 #battle-pokemonlist-menu {
     position: absolute;
     display: none;

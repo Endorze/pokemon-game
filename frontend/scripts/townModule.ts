@@ -246,7 +246,7 @@ export const returnFromWilderness = async () => {
     1.5,
     30
   );
-
+  updateVisiblePokemonInfo();
   enteringWilderness = false;
   allowUserMovementInput = true;
 };

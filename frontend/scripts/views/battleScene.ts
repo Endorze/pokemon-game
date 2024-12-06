@@ -1,4 +1,5 @@
-import { closeRunFromBattlePopup, performAttack, runFromBattle, runFromBattlePopup, showPokemonTeam, switchBattleMenu } from "../battleSceneModule"
+import { playerPokemonList } from "../sharedData"
+import { closeRunFromBattlePopup, performAttack, runFromBattle, runFromBattlePopup, setCurrentPokemon, showPokemonTeam, startAutoBattle, switchBattleMenu } from "../battleSceneModule"
 
 const battleMenu = document.getElementById("fight-button")
 const pokemonMenu = document.getElementById("pokemon-button")
@@ -8,11 +9,19 @@ const backButton = document.getElementById("back-button")
 
 const runAwayNo = document.getElementById("run-away-button-no")
 const runAwayYes = document.getElementById("run-away-button-yes")
+const autoBattleButton = document.getElementById("auto-battle-button");
 
 const skillButton1 = document.getElementById("skill1")
 const skillButton2 = document.getElementById("skill2")
 const skillButton3 = document.getElementById("skill3")
 const skillButton4 = document.getElementById("skill4")
+
+for (let i = 0; i < 6; i++) {
+    document.getElementById(`select-pokemon-${i}`).onclick = () => setCurrentPokemon(i);
+}
+autoBattleButton.onclick = () => {
+    startAutoBattle();
+}
 
 battleMenu.onclick = () => {
     switchBattleMenu()
