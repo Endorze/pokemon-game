@@ -215,9 +215,9 @@ const enterWilderness = async () => {
   if (playerPokemonList[0].currentHp == 0) {
     return;
   }
-  
+
   allowUserMovementInput = false;
-  
+
   await animate(
     (time, deltaTime) => {
       playerTargetX += playerSpeed * deltaTime;
@@ -225,13 +225,17 @@ const enterWilderness = async () => {
     2,
     30
   );
-  console.log("Animation done");
   startBattle();
   disableTownClock();
+
 };
 
 export const returnFromWilderness = async () => {
   enableTownClock();
+
+  playerSpeed = 25
+  playerLagSpeed = 0.4;
+  cameraLagSpeed = 0.05;
 
   allowUserMovementInput = false;
   playerX = playerMaxX + 15;
