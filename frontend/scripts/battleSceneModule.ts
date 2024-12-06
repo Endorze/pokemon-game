@@ -10,6 +10,7 @@ import { ALL_MOVES } from "./movesModule";
 import { loadTown, returnFromWilderness } from "./townModule"
 import { DEV_MODE } from "./constants";
 import { toggleLoadingScreen } from "./dialogue"; 
+import { PokemonIndividual } from "../../shared/types";
 
 let currentAllyPokemonIndividual = null;
 let currentOpponentPokemonIndividual = null;
@@ -371,7 +372,7 @@ export const updateAllyPokemon = () => {
 };
 
 //Updates healthbar visuals based on current% health.
-export const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) => {
+export const updateHealthBar = (pokemonIndividual: PokemonIndividual, hpBarTextId: string, hpBarOverlayId: string) => {
   const hpTextElement = document.getElementById(hpBarTextId);
   const hpOverlayElement = document.getElementById(hpBarOverlayId);
 
@@ -379,7 +380,7 @@ export const updateHealthBar = (pokemonIndividual, hpBarTextId, hpBarOverlayId) 
 
   const hpPercentage =
     pokemonIndividual.currentHp /
-    pokemonIndividual.pokemonType.health(pokemonIndividual.level);
+    pokemonIndividual.pokemonType.health(pokemonIndividual.level, pokemonIndividual.statUpgrades.hp);
   hpOverlayElement.style.width = `${hpPercentage * 100}%`;
 
   if (hpPercentage < 0.2) {
