@@ -52,7 +52,7 @@ export const healPokemonTeam = async () => {
   }
 
   for (let i = 0; i < playerPokemonList.length; i++) {
-    playerPokemonList[i].currentHp = playerPokemonList[i].pokemonType.health(playerPokemonList[i].level);
+    playerPokemonList[i].currentHp = playerPokemonList[i].pokemonType.health(playerPokemonList[i].level, playerPokemonList[i].statUpgrades.hp);
     console.log(playerPokemonList[i].currentHp);
   }
 
