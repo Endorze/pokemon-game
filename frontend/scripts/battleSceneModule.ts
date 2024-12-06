@@ -223,8 +223,8 @@ export const performAttack = async (moveIndex) => {
   }
   allowUserAction = false;
 
-  const allySpeed = calculateStat(currentAllyPokemonIndividual.pokemonType.speed, currentAllyPokemonIndividual.level)
-  const opponentSpeed = calculateStat(currentOpponentPokemonIndividual.pokemonType.speed, currentOpponentPokemonIndividual.level)
+  const allySpeed = calculateStat(currentAllyPokemonIndividual.pokemonType.speed, currentAllyPokemonIndividual.statUpgrades.speed, currentAllyPokemonIndividual.level)
+  const opponentSpeed = calculateStat(currentOpponentPokemonIndividual.pokemonType.speed, currentOpponentPokemonIndividual.statUpgrades.speed, currentOpponentPokemonIndividual.level)
 
   console.log("Ally Speed ", allySpeed, "Opponent Speed ", opponentSpeed)
   if (opponentSpeed > allySpeed) {

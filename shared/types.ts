@@ -16,7 +16,7 @@ export type LearnMove = [string, number];
 export type PokemonType = {
     id: string;
     name: string;
-    health: (level: number) => number;
+    health: (level: number, hpUpgrade: number) => number;
     moves: LearnMove[];
     hp: number;
     attack: number;
