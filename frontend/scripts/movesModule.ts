@@ -6,8 +6,8 @@ function simplePhysicalMove(targetPokemonIndividual, userPokemonIndividual) {
     calculateDamage(
       userPokemonIndividual.level,
       this.baseDamage,
-      calculateStat(userPokemonIndividual.pokemonType.attack, userPokemonIndividual.level),
-      calculateStat(targetPokemonIndividual.pokemonType.defense, targetPokemonIndividual.level)
+      calculateStat(userPokemonIndividual.pokemonType.attack, userPokemonIndividual.statUpgrades.attack, userPokemonIndividual.level),
+      calculateStat(targetPokemonIndividual.pokemonType.defense, targetPokemonIndividual.statUpgrades.defense, targetPokemonIndividual.level)
     )
   );
   console.log(damageDealt)
@@ -23,8 +23,8 @@ function simpleSpecialMove(targetPokemonIndividual, userPokemonIndividual) {
     calculateDamage(
       userPokemonIndividual.level,
       this.baseDamage,
-      calculateStat(userPokemonIndividual.pokemonType.spatk, userPokemonIndividual.level),
-      calculateStat(targetPokemonIndividual.pokemonType.spdef, targetPokemonIndividual.level)
+      calculateStat(userPokemonIndividual.pokemonType.spatk, userPokemonIndividual.statUpgrades.spatk, userPokemonIndividual.level),
+      calculateStat(targetPokemonIndividual.pokemonType.spdef, targetPokemonIndividual.statUpgrades.spdefense, targetPokemonIndividual.level)
     )
   );
   targetPokemonIndividual.currentHp = Math.max(
