@@ -22,7 +22,10 @@ export const setActivePokemon = async (index) => {
   updateVisiblePokemonInfo();
 }
 
+// const activePokemonSprite = document.getElementById("player-sprite") as HTMLImageElement;
+
 export const loadTown = async () => {
+  // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
   const town = document.getElementById("town");
   town.style.display = "block";
   console.log("playerPokemonList[0]", playerPokemonList[0])

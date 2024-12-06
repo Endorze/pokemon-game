@@ -71,24 +71,31 @@ upgradeSpeed.onclick = () => {
     currency.textContent = `${getPokeCurrency()}$ Pokedollars`
 }
 
+const activePokemonSprite = document.getElementById("player-sprite") as HTMLImageElement;
 
 visiblePokemon1.onclick = () => {
     setActivePokemon(0)
+    // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
 }
 visiblePokemon2.onclick = () => {
     setActivePokemon(1)
+    // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
 }
 visiblePokemon3.onclick = () => {
     setActivePokemon(2)
+    // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
 }
 visiblePokemon4.onclick = () => {
     setActivePokemon(3)
+    // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
 }
 visiblePokemon5.onclick = () => {
     setActivePokemon(4)
+    // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
 }
 visiblePokemon6.onclick = () => {
     setActivePokemon(5)
+    // activePokemonSprite.src = `pokemon/${playerPokemonList[0].pokemonType.id}/front.gif` 
 }
 
 
