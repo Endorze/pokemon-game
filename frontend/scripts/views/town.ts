@@ -1,8 +1,9 @@
 import { healPokemonTeam, setActivePokemon } from "../townModule"
-import { buyPokemon, openMarket, openPetShop } from "../shopModule"
+import { buyPokemon, openPetShop } from "../shopModule"
 import { currentUpgradingPokemon, openStatShop, selectPokemonForUpgrade, upgradeStat } from "../statUpgradeShop"
 import { getPokeCurrency, playerPokemonList, pokeCurrency } from "../sharedData"
 import { setCurrentPokemon } from "../battleSceneModule"
+import { openMoveShop } from "../moveShop"
 
 const petShop = document.getElementById("pet-shop")
 const petShopButton1 = document.getElementById("shop-button-1")
@@ -14,6 +15,7 @@ const statShopExitButton = document.getElementById("stat-shop-exit-button")
 const healShop = document.getElementById("heal-shop")
 const marketShop = document.getElementById("market-shop")
 const exitShop = document.getElementById("exit-shop-button")
+const moveShopExit = document.getElementById("move-shop-exitbutton")
 
 const visiblePokemon1 = document.getElementById("visible-pokemon-0")
 const visiblePokemon2 = document.getElementById("visible-pokemon-1")
@@ -43,6 +45,10 @@ for (let i = 0; i < 6; i++) {
 
 for (let i = 0; i < 6; i++) {
     document.getElementById(`stat-shop-pokemon${i}`).onclick = () => selectPokemonForUpgrade(i);
+}
+
+for (let i = 0; i < 6; i++) {
+    document.getElementById(`move-shop-pokemon${i}`).onclick = () => selectPokemonForUpgrade(i);
 }
 
 
@@ -107,6 +113,10 @@ exitShop.onclick = () => {
     openPetShop()
 }
 
+moveShopExit.onclick = () => {
+    openMoveShop();
+}
+
 petShopButton1.onclick = () => {
     buyPokemon(0)
 }
@@ -133,6 +143,6 @@ statShopExitButton.onclick = () => {
 }
 
 marketShop.onclick = () => {
-    openMarket()
+    openMoveShop()
 }
 

@@ -1,3 +1,98 @@
 #move-shop-interface {
     display: none;
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d11f4635-1962-4408-91ca-cd1fbd75afd2/db0l7ft-534ac00b-6661-4155-888b-01039c43c7b1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2QxMWY0NjM1LTE5NjItNDQwOC05MWNhLWNkMWZiZDc1YWZkMlwvZGIwbDdmdC01MzRhYzAwYi02NjYxLTQxNTUtODg4Yi0wMTAzOWM0M2M3YjEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.6R6Fq1kjoYM6MmAIP4RZ8nauRrJVD4Z5roJkqw_jLnk");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#move-select-pokemon-text {
+    position: absolute;
+    top: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5%;
+    background: linear-gradient(#e00404, #ffd13b);
+    color: white;
+}
+
+#move-shop-exitbutton {
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 5%;
+        width: 3%;
+}
+
+#move-shop-pokemonteam {
+    /* left: 5a%; */
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 85%;
+    position: absolute;
+    gap: 2%;
+}
+
+#move-shop-pokemonteam img {
+    width: 25%;
+}
+
+#move-shop-pokemon0,
+#move-shop-pokemon1,
+#move-shop-pokemon2,
+#move-shop-pokemon3,
+#move-shop-pokemon4,
+#move-shop-pokemon5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    max-height: 16.5%;
+    background-color: lightblue;
+    flex-direction: row;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#move-shop-currency-container {
+    height: 10%;
+    width: 48%;
+    background-color: white;
+    position: absolute;
+    bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+#move-shop-background {
+    position: absolute;
+    padding: 1%;
+    background: linear-gradient(#ff933b, #000000);
+    width: 50%;
+    height: 80%;
+    right: 5%;
+    top: 10%;
+    border: 1px solid black;
+}
+
+#move-shop-upgrade-pokemon {
+    width: 50%;
+    height: 30%;
+    background: linear-gradient(#e00404, #ffd13b);
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+#move-shop-upgrade-pokemon img {
+    height: 100%;
 }
