@@ -3,6 +3,7 @@ import "../css/town.css"
 import "../css/battleScene.css"
 import "../css/petShop.css"
 import "../css/statShop.css"
+import "../css/moveShop.css"
 import "./views/mainMenu"
 import "./views/dialogue"
 import "./views/town"
@@ -25,6 +26,7 @@ import "./statUpgradeShop"
 import "./townModule"
 import "./trainerModule"
 import "./utilsModule"
+import "./moveShop"
 
 
 

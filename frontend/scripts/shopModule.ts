@@ -151,20 +151,3 @@ export const openPetShop = () => {
     }
 };
 
-export const openMarket = () => {
-    const petShopInterface = document.getElementById("pet-shop-interface");
-    const playerCurrency = document.getElementById("petshop-currency")
-    if (!toggleShopInterface) {
-        console.log("Open shop");
-        allowUserMovementInput = false;
-        petShopInterface.style.display = "block";
-        playerCurrency.textContent = getPokeCurrency() + "$ Pokédollars"
-        generateMarketItems();
-        toggleShopInterface = true;
-    } else {
-        petShopInterface.style.display = "none";
-        toggleShopInterface = false;
-        updateVisiblePokemonInfo();
-        allowUserMovementInput = true;
-    }
-};
