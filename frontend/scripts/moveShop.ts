@@ -7,7 +7,7 @@ let currentUpgradingPokemon = [];
 
 
 
-export const selectPokemonForUpgrade = (index) => {
+export const selectPokemonForMoveUpgrade = (index: number) => {
     if (!playerPokemonList || !playerPokemonList[index]) {
         console.error("Pokémon-listan är tom eller indexet är ogiltigt.");
         return;

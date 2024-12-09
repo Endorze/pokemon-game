@@ -3,7 +3,7 @@ import { buyPokemon, openPetShop } from "../shopModule"
 import { currentUpgradingPokemon, openStatShop, selectPokemonForUpgrade, upgradeStat } from "../statUpgradeShop"
 import { getPokeCurrency, playerPokemonList, pokeCurrency } from "../sharedData"
 import { setCurrentPokemon } from "../battleSceneModule"
-import { openMoveShop } from "../moveShop"
+import { openMoveShop, selectPokemonForMoveUpgrade } from "../moveShop"
 
 const petShop = document.getElementById("pet-shop")
 const petShopButton1 = document.getElementById("shop-button-1")
@@ -48,7 +48,7 @@ for (let i = 0; i < 6; i++) {
 }
 
 for (let i = 0; i < 6; i++) {
-    document.getElementById(`move-shop-pokemon${i}`).onclick = () => selectPokemonForUpgrade(i);
+    document.getElementById(`move-shop-pokemon${i}`).onclick = () => selectPokemonForMoveUpgrade(i);
 }
 
 
