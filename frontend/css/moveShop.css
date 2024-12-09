@@ -84,7 +84,28 @@
     border: 1px solid black;
 }
 
+#list-of-moves {
+    position: absolute;
+    background-color: white;
+    width: 40%;
+    right: 3%;
+    height: 95%;
+}
+
+#move-info-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2%;
+    border: 1px solid black;
+}
+
+#move-info-container:hover {
+    background-color: wheat;
+    cursor: pointer;
+}
+
 #move-shop-upgrade-pokemon {
+    position: absolute;
     width: 50%;
     height: 30%;
     background: linear-gradient(#e00404, #ffd13b);
