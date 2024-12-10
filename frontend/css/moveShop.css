@@ -92,14 +92,14 @@
     height: 95%;
 }
 
-#move-info-container {
+.move-info-container {
     display: flex;
     justify-content: space-between;
     padding: 2%;
     border: 1px solid black;
 }
 
-#move-info-container:hover {
+.move-info-container:hover {
     background-color: wheat;
     cursor: pointer;
 }

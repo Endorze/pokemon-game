@@ -1,5 +1,6 @@
+import { ALL_MOVES } from "./movesModule";
 import { updateVisiblePokemonInfo } from "./pokemonUtilsModule";
-import { playerPokemonList, getPokeCurrency } from "./sharedData";
+import { playerPokemonList, getPokeCurrency, purchaseableMoves } from "./sharedData";
 
 let toggleShopInterface = false;
 let allowUserMovementInput = true;
@@ -37,6 +38,42 @@ const setMovePokemonInfo = (playerPokemonList) => {
     }
 }
 
+const setLearnableMoves = () => {
+    const moveListContainer = document.getElementById("list-of-moves");
+    moveListContainer.innerHTML = ""; // Rensa tidigare tillagda moves
+
+    purchaseableMoves.forEach((moveKey) => {
+        // Hämta move-information från ALL_MOVES baserat på nyckeln
+        const moveData = ALL_MOVES[moveKey];
+
+        if (!moveData) {
+            console.error(`Move ${moveKey} finns inte i ALL_MOVES`);
+            return;
+        }
+
+        // Skapa nytt div-element för move
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("move-info-container");
+
+        // Skapa innehåll för move
+        const moveName = document.createElement("p");
+        moveName.textContent = moveData.name;
+
+        const moveDamage = document.createElement("p");
+        moveDamage.textContent = `${moveData.baseDamage} Power`;
+
+        const movePrice = document.createElement("p");
+        const price = 10000 + moveData.baseDamage * 100; // Exempel på prisberäkning
+        movePrice.textContent = `$${price}`;
+
+        // Lägg till innehåll i div och append till containern
+        newDiv.append(moveName, moveDamage, movePrice);
+        moveListContainer.append(newDiv);
+    });
+};
+
+
+
 export const openMoveShop = () => {
     const moveShopInterface = document.getElementById("move-shop-interface");
     const playerCurrency = document.getElementById("petshop-currency")
@@ -44,6 +81,7 @@ export const openMoveShop = () => {
         console.log("Open shop");
         allowUserMovementInput = false;
         setMovePokemonInfo(playerPokemonList);
+        setLearnableMoves()
         moveShopInterface.style.display = "block";
         playerCurrency.textContent = getPokeCurrency() + "$ Pokédollars"
         toggleShopInterface = true;
