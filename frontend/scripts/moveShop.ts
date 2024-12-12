@@ -43,7 +43,6 @@ const setLearnableMoves = () => {
     moveListContainer.innerHTML = ""; // Rensa tidigare tillagda moves
 
     purchaseableMoves.forEach((moveKey) => {
-        // Hämta move-information från ALL_MOVES baserat på nyckeln
         const moveData = ALL_MOVES[moveKey];
 
         if (!moveData) {
@@ -51,11 +50,9 @@ const setLearnableMoves = () => {
             return;
         }
 
-        // Skapa nytt div-element för move
         const newDiv = document.createElement("div");
         newDiv.classList.add("move-info-container");
 
-        // Skapa innehåll för move
         const moveName = document.createElement("p");
         moveName.textContent = moveData.name;
 
@@ -66,12 +63,33 @@ const setLearnableMoves = () => {
         const price = 10000 + moveData.baseDamage * 100; // Exempel på prisberäkning
         movePrice.textContent = `$${price}`;
 
-        // Lägg till innehåll i div och append till containern
         newDiv.append(moveName, moveDamage, movePrice);
+
+        newDiv.addEventListener("click", () => {
+            handleMoveSelection(moveKey, moveData);
+        });
+
         moveListContainer.append(newDiv);
     });
 };
 
+const handleMoveSelection = (moveKey, moveData) => {
+    if (!currentUpgradingPokemon[0]) {
+        return;
+    }
+    console.log(`Move selected: ${moveData.name}`);
+    console.log(`Base Damage: ${moveData.baseDamage}`);
+    console.log(`Key: ${moveKey}`);
+
+    alert(`You selected ${moveData.name} with ${moveData.baseDamage} Power!`);
+    learnMovePrompt(moveKey, moveData);
+};
+
+const learnMovePrompt = (moveKey, moveData) => {
+    const textDesc = document.getElementById("select-move-prompt-text")
+    textDesc.textContent = `Are you sure you wish to learn ${moveData.name}?`
+    console.log("This is gonna display a prompt.")
+}
 
 
 export const openMoveShop = () => {

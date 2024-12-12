@@ -117,3 +117,15 @@
 #move-shop-upgrade-pokemon img {
     height: 100%;
 }
+
+#select-move-prompt {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    width: 40%;
+    height: 50%;
+    background-color: blue;
+}
