@@ -186,9 +186,9 @@ const [enableTownClock, disableTownClock] = (function () {
 
         if (playerTargetX + 2 > playerMaxX) {
           if (!enteringWilderness) {
-            enterWilderness();
             console.log("Attempting to enter wilderness.");
             enteringWilderness = true;
+            enterWilderness();
             return;
           }
         }
@@ -248,6 +248,7 @@ const updatePlayerSprite = () => {
 
 const enterWilderness = async () => {
   if (playerPokemonList[0].currentHp == 0) {
+    enteringWilderness = false
     return;
   }
 
