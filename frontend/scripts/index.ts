@@ -25,7 +25,7 @@ import "./statUpgradeShop"
 import "./townModule"
 import "./trainerModule"
 import "./utilsModule"
-
+import "./gameWindow"
 
 
 

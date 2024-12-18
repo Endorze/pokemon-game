@@ -4,6 +4,8 @@ import { ALL_ITEMS } from "./heldItemsModule";
 import { playSound } from "./audioModule";
 import { sleep } from "./utilsModule";
 import { startBattle } from "./battleSceneModule";
+import $ from "jquery";
+
 
 let allowUserAction = true;
 let allowUserMovementInput = true;
@@ -114,6 +116,39 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
+let buttonLeft = false;
+let buttonRight = false;
+
+const $leftButton = $("#button-move-left");
+const $rightButton = $("#button-move-right");
+
+$leftButton.on("mousedown touchstart", (e) => {
+  buttonLeft = true;
+  $leftButton.css("opacity", "0.5");
+  e.preventDefault()
+});
+
+$leftButton.on("mouseup mouseleave touchend", (e) => {
+  buttonLeft = false;
+  $leftButton.css("opacity", "1");
+  e.preventDefault()
+});
+
+$rightButton.on("mousedown touchstart", (e) => {
+  buttonRight = true;
+  $rightButton.css("opacity", "0.5");
+  e.preventDefault()
+});
+
+$rightButton.on("mouseup mouseleave touchend", (e) => {
+  buttonRight = false;
+  $rightButton.css("opacity", "1");
+  e.preventDefault()
+});
+
+// $leftButton.on("contextmenu", (e) => e.preventDefault());
+// $rightButton.on("contextmenu", (e) => e.preventDefault());
+
 const deltaTimeSeconds = 1 / 60;
 
 console.log(deltaTimeSeconds);
@@ -127,11 +162,11 @@ const [enableTownClock, disableTownClock] = (function () {
   const enableTownClock = () => {
     intervalId = setInterval(async () => {
       if (allowUserMovementInput) {
-        if (keyADown) {
+        if (keyADown || buttonLeft) {
           playerTargetX -= playerSpeed * deltaTimeSeconds;
           playerRunning = true;
           playerDirection = "left";
-        } else if (keyDDown) {
+        } else if (keyDDown || buttonRight) {
           playerTargetX += playerSpeed * deltaTimeSeconds;
           playerRunning = true;
           playerDirection = "right";
@@ -143,7 +178,7 @@ const [enableTownClock, disableTownClock] = (function () {
           playerMaxX,
           Math.max(playerMinX, playerTargetX)
         );
-        cameraTargetX = playerTargetX; // Follow player
+        cameraTargetX = playerTargetX; // Follow the players character ⭐
         cameraTargetX = Math.min(
           cameraMaxX,
           Math.max(cameraMinX, cameraTargetX)
@@ -236,6 +271,8 @@ export const returnFromWilderness = async () => {
   playerSpeed = 25
   playerLagSpeed = 0.4;
   cameraLagSpeed = 0.05;
+  playerDirection = "left";
+  playerRunning = true;
 
   allowUserMovementInput = false;
   playerX = playerMaxX + 15;

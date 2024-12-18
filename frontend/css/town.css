@@ -10,6 +10,15 @@
     height: 100%;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+}
+
 #scrollable-world {
     position: absolute;
     width: 100%;
@@ -21,6 +30,22 @@
 .background {
     position: absolute;
     height: 100%;
+}
+
+#movement-buttons {
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
+}
+
+#movement-buttons img {
+  max-height: 75px;
+}
+
+.fade-button {
+  transition: opacity 0.2s ease;
+  opacity: 1;
+  cursor: pointer;
 }
 
 #background-parallax {

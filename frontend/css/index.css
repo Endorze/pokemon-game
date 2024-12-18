@@ -50,12 +50,10 @@ loading-screen img {
 
 .gaming-window {
   overflow: hidden;
-  margin-top: 1em;
+  margin: auto;
   position: absolute;
   display: flex;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
   left: 0;
   right: 0;
   aspect-ratio: 16/9;
